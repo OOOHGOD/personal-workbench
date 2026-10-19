@@ -1,15 +1,14 @@
 {
- "database_id": "2klqa8d0rbO47x0FhoVK3W",
- "space_id": "",
- "property_count": 10,
+ "id": "mSz8E9WaHkTvUE5U4Kupz8",
+ "title": "项目表",
  "properties": [
   {
-   "id": "3ldgENH2",
+   "id": "D0G0zSqo",
    "name": "项目名称",
    "type": "text"
   },
   {
-   "id": "nVrpYojD",
+   "id": "SWhk0Wwq",
    "name": "工作层级",
    "type": "select",
    "config": {
@@ -33,45 +32,46 @@
    }
   },
   {
-   "id": "YzKBzmxg",
+   "id": "sV16toqF",
    "name": "当前阶段",
    "type": "text"
   },
   {
-   "id": "ebLWwSLl",
+   "id": "GmUbH5SJ",
    "name": "阶段目标日期",
    "type": "date"
   },
   {
-   "id": "CKGEX4IT",
+   "id": "6eWjR5Fc",
    "name": "下一步",
    "type": "text"
   },
   {
-   "id": "Cqw4jtmi",
+   "id": "CStAEs2w",
    "name": "卡点",
    "type": "text"
   },
   {
-   "id": "xAaJSGX1",
+   "id": "Bd1E5b6l",
    "name": "目标",
    "type": "text"
   },
   {
-   "id": "qBKdtP8S",
+   "id": "eMUGiAbl",
    "name": "最近进展",
    "type": "text"
   },
   {
-   "id": "u5o0UxKz",
+   "id": "sbPBIqGy",
    "name": "资料链接",
    "type": "url"
   },
   {
-   "id": "zWFYHRyV",
+   "id": "A4huAQPc",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/2klqa8d0rbO47x0FhoVK3W"
+ "database_id": "mSz8E9WaHkTvUE5U4Kupz8",
+ "space_id": ""
 }

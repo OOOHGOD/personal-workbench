@@ -1,25 +1,24 @@
 {
- "database_id": "f20RfANYTZAqezxUqZ1ZrJ",
- "space_id": "",
- "property_count": 11,
+ "id": "phzTOFqvt32Bz7ficmcP2f",
+ "title": "调研记录表",
  "properties": [
   {
-   "id": "y1fC8ufU",
+   "id": "jLfWDPKy",
    "name": "调研对象",
    "type": "text"
   },
   {
-   "id": "cLDXtRpu",
+   "id": "1OSCyGqa",
    "name": "调研日期",
    "type": "date"
   },
   {
-   "id": "LmIXCUdI",
+   "id": "r9vSF2NK",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "8egsxwQj",
+   "id": "E7FmNhDZ",
    "name": "性质",
    "type": "select",
    "config": {
@@ -38,40 +37,41 @@
    }
   },
   {
-   "id": "r31MMIFF",
+   "id": "SLDR7a9u",
    "name": "真实问题或场景",
    "type": "text"
   },
   {
-   "id": "nY1Zu83y",
+   "id": "XG9mxGKG",
    "name": "期望效果",
    "type": "text"
   },
   {
-   "id": "x09FVScK",
+   "id": "8FPxCJ2u",
    "name": "初步结论",
    "type": "text"
   },
   {
-   "id": "bUnkhAXY",
+   "id": "oBt556aZ",
    "name": "待确认事项",
    "type": "text"
   },
   {
-   "id": "ywozsw81",
+   "id": "MoFg5F5z",
    "name": "下一步",
    "type": "text"
   },
   {
-   "id": "auUTZriY",
+   "id": "ZGwP917Z",
    "name": "资料来源",
    "type": "text"
   },
   {
-   "id": "RI2vMxmR",
+   "id": "dgrz3yW0",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/f20RfANYTZAqezxUqZ1ZrJ"
+ "database_id": "phzTOFqvt32Bz7ficmcP2f",
+ "space_id": ""
 }

@@ -1,38 +1,38 @@
 {
- "database_id": "wBJtimnuDTDrgg2Zaf36ZA",
- "space_id": "",
- "property_count": 6,
+ "id": "V3oLEwRkEaoYSdEaZCDHFX",
+ "title": "资料索引表",
  "properties": [
   {
-   "id": "VsO8oklB",
+   "id": "y39OODuY",
    "name": "名称",
    "type": "text"
   },
   {
-   "id": "oLToJzbW",
+   "id": "RXwR9vU5",
    "name": "网页链接",
    "type": "url"
   },
   {
-   "id": "vYrlzWct",
+   "id": "2fo1jEnm",
    "name": "本地路径",
    "type": "text"
   },
   {
-   "id": "Z7hoXJ0Z",
+   "id": "MPvGBXM7",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "NC7EfOJj",
+   "id": "ODX9jVL2",
    "name": "用途说明",
    "type": "text"
   },
   {
-   "id": "81p9kgVd",
+   "id": "YAgxA0EI",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/wBJtimnuDTDrgg2Zaf36ZA"
+ "database_id": "V3oLEwRkEaoYSdEaZCDHFX",
+ "space_id": ""
 }

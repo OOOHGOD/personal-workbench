@@ -1,15 +1,14 @@
 {
- "database_id": "DHd1C9sNJOt2SRa35BKRME",
- "space_id": "",
- "property_count": 7,
+ "id": "GrSPRzmXmFwLxWJRJB2UKY",
+ "title": "AI工作记录表",
  "properties": [
   {
-   "id": "QukFVWcm",
+   "id": "Hf100e2o",
    "name": "日期",
    "type": "date"
   },
   {
-   "id": "8UbqfsN6",
+   "id": "JcjgwmWU",
    "name": "来源",
    "type": "select",
    "config": {
@@ -38,7 +37,7 @@
    }
   },
   {
-   "id": "Mcz3I7bm",
+   "id": "9yvbcKGV",
    "name": "类型",
    "type": "select",
    "config": {
@@ -72,25 +71,26 @@
    }
   },
   {
-   "id": "LkhnOLYz",
+   "id": "QslOH5Ip",
    "name": "主题",
    "type": "text"
   },
   {
-   "id": "Z3AGoYrv",
+   "id": "A97BiZuE",
    "name": "内容摘要",
    "type": "text"
   },
   {
-   "id": "JP3NQAEK",
+   "id": "7AiOre9u",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "MFzGhGXm",
+   "id": "fVD8pyy5",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/DHd1C9sNJOt2SRa35BKRME"
+ "database_id": "GrSPRzmXmFwLxWJRJB2UKY",
+ "space_id": ""
 }

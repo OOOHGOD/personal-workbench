@@ -1,0 +1,140 @@
+{
+ "id": "PCnEjp2fsObRBZug1Z2DPK",
+ "title": "留学申请表",
+ "properties": [
+  {
+   "id": "guHY7gBD",
+   "name": "学校",
+   "type": "text"
+  },
+  {
+   "id": "Bq9u4rJa",
+   "name": "专业项目",
+   "type": "text"
+  },
+  {
+   "id": "tpQeY1CL",
+   "name": "申请轮次",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "uKJAipuqYmr4",
+      "text": "提前批",
+      "style": 6
+     },
+     {
+      "id": "Ko47Riz9rkt4",
+      "text": "第一轮",
+      "style": 26
+     },
+     {
+      "id": "NjULM5gcXlYY",
+      "text": "第二轮",
+      "style": 10
+     },
+     {
+      "id": "Ay1Gjm8BBDbM",
+      "text": "末轮",
+      "style": 8
+     }
+    ]
+   }
+  },
+  {
+   "id": "NGtIoul0",
+   "name": "截止日期",
+   "type": "date"
+  },
+  {
+   "id": "mwG4Ixsm",
+   "name": "申请状态",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "i99bb8zOIeaK",
+      "text": "待开始",
+      "style": 10
+     },
+     {
+      "id": "JpdPHXBiz1gs",
+      "text": "材料准备中",
+      "style": 25
+     },
+     {
+      "id": "2PVpIhhvujBi",
+      "text": "已提交",
+      "style": 10
+     },
+     {
+      "id": "2X0nWnGxeVW8",
+      "text": "面试中",
+      "style": 0
+     },
+     {
+      "id": "R7SDYUFE1JHF",
+      "text": "已录取",
+      "style": 15
+     },
+     {
+      "id": "v5dwX7OvXjQZ",
+      "text": "已放弃",
+      "style": 23
+     }
+    ]
+   }
+  },
+  {
+   "id": "2jgM7tuZ",
+   "name": "优先级",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "nIECLZR6jhGb",
+      "text": "重要且紧急",
+      "style": 26
+     },
+     {
+      "id": "cEDf09FJ7Hcu",
+      "text": "重要不紧急",
+      "style": 2
+     },
+     {
+      "id": "HfPrZ4qnyiai",
+      "text": "紧急不重要",
+      "style": 6
+     },
+     {
+      "id": "H40gPFvaK3r2",
+      "text": "一般",
+      "style": 15
+     }
+    ]
+   }
+  },
+  {
+   "id": "ykpMjnQS",
+   "name": "材料清单",
+   "type": "text"
+  },
+  {
+   "id": "LKlMqfda",
+   "name": "下一步",
+   "type": "text"
+  },
+  {
+   "id": "L9GxtcnT",
+   "name": "备注",
+   "type": "text"
+  },
+  {
+   "id": "oalJF7UN",
+   "name": "是否示例",
+   "type": "checkbox"
+  }
+ ],
+ "database_id": "PCnEjp2fsObRBZug1Z2DPK",
+ "space_id": ""
+}

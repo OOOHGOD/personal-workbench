@@ -1,15 +1,16 @@
 {
- "database_id": "tdNWBhRqvwIKXkz2ji0uyb",
+ "database_id": "l49vCiVLbpktS5cjT0lhIN",
  "space_id": "",
- "property_count": 21,
+ "title": "工作台合并 schema（9 表字段并集）",
+ "property_count": 63,
  "properties": [
   {
-   "id": "wT2pE6l7",
+   "id": "iZAXKT8B",
    "name": "标题",
    "type": "text"
   },
   {
-   "id": "StIWrRci",
+   "id": "SK9euoYn",
    "name": "分类",
    "type": "select",
    "config": {
@@ -63,12 +64,12 @@
    }
   },
   {
-   "id": "CHAYYfZu",
+   "id": "hJyouYeB",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "3f04Lxg9",
+   "id": "tv1QmPKQ",
    "name": "优先级",
    "type": "select",
    "config": {
@@ -97,7 +98,7 @@
    }
   },
   {
-   "id": "NvOGEtEC",
+   "id": "lhDCdG5L",
    "name": "状态",
    "type": "select",
    "config": {
@@ -136,42 +137,42 @@
    }
   },
   {
-   "id": "nrbtFAsf",
+   "id": "umJLuP3i",
    "name": "计划日期",
    "type": "date"
   },
   {
-   "id": "LrJamDPA",
+   "id": "nCezxp94",
    "name": "截止日期",
    "type": "date"
   },
   {
-   "id": "sRkUZE1u",
+   "id": "tf9SyGCr",
    "name": "完成时间",
    "type": "date"
   },
   {
-   "id": "WCFwiHKj",
+   "id": "CARfrUs3",
    "name": "下一步",
    "type": "text"
   },
   {
-   "id": "K6TymDTc",
+   "id": "pdwvZaW6",
    "name": "等待谁",
    "type": "text"
   },
   {
-   "id": "m7SbL0kh",
+   "id": "FeWDuutH",
    "name": "等待事项",
    "type": "text"
   },
   {
-   "id": "H1VfY7zS",
+   "id": "6U8ALnx0",
    "name": "下次跟进",
    "type": "date"
   },
   {
-   "id": "83kszWAn",
+   "id": "M3s63rHb",
    "name": "顺延次数",
    "type": "number",
    "config": {
@@ -180,52 +181,52 @@
    }
   },
   {
-   "id": "gNUgZtDX",
+   "id": "zcLUTnpc",
    "name": "原计划日期",
    "type": "date"
   },
   {
-   "id": "IXJG72F5",
+   "id": "4pWOayHm",
    "name": "最近顺延",
    "type": "date"
   },
   {
-   "id": "bWEeZoSk",
+   "id": "sxzhxkZT",
    "name": "截止调整记录",
    "type": "text"
   },
   {
-   "id": "lzIZQ8h1",
+   "id": "iQg1kV8t",
    "name": "备注",
    "type": "text"
   },
   {
-   "id": "FuLM0z53",
+   "id": "srNyLsJG",
    "name": "资料链接",
    "type": "url"
   },
   {
-   "id": "d5BAcvLK",
+   "id": "NRIC1Mti",
    "name": "今日重点",
    "type": "checkbox"
   },
   {
-   "id": "1pTpINMT",
+   "id": "3GI8euSg",
    "name": "是否示例",
    "type": "checkbox"
   },
   {
-   "id": "PlQfv9gz",
+   "id": "GLV9i7zd",
    "name": "创建日期",
    "type": "date"
   },
   {
-   "id": "3ldgENH2",
+   "id": "D0G0zSqo",
    "name": "项目名称",
    "type": "text"
   },
   {
-   "id": "nVrpYojD",
+   "id": "SWhk0Wwq",
    "name": "工作层级",
    "type": "select",
    "config": {
@@ -249,42 +250,42 @@
    }
   },
   {
-   "id": "YzKBzmxg",
+   "id": "sV16toqF",
    "name": "当前阶段",
    "type": "text"
   },
   {
-   "id": "ebLWwSLl",
+   "id": "GmUbH5SJ",
    "name": "阶段目标日期",
    "type": "date"
   },
   {
-   "id": "Cqw4jtmi",
+   "id": "CStAEs2w",
    "name": "卡点",
    "type": "text"
   },
   {
-   "id": "xAaJSGX1",
+   "id": "Bd1E5b6l",
    "name": "目标",
    "type": "text"
   },
   {
-   "id": "qBKdtP8S",
+   "id": "eMUGiAbl",
    "name": "最近进展",
    "type": "text"
   },
   {
-   "id": "y1fC8ufU",
+   "id": "jLfWDPKy",
    "name": "调研对象",
    "type": "text"
   },
   {
-   "id": "cLDXtRpu",
+   "id": "1OSCyGqa",
    "name": "调研日期",
    "type": "date"
   },
   {
-   "id": "8egsxwQj",
+   "id": "E7FmNhDZ",
    "name": "性质",
    "type": "select",
    "config": {
@@ -303,62 +304,62 @@
    }
   },
   {
-   "id": "r31MMIFF",
+   "id": "SLDR7a9u",
    "name": "真实问题或场景",
    "type": "text"
   },
   {
-   "id": "nY1Zu83y",
+   "id": "XG9mxGKG",
    "name": "期望效果",
    "type": "text"
   },
   {
-   "id": "x09FVScK",
+   "id": "8FPxCJ2u",
    "name": "初步结论",
    "type": "text"
   },
   {
-   "id": "bUnkhAXY",
+   "id": "oBt556aZ",
    "name": "待确认事项",
    "type": "text"
   },
   {
-   "id": "auUTZriY",
+   "id": "ZGwP917Z",
    "name": "资料来源",
    "type": "text"
   },
   {
-   "id": "MTEKTnOJ",
+   "id": "EyCDDFpP",
    "name": "正文",
    "type": "text"
   },
   {
-   "id": "bZvBfUbs",
+   "id": "6PgkOfdv",
    "name": "标签",
    "type": "text"
   },
   {
-   "id": "VsO8oklB",
+   "id": "y39OODuY",
    "name": "名称",
    "type": "text"
   },
   {
-   "id": "oLToJzbW",
+   "id": "RXwR9vU5",
    "name": "网页链接",
    "type": "url"
   },
   {
-   "id": "vYrlzWct",
+   "id": "2fo1jEnm",
    "name": "本地路径",
    "type": "text"
   },
   {
-   "id": "NC7EfOJj",
+   "id": "ODX9jVL2",
    "name": "用途说明",
    "type": "text"
   },
   {
-   "id": "9MaQAx7r",
+   "id": "xmmNtjyj",
    "name": "报告类型",
    "type": "select",
    "config": {
@@ -377,37 +378,37 @@
    }
   },
   {
-   "id": "yfDk2ixB",
+   "id": "VZilDkPC",
    "name": "起始日期",
    "type": "date"
   },
   {
-   "id": "xlFhFEqX",
+   "id": "3S1pIsHX",
    "name": "结束日期",
    "type": "date"
   },
   {
-   "id": "FrVD6soL",
+   "id": "7bxpIG7c",
    "name": "生成时间",
    "type": "date"
   },
   {
-   "id": "y7wcvcLs",
+   "id": "9ILrRfBq",
    "name": "自用记录",
    "type": "text"
   },
   {
-   "id": "w0sQLAZb",
+   "id": "Q9UXPx0w",
    "name": "领导摘要",
    "type": "text"
   },
   {
-   "id": "QukFVWcm",
+   "id": "Hf100e2o",
    "name": "日期",
    "type": "date"
   },
   {
-   "id": "8UbqfsN6",
+   "id": "JcjgwmWU",
    "name": "来源",
    "type": "select",
    "config": {
@@ -436,7 +437,7 @@
    }
   },
   {
-   "id": "Mcz3I7bm",
+   "id": "9yvbcKGV",
    "name": "类型",
    "type": "select",
    "config": {
@@ -470,16 +471,161 @@
    }
   },
   {
-   "id": "LkhnOLYz",
+   "id": "QslOH5Ip",
    "name": "主题",
    "type": "text"
   },
   {
-   "id": "Z3AGoYrv",
+   "id": "A97BiZuE",
    "name": "内容摘要",
+   "type": "text"
+  },
+  {
+   "id": "uXFaVa7N",
+   "name": "学习主题",
+   "type": "text"
+  },
+  {
+   "id": "MjEaZjZ6",
+   "name": "进度状态",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "wFQvmiS3L6Tc",
+      "text": "未开始",
+      "style": 5
+     },
+     {
+      "id": "4K6xG6JLC3i9",
+      "text": "进行中",
+      "style": 22
+     },
+     {
+      "id": "VYxUQfyAtto5",
+      "text": "已完成",
+      "style": 19
+     },
+     {
+      "id": "iigLvguBi4e0",
+      "text": "暂停",
+      "style": 7
+     }
+    ]
+   }
+  },
+  {
+   "id": "X4SDrjvu",
+   "name": "学习日期",
+   "type": "date"
+  },
+  {
+   "id": "nkvPTyDH",
+   "name": "时长分钟",
+   "type": "number",
+   "config": {
+    "decimalPlaces": 0,
+    "useSeparate": false
+   }
+  },
+  {
+   "id": "PoZKjvcb",
+   "name": "笔记",
+   "type": "text"
+  },
+  {
+   "id": "guHY7gBD",
+   "name": "学校",
+   "type": "text"
+  },
+  {
+   "id": "Bq9u4rJa",
+   "name": "专业项目",
+   "type": "text"
+  },
+  {
+   "id": "tpQeY1CL",
+   "name": "申请轮次",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "uKJAipuqYmr4",
+      "text": "提前批",
+      "style": 6
+     },
+     {
+      "id": "Ko47Riz9rkt4",
+      "text": "第一轮",
+      "style": 26
+     },
+     {
+      "id": "NjULM5gcXlYY",
+      "text": "第二轮",
+      "style": 10
+     },
+     {
+      "id": "Ay1Gjm8BBDbM",
+      "text": "末轮",
+      "style": 8
+     }
+    ]
+   }
+  },
+  {
+   "id": "mwG4Ixsm",
+   "name": "申请状态",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "i99bb8zOIeaK",
+      "text": "待开始",
+      "style": 10
+     },
+     {
+      "id": "JpdPHXBiz1gs",
+      "text": "材料准备中",
+      "style": 25
+     },
+     {
+      "id": "2PVpIhhvujBi",
+      "text": "已提交",
+      "style": 10
+     },
+     {
+      "id": "2X0nWnGxeVW8",
+      "text": "面试中",
+      "style": 0
+     },
+     {
+      "id": "R7SDYUFE1JHF",
+      "text": "已录取",
+      "style": 15
+     },
+     {
+      "id": "v5dwX7OvXjQZ",
+      "text": "已放弃",
+      "style": 23
+     }
+    ]
+   }
+  },
+  {
+   "id": "ykpMjnQS",
+   "name": "材料清单",
    "type": "text"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/tdNWBhRqvwIKXkz2ji0uyb",
- "title": "工作台合并 schema（7 表字段并集）"
+ "all_databases": [
+  "l49vCiVLbpktS5cjT0lhIN",
+  "mSz8E9WaHkTvUE5U4Kupz8",
+  "phzTOFqvt32Bz7ficmcP2f",
+  "mIwePYmB2y60zJIBcic0qQ",
+  "V3oLEwRkEaoYSdEaZCDHFX",
+  "bvsokQJzsZFP38OtkYXFLA",
+  "GrSPRzmXmFwLxWJRJB2UKY",
+  "sole16fronDUGBPBEHJCIJ",
+  "PCnEjp2fsObRBZug1Z2DPK"
+ ]
 }

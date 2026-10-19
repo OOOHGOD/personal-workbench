@@ -1,10 +1,9 @@
 {
- "database_id": "VnPlGp0UnpMluFmFnkTpSz",
- "space_id": "",
- "property_count": 7,
+ "id": "bvsokQJzsZFP38OtkYXFLA",
+ "title": "报告存档表",
  "properties": [
   {
-   "id": "9MaQAx7r",
+   "id": "xmmNtjyj",
    "name": "报告类型",
    "type": "select",
    "config": {
@@ -23,35 +22,36 @@
    }
   },
   {
-   "id": "yfDk2ixB",
+   "id": "VZilDkPC",
    "name": "起始日期",
    "type": "date"
   },
   {
-   "id": "xlFhFEqX",
+   "id": "3S1pIsHX",
    "name": "结束日期",
    "type": "date"
   },
   {
-   "id": "FrVD6soL",
+   "id": "7bxpIG7c",
    "name": "生成时间",
    "type": "date"
   },
   {
-   "id": "y7wcvcLs",
+   "id": "9ILrRfBq",
    "name": "自用记录",
    "type": "text"
   },
   {
-   "id": "w0sQLAZb",
+   "id": "Q9UXPx0w",
    "name": "领导摘要",
    "type": "text"
   },
   {
-   "id": "xWqg1czi",
+   "id": "KkRA26Hu",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/VnPlGp0UnpMluFmFnkTpSz"
+ "database_id": "bvsokQJzsZFP38OtkYXFLA",
+ "space_id": ""
 }

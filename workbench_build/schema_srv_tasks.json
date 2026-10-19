@@ -1,15 +1,14 @@
 {
- "database_id": "tdNWBhRqvwIKXkz2ji0uyb",
- "space_id": "",
- "property_count": 21,
+ "id": "l49vCiVLbpktS5cjT0lhIN",
+ "title": "工作任务表",
  "properties": [
   {
-   "id": "wT2pE6l7",
+   "id": "iZAXKT8B",
    "name": "标题",
    "type": "text"
   },
   {
-   "id": "StIWrRci",
+   "id": "SK9euoYn",
    "name": "分类",
    "type": "select",
    "config": {
@@ -63,12 +62,12 @@
    }
   },
   {
-   "id": "CHAYYfZu",
+   "id": "hJyouYeB",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "3f04Lxg9",
+   "id": "tv1QmPKQ",
    "name": "优先级",
    "type": "select",
    "config": {
@@ -97,7 +96,7 @@
    }
   },
   {
-   "id": "NvOGEtEC",
+   "id": "lhDCdG5L",
    "name": "状态",
    "type": "select",
    "config": {
@@ -136,42 +135,42 @@
    }
   },
   {
-   "id": "nrbtFAsf",
+   "id": "umJLuP3i",
    "name": "计划日期",
    "type": "date"
   },
   {
-   "id": "LrJamDPA",
+   "id": "nCezxp94",
    "name": "截止日期",
    "type": "date"
   },
   {
-   "id": "sRkUZE1u",
+   "id": "tf9SyGCr",
    "name": "完成时间",
    "type": "date"
   },
   {
-   "id": "WCFwiHKj",
+   "id": "CARfrUs3",
    "name": "下一步",
    "type": "text"
   },
   {
-   "id": "K6TymDTc",
+   "id": "pdwvZaW6",
    "name": "等待谁",
    "type": "text"
   },
   {
-   "id": "m7SbL0kh",
+   "id": "FeWDuutH",
    "name": "等待事项",
    "type": "text"
   },
   {
-   "id": "H1VfY7zS",
+   "id": "6U8ALnx0",
    "name": "下次跟进",
    "type": "date"
   },
   {
-   "id": "83kszWAn",
+   "id": "M3s63rHb",
    "name": "顺延次数",
    "type": "number",
    "config": {
@@ -180,45 +179,46 @@
    }
   },
   {
-   "id": "gNUgZtDX",
+   "id": "zcLUTnpc",
    "name": "原计划日期",
    "type": "date"
   },
   {
-   "id": "IXJG72F5",
+   "id": "4pWOayHm",
    "name": "最近顺延",
    "type": "date"
   },
   {
-   "id": "bWEeZoSk",
+   "id": "sxzhxkZT",
    "name": "截止调整记录",
    "type": "text"
   },
   {
-   "id": "lzIZQ8h1",
+   "id": "iQg1kV8t",
    "name": "备注",
    "type": "text"
   },
   {
-   "id": "FuLM0z53",
+   "id": "srNyLsJG",
    "name": "资料链接",
    "type": "url"
   },
   {
-   "id": "d5BAcvLK",
+   "id": "NRIC1Mti",
    "name": "今日重点",
    "type": "checkbox"
   },
   {
-   "id": "1pTpINMT",
+   "id": "3GI8euSg",
    "name": "是否示例",
    "type": "checkbox"
   },
   {
-   "id": "PlQfv9gz",
+   "id": "GLV9i7zd",
    "name": "创建日期",
    "type": "date"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/tdNWBhRqvwIKXkz2ji0uyb"
+ "database_id": "l49vCiVLbpktS5cjT0lhIN",
+ "space_id": ""
 }

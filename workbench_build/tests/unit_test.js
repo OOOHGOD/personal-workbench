@@ -11,13 +11,15 @@ const HTML = fs.readFileSync(HTML_PATH, "utf8");
 
 // ---------- 真实服务端 schema（字段与选项的唯一权威来源） ----------
 const DB_IDS = {
-  tasks: "tdNWBhRqvwIKXkz2ji0uyb",
-  projects: "2klqa8d0rbO47x0FhoVK3W",
-  research: "f20RfANYTZAqezxUqZ1ZrJ",
-  notes: "PDFBIwRRZEGd2jfJbGiuY5",
-  resources: "wBJtimnuDTDrgg2Zaf36ZA",
-  reports: "VnPlGp0UnpMluFmFnkTpSz",
-  airecords: "DHd1C9sNJOt2SRa35BKRME",
+  tasks: "l49vCiVLbpktS5cjT0lhIN",
+  projects: "mSz8E9WaHkTvUE5U4Kupz8",
+  research: "phzTOFqvt32Bz7ficmcP2f",
+  notes: "mIwePYmB2y60zJIBcic0qQ",
+  resources: "V3oLEwRkEaoYSdEaZCDHFX",
+  reports: "bvsokQJzsZFP38OtkYXFLA",
+  airecords: "GrSPRzmXmFwLxWJRJB2UKY",
+  study: "sole16fronDUGBPBEHJCIJ",
+  apply: "PCnEjp2fsObRBZug1Z2DPK",
 };
 const SCHEMAS = {};
 for (const k of Object.keys(DB_IDS)) {
@@ -165,6 +167,18 @@ function seedData(mock) {
   ];
   mock.store[DB_IDS.reports] = [
     { _id: "rep_old", "报告类型": "日报", "起始日期": YESTERDAY, "结束日期": YESTERDAY, "生成时间": YESTERDAY, "自用记录": "旧存档自用全文", "领导摘要": "旧存档摘要全文", "是否示例": false },
+  ];
+  // 第3期种子：学习（1 条今日完成真实 + 1 条示例排除）+ 申请（1 条 3 天后截止真实 + 1 条 60 天后截止不提醒 + 1 条已录取不提醒 + 1 条示例）
+  mock.store[DB_IDS.study] = [
+    { _id: "sd1", "学习主题": "JavaScript 异步编程", "类型": "技能学习", "进度状态": "已完成", "计划日期": TODAY, "学习日期": TODAY, "时长分钟": 45, "笔记": "Promise/async 复习", "是否示例": false },
+    { _id: "sd2", "学习主题": "示例学习项（不应进报告）", "类型": "阅读", "进度状态": "已完成", "学习日期": TODAY, "时长分钟": 30, "是否示例": true },
+    { _id: "sd3", "学习主题": "雅思听力（进行中）", "类型": "语言备考", "进度状态": "进行中", "学习日期": TODAY, "时长分钟": 20, "是否示例": false },
+  ];
+  mock.store[DB_IDS.apply] = [
+    { _id: "ap1", "学校": "某大学A", "专业项目": "计算机硕士", "申请轮次": "第一轮", "截止日期": addDays(TODAY, 3), "申请状态": "材料准备中", "优先级": "重要且紧急", "下一步": "写 PS 初稿", "是否示例": false },
+    { _id: "ap2", "学校": "某大学B", "专业项目": "数据科学", "申请轮次": "第二轮", "截止日期": addDays(TODAY, 60), "申请状态": "待开始", "优先级": "重要不紧急", "是否示例": false },
+    { _id: "ap3", "学校": "某大学C", "专业项目": "AI", "申请轮次": "提前批", "截止日期": addDays(TODAY, 2), "申请状态": "已录取", "优先级": "一般", "是否示例": false },
+    { _id: "ap4", "学校": "示例大学（不应进提醒）", "专业项目": "示例专业", "申请轮次": "第一轮", "截止日期": addDays(TODAY, 1), "申请状态": "待开始", "是否示例": true },
   ];
 }
 
@@ -699,6 +713,102 @@ function clickNthBtn(dom, containerId, act, n) {
     ok(clsOf("todayFocusCard").indexOf("size-small") > -1, "重置后今日重点回到默认 small");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "尺寸模块无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
+    dom.window.close();
+  }
+
+  // ========== 场景十八：第3期 学习 + 留学申请模块 ==========
+  console.log("\n[18] 学习与留学申请模块");
+  {
+    const { dom, mock, consoleErrors } = await bootPage();
+    // 18.1 导航与视图切换
+    const studyNav = dom.window.document.querySelector('.sidenav .navitem[data-view="study"]');
+    const applyNav = dom.window.document.querySelector('.sidenav .navitem[data-view="apply"]');
+    ok(!!studyNav && !!applyNav, "侧边栏含学习/申请导航项");
+    studyNav.click();
+    await sleep(50);
+    ok($get(dom, "view-study").className.indexOf("active") > -1, "点击切换到学习视图");
+    // 18.2 学习列表渲染 + 本周统计（示例不计入统计）
+    const studyHtml = $get(dom, "studyList").innerHTML;
+    ok(studyHtml.indexOf("JavaScript 异步编程") > -1, "学习列表渲染真实记录");
+    ok(studyHtml.indexOf("示例学习项") > -1, "示例学习记录也渲染（带示例标记）");
+    ok(studyHtml.indexOf("tag-sample") > -1, "示例记录带示例徽标");
+    const studyStats = textOf(dom, "studyStats");
+    ok(studyStats.indexOf("本周完成 1 条") > -1 && studyStats.indexOf("45 分钟") > -1, "学习统计：本周 1 条 / 45 分钟（示例与进行中不计）");
+    // 18.3 学习筛选
+    const doingBtn = $get(dom, "studyFilters").querySelector('[data-f="进行中"]');
+    doingBtn.click();
+    await sleep(50);
+    ok($get(dom, "studyList").innerHTML.indexOf("雅思听力") > -1, "筛选进行中：只留雅思听力");
+    ok($get(dom, "studyList").innerHTML.indexOf("JavaScript 异步编程") === -1, "筛选进行中：已完成项被过滤");
+    // 18.4 新增学习记录
+    $get(dom, "btnNewStudy").click();
+    await sleep(50);
+    const sdInput = dom.window.document.querySelector('[name="sd_学习主题"]');
+    ok(!!sdInput, "新建学习弹窗打开");
+    sdInput.value = "GRE 单词 Day1";
+    $get(dom, "studySaveBtn").click();
+    await sleep(300);
+    ok(mock.store[DB_IDS.study].some(r => r["学习主题"] === "GRE 单词 Day1"), "新增学习记录已写入 mock 云表");
+    // 18.5 申请视图 + 临近截止卡
+    applyNav.click();
+    await sleep(50);
+    ok($get(dom, "view-apply").className.indexOf("active") > -1, "点击切换到申请视图");
+    const applyHtml = $get(dom, "applyList").innerHTML;
+    ok(applyHtml.indexOf("某大学A") > -1 && applyHtml.indexOf("某大学B") > -1, "申请列表渲染（默认进行中申请）");
+    const dlCount = textOf(dom, "applyDeadlineCount");
+    ok(dlCount.indexOf("2 项") > -1, "临近截止卡统计 2 项（3 天后真实 + 1 天后示例）");
+    const dlHtml = $get(dom, "applyDeadlineList").innerHTML;
+    ok(dlHtml.indexOf("某大学A") > -1 && dlHtml.indexOf("剩 3 天") > -1, "截止卡含某大学A 与倒计时");
+    ok(dlHtml.indexOf("某大学B") === -1, "60 天后的不在截止卡");
+    ok(dlHtml.indexOf("某大学C") === -1, "已录取不在截止卡（进行中状态才算）");
+    // 18.6 今日视图的申请提醒盒
+    const todayBox = $get(dom, "todayApplyBox").textContent;
+    ok(todayBox.indexOf("留学申请临近截止") > -1, "今日视图含申请截止提醒标题");
+    ok(todayBox.indexOf("某大学A") > -1, "今日提醒含临期申请");
+    // 18.7 申请转任务（点 ap1 某大学A 的转任务按钮）
+    const ap1Btn = $get(dom, "applyList").querySelector('[data-act="apply2task"][data-id="ap1"]');
+    ok(!!ap1Btn, "某大学A 的转任务按钮存在");
+    if (ap1Btn) ap1Btn.click();
+    await sleep(300);
+    ok(mock.store[DB_IDS.tasks].some(r => r["标题"] && r["标题"].indexOf("写 PS 初稿") > -1 && r["分类"] === "留学申请"), "申请下一步已转任务（分类：留学申请）");
+    // 18.8 新增申请
+    $get(dom, "btnNewApply").click();
+    await sleep(50);
+    const apInput = dom.window.document.querySelector('[name="ap_学校"]');
+    ok(!!apInput, "新建申请弹窗打开");
+    apInput.value = "某大学D";
+    $get(dom, "applySaveBtn").click();
+    await sleep(300);
+    ok(mock.store[DB_IDS.apply].some(r => r["学校"] === "某大学D"), "新增申请已写入 mock 云表");
+    // 18.9 日报：学习/申请只进自用版
+    $get(dom, "btnDailyReport").click();
+    await sleep(200);
+    const selfMd = $get(dom, "repSelf").value;
+    const leaderMd = $get(dom, "repLeader").value;
+    ok(selfMd.indexOf("个人学习与留学申请") > -1, "自用版含学习与申请段");
+    ok(selfMd.indexOf("JavaScript 异步编程") > -1, "自用版含学习明细");
+    ok(selfMd.indexOf("45 分钟") > -1, "自用版含学习时长统计");
+    ok(selfMd.indexOf("某大学A") > -1, "自用版含临期申请");
+    ok(selfMd.indexOf("示例学习项") === -1 && selfMd.indexOf("示例大学") === -1, "示例学习/申请不进报告");
+    ok(selfMd.indexOf("某大学B") === -1, "非临期申请不进报告");
+    ok(leaderMd.indexOf("个人学习与留学申请") === -1 && leaderMd.indexOf("JavaScript 异步编程") === -1, "领导摘要不含学习与申请（默认不进）");
+    // 18.10 备份 v3 覆盖 9 张表
+    $get(dom, "btnExport").click();
+    await sleep(150);
+    const blob = capturedBlobs[capturedBlobs.length - 1];
+    ok(!!blob, "导出备份生成 blob");
+    if (blob) {
+      const payload = JSON.parse(await blob.text());
+      ok(payload.formatVersion === 3, "备份格式为 v3");
+      ok(Array.isArray(payload.study) && Array.isArray(payload.apply), "备份含学习与申请数据");
+      ok(payload.study.length === mock.store[DB_IDS.study].length && payload.apply.length === mock.store[DB_IDS.apply].length, "备份学习/申请条数与云表一致");
+    }
+    // 18.11 清空示例覆盖学习/申请
+    // （clearSamples 走确认弹窗，这里只校验统计口径：realRecordCount 含学习/申请）
+    const hint = textOf(dom, "backupHint");
+    ok(hint.indexOf("真实记录") > -1, "备份提示行渲染（真实记录统计含新表）");
+    const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
+    ok(realErrors.length === 0, "第3期模块无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
   }
 

@@ -1,0 +1,110 @@
+{
+ "id": "sole16fronDUGBPBEHJCIJ",
+ "title": "学习记录表",
+ "properties": [
+  {
+   "id": "uXFaVa7N",
+   "name": "学习主题",
+   "type": "text"
+  },
+  {
+   "id": "0WJZ4BZ5",
+   "name": "类型",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "G5d7mEhy4cvf",
+      "text": "语言备考",
+      "style": 19
+     },
+     {
+      "id": "8VIKWUSV5bC5",
+      "text": "专业课程",
+      "style": 15
+     },
+     {
+      "id": "ejePEVV0MvJ5",
+      "text": "技能学习",
+      "style": 19
+     },
+     {
+      "id": "GKNua1PlyQ2f",
+      "text": "证书备考",
+      "style": 26
+     },
+     {
+      "id": "4EqthBthQtcB",
+      "text": "阅读",
+      "style": 5
+     }
+    ]
+   }
+  },
+  {
+   "id": "MjEaZjZ6",
+   "name": "进度状态",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "wFQvmiS3L6Tc",
+      "text": "未开始",
+      "style": 5
+     },
+     {
+      "id": "4K6xG6JLC3i9",
+      "text": "进行中",
+      "style": 22
+     },
+     {
+      "id": "VYxUQfyAtto5",
+      "text": "已完成",
+      "style": 19
+     },
+     {
+      "id": "iigLvguBi4e0",
+      "text": "暂停",
+      "style": 7
+     }
+    ]
+   }
+  },
+  {
+   "id": "zYjZc13z",
+   "name": "计划日期",
+   "type": "date"
+  },
+  {
+   "id": "X4SDrjvu",
+   "name": "学习日期",
+   "type": "date"
+  },
+  {
+   "id": "nkvPTyDH",
+   "name": "时长分钟",
+   "type": "number",
+   "config": {
+    "decimalPlaces": 0,
+    "useSeparate": false
+   }
+  },
+  {
+   "id": "PoZKjvcb",
+   "name": "笔记",
+   "type": "text"
+  },
+  {
+   "id": "mNHoHEcg",
+   "name": "资料链接",
+   "type": "url"
+  },
+  {
+   "id": "8oTWSB7d",
+   "name": "是否示例",
+   "type": "checkbox"
+  }
+ ],
+ "database_id": "sole16fronDUGBPBEHJCIJ",
+ "space_id": ""
+}

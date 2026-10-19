@@ -1,33 +1,33 @@
 {
- "database_id": "PDFBIwRRZEGd2jfJbGiuY5",
- "space_id": "",
- "property_count": 5,
+ "id": "mIwePYmB2y60zJIBcic0qQ",
+ "title": "灵感速记表",
  "properties": [
   {
-   "id": "MTEKTnOJ",
+   "id": "EyCDDFpP",
    "name": "正文",
    "type": "text"
   },
   {
-   "id": "bZvBfUbs",
+   "id": "6PgkOfdv",
    "name": "标签",
    "type": "text"
   },
   {
-   "id": "sML5dGCz",
+   "id": "kpWX45A5",
    "name": "关联项目",
    "type": "text"
   },
   {
-   "id": "Lcdsmj8w",
+   "id": "hSm1Lx1x",
    "name": "资料链接",
    "type": "url"
   },
   {
-   "id": "KPtqR4YM",
+   "id": "n7gV8WRr",
    "name": "是否示例",
    "type": "checkbox"
   }
  ],
- "url": "https://www.workbuddy.cn/space/d/PDFBIwRRZEGd2jfJbGiuY5"
+ "database_id": "mIwePYmB2y60zJIBcic0qQ",
+ "space_id": ""
 }
