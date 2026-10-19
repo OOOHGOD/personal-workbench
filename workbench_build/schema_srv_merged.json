@@ -2,7 +2,7 @@
  "database_id": "l49vCiVLbpktS5cjT0lhIN",
  "space_id": "",
  "title": "工作台合并 schema（9 表字段并集）",
- "property_count": 63,
+ "property_count": 64,
  "properties": [
   {
    "id": "iZAXKT8B",
@@ -219,6 +219,11 @@
    "id": "GLV9i7zd",
    "name": "创建日期",
    "type": "date"
+  },
+  {
+   "id": "tDDfTdkX",
+   "name": "项目ID",
+   "type": "text"
   },
   {
    "id": "D0G0zSqo",

@@ -154,6 +154,35 @@ a{color:#185FA5;text-decoration:none}
 .notice-list{font-size:13px;color:#42525E}
 .notice-list li{margin:6px 0 6px 18px}
 .copy-path{cursor:pointer;color:#185FA5;border-bottom:1px dashed #85B7EB}
+/* ---------- 今日任务看板 ---------- */
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.metric{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.85);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;min-width:0}
+.metric:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(31,45,61,.10)}
+.metric .num{font-size:22px;font-weight:700;color:#0F6E56;line-height:1.15;font-variant-numeric:tabular-nums}
+.metric.warn .num{color:#854F0B}
+.metric.danger .num{color:#A32D2D}
+.metric.dim .num{color:#5F6E7A}
+.metric .lbl{font-size:12px;color:#5F6E7A;margin-top:2px}
+.board-sub{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.board-sub button{font-size:12px;color:#42525E;background:rgba(255,255,255,.72);border:1px solid rgba(215,221,227,.9);border-radius:999px;padding:4px 12px;cursor:pointer}
+.board-sub button:hover{background:#E1F5EE;color:#0F6E56}
+.board-sub b{color:#0F6E56;font-variant-numeric:tabular-nums}
+.focus-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.62);margin-top:6px}
+/* ---------- 看板分组（任务/调研） ---------- */
+.group-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#42525E;margin:14px 0 8px;padding:6px 10px;background:rgba(255,255,255,.62);border-radius:8px;border:1px solid rgba(215,221,227,.6)}
+.group-title .gcount{font-size:12px;color:#8B98A1;font-weight:400}
+.group-title.tg-todo{border-left:3px solid #378ADD}
+.group-title.tg-doing{border-left:3px solid #1D9E75}
+.group-title.tg-wait{border-left:3px solid #E5A50A}
+.group-title.tg-done{border-left:3px solid #8B98A1}
+/* ---------- 视图标题 ---------- */
+.view-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.view-title h2{font-size:18px;color:#2A333C;margin:0}
+.view-title .muted{font-size:13px}
+/* ---------- 项目卡点击 / 详情 ---------- */
+.proj-card.clickable{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.proj-card.clickable:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(31,45,61,.12)}
+.proj-detail-tasks{margin-top:10px;border-top:1px dashed #D5DBE1;padding-top:8px;max-height:320px;overflow:auto}
 .bottomnav{display:none}
 .moredrawer{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -173,6 +202,7 @@ a{color:#185FA5;text-decoration:none}
   .moredrawer button.dbtn{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:#5F6E7A;padding:10px 2px;min-height:52px;justify-content:center;border-radius:10px;background:transparent}
   .moredrawer button.dbtn.active{color:#0F6E56;background:#E1F5EE;font-weight:600}
   .content{padding:12px 12px 92px}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
   .form-grid2{grid-template-columns:1fr}
   .capture-bar{top:53px}
   .btn,.filters button,.sidenav .navitem{min-height:44px}
@@ -223,18 +253,21 @@ a{color:#185FA5;text-decoration:none}
       <div class="dash-head">
         <button class="btn btn-ghost btn-mini" id="btnDashEdit" title="进入整理模式后，按住卡片右上角把手拖动摆放">整理小组件</button>
       </div>
+      <div class="card size-big" id="todayBoardCard">
+        <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
+        <div class="dash-sizes" data-card="todayBoardCard"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
+        <h2>今日任务看板 <span class="count" id="boardDate"></span></h2>
+        <div class="metric-grid" id="boardMetrics"></div>
+        <div class="board-sub" id="boardScopes"></div>
+        <h2 style="margin-top:16px">今日重点 <span class="count muted">最多 3 项，显示状态 / 优先级 / 截止 / 关联项目 / 下一步</span></h2>
+        <div id="todayFocusList"></div>
+      </div>
       <div class="card size-middle" id="todayHandleCard">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
         <div class="dash-sizes" data-card="todayHandleCard"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
         <h2>今天要处理的 <span class="count" id="todayHandleCount" data-sp-bindable="database" data-sp-database-id="l49vCiVLbpktS5cjT0lhIN"></span></h2>
         <div id="todayHandleList"></div>
         <div id="todayApplyBox"></div>
-      </div>
-      <div class="card size-small" id="todayFocusCard">
-        <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
-        <div class="dash-sizes" data-card="todayFocusCard"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
-        <h2>今日重点 <span class="count muted">最多 3 项，在任务列表里勾选设置</span></h2>
-        <div id="todayFocusList"></div>
       </div>
       <div class="card size-middle" id="cardCoreProjs">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
@@ -259,8 +292,18 @@ a{color:#185FA5;text-decoration:none}
     </section>
 
     <section class="view" id="view-tasks">
+      <div class="view-title">
+        <h2>任务看板</h2>
+        <span class="muted">按状态分组；点指标或筛选切换视角，搜索支持标题 / 下一步 / 备注</span>
+        <button class="btn btn-primary btn-mini" id="btnNewTask">新建任务</button>
+      </div>
       <div class="filters" id="taskFilters">
         <button data-f="today" class="active">今天</button>
+        <button data-f="overdue">逾期</button>
+        <button data-f="duetoday">今天截止</button>
+        <button data-f="donetoday">今天完成</button>
+        <button data-f="doing">进行中</button>
+        <button data-f="wait">等待</button>
         <button data-f="inbox">收集箱</button>
         <button data-f="future">未来</button>
         <button data-f="nodate">无日期</button>
@@ -270,27 +313,31 @@ a{color:#185FA5;text-decoration:none}
       <div class="searchbox"><input type="text" id="taskSearch" placeholder="搜索任务标题、下一步、备注…"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <span class="muted" id="taskListCount"></span>
-        <button class="btn btn-primary btn-mini" id="btnNewTask">新建任务</button>
       </div>
       <div id="taskList"></div>
     </section>
 
     <section class="view" id="view-projects">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span class="muted">阶段、下一步、卡点突出显示；进度按关联任务实际计算</span>
+      <div class="view-title">
+        <h2>项目看板</h2>
+        <span class="muted">点击项目卡进入详情（阶段 / 进度 / 关联任务 / 卡点 / 下一步）</span>
         <button class="btn btn-primary btn-mini" id="btnNewProj">新建项目</button>
       </div>
       <div id="projList"></div>
     </section>
 
     <section class="view" id="view-research">
+      <div class="view-title">
+        <h2>需求调研看板</h2>
+        <span class="muted">区分「已确认需求」与「待验证想法」，保留来源与关联项目</span>
+        <button class="btn btn-primary btn-mini" id="btnNewResearch">记调研</button>
+      </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div class="filters" id="researchFilters" style="margin-bottom:0">
           <button data-f="all" class="active">全部</button>
           <button data-f="已确认需求">已确认需求</button>
           <button data-f="待验证想法">待验证想法</button>
         </div>
-        <button class="btn btn-primary btn-mini" id="btnNewResearch">记调研</button>
       </div>
       <div id="researchList"></div>
     </section>
@@ -444,15 +491,15 @@ a{color:#185FA5;text-decoration:none}
 <nav class="bottomnav" id="bottomnav">
   <button class="active" data-view="today"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>今日</button>
   <button data-view="tasks"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg>任务</button>
-  <button data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>学习</button>
-  <button data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>申请</button>
+  <button data-view="projects"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>项目</button>
+  <button data-view="research"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>调研</button>
   <button id="btnMore" aria-expanded="false" aria-controls="moredrawer"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>更多</button>
 </nav>
 <div class="moredrawer" id="moredrawer" role="dialog" aria-label="更多视图">
   <div class="drawer-head"><span>更多视图</span><button id="btnMoreClose"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>收起</button></div>
   <div class="drawer-grid">
-    <button class="dbtn" data-view="projects"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>项目</button>
-    <button class="dbtn" data-view="research"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>调研</button>
+    <button class="dbtn" data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>学习</button>
+    <button class="dbtn" data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>申请</button>
     <button class="dbtn" data-view="notes"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>速记</button>
     <button class="dbtn" data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
     <button class="dbtn" data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>报告</button>
@@ -757,26 +804,26 @@ a{color:#185FA5;text-decoration:none}
 
   /* ---------- iCloud 式小组件：摆放 + 三档尺寸（存本机 localStorage） ---------- */
   var DASH_KEY = LS_KEY + "today_layout";
-  var DASH_CARDS = ["todayHandleCard", "todayFocusCard", "cardCoreProjs", "cardWeek"];
-  var DASH_DEFAULT_SIZE = { todayHandleCard: "middle", todayFocusCard: "small", cardCoreProjs: "middle", cardWeek: "big" };
+  var DASH_CARDS = ["todayBoardCard", "todayHandleCard", "cardCoreProjs", "cardWeek"];
+  var DASH_DEFAULT_SIZE = { todayBoardCard: "big", todayHandleCard: "middle", cardCoreProjs: "middle", cardWeek: "big" };
   var dashState = { order: DASH_CARDS.slice(), sizes: {} };
   var dashEdit = false, dragState = null;
 
   function sizeRank(s) { return s === "small" ? 0 : (s === "middle" ? 1 : 2); }
   function dashSize(id) { return dashState.sizes[id] || DASH_DEFAULT_SIZE[id] || "middle"; }
-  /* 某些情况下不允许缩到 small：图表放不下 / 逾期与待跟进不能藏 / 有卡点项目 / 重点超过 2 项 */
+  /* 某些情况下不允许缩到 small：图表放不下 / 逾期与待跟进不能藏 / 有卡点项目 */
   function dashMinSize(id) {
     if (id === "cardWeek") return "middle";
     if (id === "todayHandleCard") return "middle";
+    if (id === "todayBoardCard") return "middle";
     if (id === "cardCoreProjs" && computeToday().stuck.length) return "middle";
-    if (id === "todayFocusCard" && computeToday().focus.length > 2) return "middle";
     return "small";
   }
   function sizeBlockReason(id) {
     if (id === "cardWeek") return "含图表，小尺寸放不下";
     if (id === "todayHandleCard") return "逾期 / 待跟进必须完整可见";
+    if (id === "todayBoardCard") return "今日看板含指标与重点，小尺寸放不下";
     if (id === "cardCoreProjs") return "当前有卡点项目";
-    if (id === "todayFocusCard") return "今日重点超过 2 项";
     return "该卡片不支持小尺寸";
   }
   function loadDashState() {
@@ -797,7 +844,8 @@ a{color:#185FA5;text-decoration:none}
       order.push(it.id);
       if (it.size) dashState.sizes[it.id] = it.size;
     });
-    DASH_CARDS.forEach(function (id) { if (order.indexOf(id) === -1) order.push(id); });
+    /* 本地记录里没有的卡（如新增的今日看板卡）插到最前，保证首屏可见 */
+    DASH_CARDS.forEach(function (id) { if (order.indexOf(id) === -1) order.unshift(id); });
     dashState.order = order;
   }
   function saveDashState() {
@@ -977,9 +1025,12 @@ a{color:#185FA5;text-decoration:none}
     cancelDashDrag();
   }
 
-  /* ---------- 视图切换 ---------- */
+  /* ---------- 视图切换 + hash 路由 ---------- */
   /* 抽屉收纳的视图：当前处于这些视图时，底部「更多」按钮高亮 */
-  var DRAWER_VIEWS = { projects: 1, research: 1, notes: 1, resources: 1, reports: 1, settings: 1 };
+  var DRAWER_VIEWS = { study: 1, apply: 1, notes: 1, resources: 1, reports: 1, settings: 1 };
+  /* 路由白名单：#/today #/tasks #/projects #/research #/notes #/resources #/reports #/study #/apply #/settings
+     支持 ?f= 任务筛选参数（今日看板指标跳转用），刷新 / 直接访问 / 前进后退均生效 */
+  var ROUTES = ["today", "tasks", "projects", "research", "notes", "resources", "reports", "study", "apply", "settings"];
   function closeMoreDrawer() {
     var d = $("moredrawer");
     if (d) d.classList.remove("open");
@@ -996,11 +1047,40 @@ a{color:#185FA5;text-decoration:none}
       if (m2) m2.setAttribute("aria-expanded", "true");
     }
   }
+  function parseHash() {
+    var h = String(location.hash || "").replace(/^#\/?/, "");
+    var parts = h.split("?");
+    var view = parts[0] || "today";
+    if (ROUTES.indexOf(view) === -1) view = "today";
+    var q = {};
+    if (parts[1]) {
+      parts[1].split("&").forEach(function (kv) {
+        var p2 = kv.split("=");
+        if (p2[0]) q[decodeURIComponent(p2[0])] = decodeURIComponent(p2[1] || "");
+      });
+    }
+    return { view: view, q: q };
+  }
+  function navigate(view, filter) {
+    var h = "#/" + view;
+    if (filter) h += "?f=" + encodeURIComponent(filter);
+    if (location.hash === h) applyRoute(); /* 同一路由重入（如重复点指标）也重新应用 */
+    else location.hash = h;               /* 变更后由 hashchange 统一驱动 */
+  }
+  function applyRoute() {
+    var r = parseHash();
+    if (r.view === "tasks" && r.q.f) setTaskFilter(r.q.f);
+    switchView(r.view);
+  }
   function switchView(view) {
     var views = document.querySelectorAll(".view");
-    for (var i = 0; i < views.length; i++) views[i].classList.remove("active");
-    var el = $("view-" + view);
-    if (el) el.classList.add("active");
+    for (var i = 0; i < views.length; i++) {
+      var on = views[i].id === "view-" + view;
+      views[i].classList.toggle("active", on);
+      /* 双保险：hidden 属性走 UA 样式，即使页面 CSS 加载异常也能保证单看板显示 */
+      if (on) views[i].removeAttribute("hidden");
+      else views[i].setAttribute("hidden", "hidden");
+    }
     var navs = document.querySelectorAll(".sidenav .navitem, .bottomnav button, .moredrawer button.dbtn");
     for (var j = 0; j < navs.length; j++) {
       var b = navs[j];
@@ -1038,7 +1118,7 @@ a{color:#185FA5;text-decoration:none}
     for (var i = 0; i < navs.length; i++) {
       (function (btn) {
         if (!btn.getAttribute("data-view")) return;
-        btn.addEventListener("click", function () { switchView(btn.getAttribute("data-view")); });
+        btn.addEventListener("click", function () { navigate(btn.getAttribute("data-view")); });
       })(navs[i]);
     }
     var more = $("btnMore");
@@ -1054,6 +1134,8 @@ a{color:#185FA5;text-decoration:none}
       if (m && m.contains(e.target)) return;
       closeMoreDrawer();
     });
+    /* hash 路由：刷新保留 / 直接访问 / 浏览器前进后退 */
+    window.addEventListener("hashchange", applyRoute);
   }
 
   /* ---------- 快速记录（一句话 → 收集箱） ---------- */
@@ -1106,6 +1188,7 @@ a{color:#185FA5;text-decoration:none}
   /* ---------- 渲染层：今日视图 ---------- */
   function renderToday() {
     applyDashLayout();
+    renderTodayBoard();
     var d = computeToday();
     var cnt = $("todayHandleCount");
     cnt.textContent = "逾期 " + d.overdue.length + " · 今天到期 " + d.dueToday.length + " · 卡住项目 " + d.stuck.length + " · 到期跟进 " + d.waiting.length;
@@ -1115,28 +1198,28 @@ a{color:#185FA5;text-decoration:none}
       rows.push('<div class="today-item overdue">'
         + '<button class="check" data-act="complete" data-id="' + esc(t._id) + '" title="标记完成" aria-label="标记完成"></button>'
         + '<div class="t-main"><div class="t-title">' + sampleTag(t) + prTag(t["优先级"]) + esc(t["标题"]) + '</div>'
-        + '<div class="t-meta">' + (t["关联项目"] ? "项目：" + esc(t["关联项目"]) + " · " : "") + (t["分类"] ? esc(t["分类"]) + " · " : "") + "截止 " + esc(dateOnly(t["截止日期"])) + '</div>'
+        + '<div class="t-meta">' + (t["关联项目"] ? "项目：" + esc(projNameOf(t)) + " · " : "") + (t["分类"] ? esc(t["分类"]) + " · " : "") + "截止 " + esc(dateOnly(t["截止日期"])) + '</div>'
         + '<div class="t-reason">逾期 ' + overdueDays(t) + ' 天，超过截止日期</div></div>'
-        + '<button class="btn btn-ghost btn-mini" data-act="go" data-view="tasks">去处理</button></div>');
+        + '<button class="btn btn-ghost btn-mini" data-act="edit" data-id="' + esc(t._id) + '">去处理</button></div>');
     });
     d.dueToday.forEach(function (t) {
       rows.push('<div class="today-item">'
         + '<button class="check" data-act="complete" data-id="' + esc(t._id) + '" title="标记完成" aria-label="标记完成"></button>'
         + '<div class="t-main"><div class="t-title">' + sampleTag(t) + prTag(t["优先级"]) + esc(t["标题"]) + '</div>'
-        + '<div class="t-meta">' + (t["关联项目"] ? "项目：" + esc(t["关联项目"]) + " · " : "") + (t["计划日期"] && dateOnly(t["计划日期"]) < todayStr() ? "原定 " + esc(dateOnly(t["计划日期"])) + "，已顺延" : "今天该做") + '</div></div>'
-        + '<button class="btn btn-ghost btn-mini" data-act="go" data-view="tasks">去处理</button></div>');
+        + '<div class="t-meta">' + (t["关联项目"] ? "项目：" + esc(projNameOf(t)) + " · " : "") + (t["计划日期"] && dateOnly(t["计划日期"]) < todayStr() ? "原定 " + esc(dateOnly(t["计划日期"])) + "，已顺延" : "今天该做") + '</div></div>'
+        + '<button class="btn btn-ghost btn-mini" data-act="edit" data-id="' + esc(t._id) + '">去处理</button></div>');
     });
     d.stuck.forEach(function (p) {
       rows.push('<div class="today-item overdue">'
         + '<div class="t-main"><div class="t-title"><span class="section-tag tag-overdue">项目卡住</span>' + esc(p["项目名称"]) + '</div>'
         + '<div class="t-reason">卡点：' + esc(p["卡点"]) + (p["下一步"] ? " · 下一步：" + esc(p["下一步"]) : "") + '</div></div>'
-        + '<button class="btn btn-ghost btn-mini" data-act="go" data-view="projects">去处理</button></div>');
+        + '<button class="btn btn-ghost btn-mini" data-act="detailproj" data-id="' + esc(p._id) + '">去处理</button></div>');
     });
     d.waiting.forEach(function (t) {
       rows.push('<div class="today-item">'
         + '<div class="t-main"><div class="t-title">' + sampleTag(t) + '<span class="section-tag tag-p2">等待中</span>' + esc(t["标题"]) + '</div>'
         + '<div class="t-reason">等 ' + esc(t["等待谁"] || "?") + '：' + esc(t["等待事项"] || "") + '，今天该跟进</div></div>'
-        + '<button class="btn btn-ghost btn-mini" data-act="go" data-view="tasks">去跟进</button></div>');
+        + '<button class="btn btn-ghost btn-mini" data-act="edit" data-id="' + esc(t._id) + '">去跟进</button></div>');
     });
     // 尺寸决定密度：small 只留最关键的 3 条（逾期 > 到期 > 卡住 > 待跟进），big 全展开
     var hs = dashSize("todayHandleCard");
@@ -1152,16 +1235,92 @@ a{color:#185FA5;text-decoration:none}
     }
     if (!html) html = '<div class="empty-tip">今天没有逾期、到期、卡住或待跟进的事项</div>';
     $("todayHandleList").innerHTML = html;
+  }
 
-    var fhtml = "";
-    d.focus.forEach(function (t) {
-      fhtml += '<div class="today-item">'
-        + '<button class="check" data-act="complete" data-id="' + esc(t._id) + '" title="标记完成" aria-label="标记完成"></button>'
-        + '<div class="t-main"><div class="t-title">' + prTag(t["优先级"]) + esc(t["标题"]) + '</div>'
-        + '<div class="t-meta">' + (t["下一步"] ? "下一步：" + esc(t["下一步"]) : "") + '</div></div></div>';
+  /* ---------- 今日任务看板：指标 + 三口径 + 今日重点 ---------- */
+  function friendlyDate(iso) {
+    var names = ["日", "一", "二", "三", "四", "五", "六"];
+    var d = new Date(iso + "T00:00:00");
+    return iso.replace(/-/g, "/") + " 周" + names[d.getDay()];
+  }
+  function computeTodayBoard() {
+    var today = todayStr();
+    var planToday = [], scopeDue = [], scopeDone = [];
+    var cnt = { total: 0, done: 0, todo: 0, doing: 0, wait: 0, overdue: 0, rate: 0 };
+    STATE.tasks.forEach(function (t) {
+      if (isCanceled(t) || t["是否示例"]) return; /* 统计口径：示例数据不计入 */
+      var plan = dateOnly(t["计划日期"]);
+      var dl = dateOnly(t["截止日期"]);
+      var fin = dateOnly(t["完成时间"]);
+      if (plan === today) planToday.push(t);          /* 口径一：计划今天处理（计划日期=今天） */
+      if (dl === today) scopeDue.push(t);             /* 口径二：今天截止（截止日期=今天） */
+      if (isDone(t) && fin === today) scopeDone.push(t); /* 口径三：今天完成（完成时间=今天） */
     });
+    planToday.forEach(function (t) {
+      cnt.total++;
+      if (isDone(t)) cnt.done++;
+      else if (t["状态"] === "收集箱" || t["状态"] === "待开始") cnt.todo++;
+      else if (t["状态"] === "进行中") cnt.doing++;
+      else if (t["状态"] === "等待") cnt.wait++;
+    });
+    /* 逾期：未完成、截止已过（示例不计入） */
+    STATE.tasks.forEach(function (t) {
+      if (!isOpen(t) || t["是否示例"]) return;
+      var dl = dateOnly(t["截止日期"]);
+      if (dl && dl < today) cnt.overdue++;
+    });
+    cnt.rate = cnt.total ? Math.round(cnt.done / cnt.total * 100) : 0;
+    return { planToday: planToday, scopeDue: scopeDue, scopeDone: scopeDone, cnt: cnt };
+  }
+  function metricHtml(num, label, cls, filter) {
+    return '<button type="button" class="metric' + (cls ? " " + cls : "") + '" data-act="goto" data-goto="' + esc(filter) + '" title="点击进入任务看板（' + esc(label) + '）">'
+      + '<div class="num">' + num + '</div><div class="lbl">' + esc(label) + "</div></button>";
+  }
+  function scopeChip(label, n, filter) {
+    return '<button type="button" data-act="goto" data-goto="' + esc(filter) + '">' + esc(label) + ' <b>' + n + "</b></button>";
+  }
+  function focusRowHtml(t) {
+    var meta = [];
+    if (dateOnly(t["截止日期"])) {
+      meta.push(isOverdue(t)
+        ? '<span style="color:#A32D2D;font-weight:600">逾期（截止 ' + esc(dateOnly(t["截止日期"])) + "）</span>"
+        : "截止 " + esc(dateOnly(t["截止日期"])));
+    }
+    if (t["关联项目"]) meta.push("项目：" + esc(projNameOf(t)));
+    return '<div class="focus-row">'
+      + '<button class="check' + (isDone(t) ? " done" : "") + '" data-act="complete" data-id="' + esc(t._id) + '" title="完成/取消完成" aria-label="完成切换"></button>'
+      + '<div class="t-main"><div class="t-title">' + prTag(t["优先级"]) + '<span class="section-tag tag-status">' + esc(t["状态"] || "待开始") + "</span>" + esc(t["标题"]) + "</div>"
+      + '<div class="t-meta">' + (t["下一步"] ? "下一步：" + esc(t["下一步"]) + (meta.length ? " · " : "") : "") + meta.join(" · ") + "</div></div>"
+      + '<button class="btn-mini btn btn-ghost" data-act="edit" data-id="' + esc(t._id) + '">详情</button></div>';
+  }
+  function renderTodayBoard() {
+    var b = computeTodayBoard();
+    var bd = $("boardDate");
+    if (bd) bd.textContent = "今天是 " + friendlyDate(todayStr());
+    var m = $("boardMetrics");
+    if (m) {
+      m.innerHTML =
+        metricHtml(b.cnt.total, "今日计划任务", "", "today") +
+        metricHtml(b.cnt.done, "已完成", "", "done") +
+        metricHtml(b.cnt.todo, "待处理", "dim", "today") +
+        metricHtml(b.cnt.doing, "进行中", "dim", "doing") +
+        metricHtml(b.cnt.wait, "等待", "warn", "wait") +
+        metricHtml(b.cnt.overdue, "逾期", (b.cnt.overdue ? "danger" : "dim"), "overdue") +
+        metricHtml(b.cnt.rate + "%", "完成率", "", "today") +
+        metricHtml(b.scopeDue.length, "今天截止", (b.scopeDue.length ? "warn" : "dim"), "duetoday");
+    }
+    var sc = $("boardScopes");
+    if (sc) {
+      sc.innerHTML =
+        scopeChip("计划今天处理（按计划日期）", b.planToday.length, "today") +
+        scopeChip("今天截止（按截止日期）", b.scopeDue.length, "duetoday") +
+        scopeChip("今天完成（按完成时间）", b.scopeDone.length, "donetoday");
+    }
+    var fhtml = "";
+    computeToday().focus.forEach(function (t) { fhtml += focusRowHtml(t); });
     if (!fhtml) fhtml = '<div class="empty-tip">还没选今日重点：到「任务」里点「设重点」，最多 3 项</div>';
-    $("todayFocusList").innerHTML = fhtml;
+    var fl = $("todayFocusList");
+    if (fl) fl.innerHTML = fhtml;
   }
 
   function renderCoreProjects() {
@@ -1262,45 +1421,67 @@ a{color:#185FA5;text-decoration:none}
       if (!matchSearch(t)) return;
       var plan = dateOnly(t["计划日期"]);
       var dl = dateOnly(t["截止日期"]);
+      var fin = dateOnly(t["完成时间"]);
       var f = UI.taskFilter;
       if (f === "inbox") { if (t["状态"] === "收集箱") out.push(t); }
       else if (f === "done") { if (isDone(t)) out.push(t); }
+      else if (f === "donetoday") { if (isDone(t) && fin === today) out.push(t); }
       else if (f === "future") { if (isOpen(t) && plan && plan > today) out.push(t); }
       else if (f === "nodate") { if (isOpen(t) && !plan && t["状态"] !== "收集箱") out.push(t); }
       else if (f === "all") { out.push(t); }
+      else if (f === "overdue") { if (isOpen(t) && dl && dl < today) out.push(t); }
+      else if (f === "duetoday") { if (!isCanceled(t) && dl === today) out.push(t); }
+      else if (f === "doing") { if (t["状态"] === "进行中") out.push(t); }
+      else if (f === "wait") { if (t["状态"] === "等待") out.push(t); }
       else { if (isOpen(t) && ((plan && plan <= today) || (dl && dl < today))) out.push(t); }
     });
     return out;
   }
+  /* 设置任务筛选（导航 / 指标跳转 / chips 点击共用），同步高亮 */
+  function setTaskFilter(f) {
+    UI.taskFilter = f;
+    var tf = $("taskFilters");
+    if (tf) {
+      var btns = tf.querySelectorAll("button");
+      for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", btns[i].getAttribute("data-f") === f);
+    }
+    renderTasks();
+  }
 
-  /* ---------- 渲染层：任务列表 ---------- */
+  /* ---------- 渲染层：任务看板（按状态分组） ---------- */
+  function taskSort(a, b) {
+    var r = byPriority(a, b);
+    if (r) return r;
+    var pa = dateOnly(a["计划日期"]) || "9999-12-31", pb = dateOnly(b["计划日期"]) || "9999-12-31";
+    return pa < pb ? -1 : (pa > pb ? 1 : 0);
+  }
+  function groupHtml(title, cls, list) {
+    var h = '<div class="group-title ' + cls + '">' + esc(title) + '<span class="gcount">' + list.length + " 条</span></div>";
+    if (!list.length) h += '<div class="empty-tip" style="margin:2px 0 6px 12px">无</div>';
+    list.forEach(function (t) { h += taskRowHtml(t); });
+    return h;
+  }
   function renderTasks() {
     var list = filterTasks();
     var box = $("taskList");
-    var html = "";
-    if (UI.taskFilter === "future") {
-      var groups = {};
-      list.forEach(function (t) {
-        var k = dateOnly(t["计划日期"]);
-        (groups[k] = groups[k] || []).push(t);
-      });
-      Object.keys(groups).sort().forEach(function (k) {
-        html += '<div class="date-group-title">' + esc(k) + "（" + daysBetween(todayStr(), k) + " 天后）</div>";
-        groups[k].sort(byPriority).forEach(function (t) { html += taskRowHtml(t); });
-      });
-    } else if (UI.taskFilter === "all") {
-      var open = list.filter(isOpen).sort(byPriority);
-      var closed = list.filter(function (t) { return !isOpen(t); }).sort(function (a, b) { return String(b["完成时间"] || "").localeCompare(String(a["完成时间"] || "")); });
-      open.forEach(function (t) { html += taskRowHtml(t); });
-      if (closed.length) html += '<div class="date-group-title">已关闭（已完成 / 已取消）</div>';
-      closed.forEach(function (t) { html += taskRowHtml(t); });
-    } else {
-      list.sort(byPriority).forEach(function (t) { html += taskRowHtml(t); });
-    }
-    if (!html) html = '<div class="empty-tip">' + (UI.taskSearch ? "没有匹配的任务" : "这里还没有任务") + "</div>";
+    var todo = [], doing = [], wait = [], done = [];
+    list.forEach(function (t) {
+      var st = t["状态"];
+      if (st === "进行中") doing.push(t);
+      else if (st === "等待") wait.push(t);
+      else if (isDone(t) || isCanceled(t)) done.push(t);
+      else todo.push(t);
+    });
+    todo.sort(taskSort); doing.sort(taskSort); wait.sort(taskSort);
+    done.sort(function (a, b) { return String(b["完成时间"] || "").localeCompare(String(a["完成时间"] || "")); });
+    var html = groupHtml("待开始 / 收集箱", "tg-todo", todo)
+      + groupHtml("进行中", "tg-doing", doing)
+      + groupHtml("等待", "tg-wait", wait)
+      + groupHtml("已完成 / 已取消", "tg-done", done);
+    if (!list.length) html = '<div class="empty-tip">' + (UI.taskSearch ? "没有匹配的任务" : "这里还没有任务") + "</div>";
     box.innerHTML = html;
     var cnt = $("taskListCount");
-    cnt.textContent = "共 " + list.length + " 条";
+    cnt.textContent = "共 " + list.length + " 条（待开始 " + todo.length + " · 进行中 " + doing.length + " · 等待 " + wait.length + " · 已完成 " + done.length + "）";
     markDb(cnt, DB_TASKS);
   }
 
@@ -1310,7 +1491,7 @@ a{color:#185FA5;text-decoration:none}
     var pc = Number(t["顺延次数"]) || 0;
     var meta = [];
     if (t["分类"]) meta.push('<span class="section-tag tag-status">' + esc(t["分类"]) + "</span>");
-    if (t["关联项目"]) meta.push(esc(t["关联项目"]));
+    if (t["关联项目"]) meta.push(esc(projNameOf(t)));
     if (t["状态"] === "等待") meta.push('<span style="color:#854F0B">等待 ' + esc(t["等待谁"] || "?") + "：" + esc(t["等待事项"] || "") + "</span>");
     if (dateOnly(t["计划日期"])) meta.push("计划 " + esc(dateOnly(t["计划日期"])));
     if (dateOnly(t["截止日期"])) meta.push(overdue ? ('<span style="color:#A32D2D;font-weight:600">逾期 ' + overdueDays(t) + " 天（截止 " + esc(dateOnly(t["截止日期"])) + "）</span>") : ("截止 " + esc(dateOnly(t["截止日期"]))));
@@ -1390,6 +1571,26 @@ a{color:#185FA5;text-decoration:none}
     STATE.projects.forEach(function (p) { if (p["项目名称"]) names.push(esc(p["项目名称"])); });
     return '<datalist id="projNames">' + names.map(function (n) { return "<option value=\"" + n + "\">"; }).join("") + "</datalist>";
   }
+  /* 关联项目下拉：value=项目 _id（稳定关联），保存时同时写「项目ID」与「关联项目」名称 */
+  function projSelectHtml(t, prefillName, prefillPid) {
+    var curPid = "";
+    var curName = "";
+    if (t) {
+      curPid = String(t["项目ID"] || "").trim();
+      curName = String(t["关联项目"] || "").trim();
+    } else if (prefillPid) curPid = String(prefillPid).trim();
+    else if (prefillName) curName = String(prefillName).trim();
+    var h = '<select name="f_关联项目" id="tf_proj" data-cache="1"><option value="">（不关联项目）</option>';
+    STATE.projects.forEach(function (p) {
+      var sel = (curPid && curPid === p._id) || (!curPid && curName && curName === String(p["项目名称"] || "").trim());
+      h += '<option value="' + esc(p._id) + '"' + (sel ? " selected" : "") + ">" + esc(p["项目名称"]) + (p["工作层级"] ? "（" + esc(p["工作层级"]) + "）" : "") + "</option>";
+    });
+    /* 兜底：值不在项目表里（历史数据）时追加一个只读选项 */
+    if (curName && !STATE.projects.some(function (p) { return String(p["项目名称"] || "").trim() === curName; })) {
+      h += '<option value="' + esc(curPid || curName) + '" selected>' + esc(curName) + "（项目表中不存在）</option>";
+    }
+    return h + "</select>";
+  }
   function openTaskModal(taskId, prefill) {
     var t = taskId ? findTask(taskId) : null;
     var v = function (f) { return t ? (t[f] || "") : (prefill && prefill[f] || ""); };
@@ -1399,7 +1600,7 @@ a{color:#185FA5;text-decoration:none}
       + '<div class="form-row"><label>标题 *</label><input type="text" name="f_标题" id="tf_title" data-cache="1" value="' + esc(v("标题")) + '" maxlength="120"></div>'
       + '<div class="form-grid2">'
       + '<div class="form-row"><label>分类</label>' + selectHtml("分类", v("分类")) + "</div>"
-      + '<div class="form-row"><label>关联项目（可从项目表选）</label><input type="text" name="f_关联项目" id="tf_proj" data-cache="1" list="projNames" value="' + esc(v("关联项目")) + '">' + projDatalist() + "</div>"
+      + '<div class="form-row"><label>关联项目（从项目表选，稳定关联自动统计进度）</label>' + projSelectHtml(t, prefill && prefill["关联项目"], prefill && prefill["项目ID"]) + "</div>"
       + '<div class="form-row"><label>优先级</label>' + selectHtml("优先级", v("优先级")) + '<div class="hint">重要且紧急 &gt; 紧急不重要 &gt; 重要不紧急 &gt; 一般，详见设置页说明</div></div>'
       + '<div class="form-row"><label>状态</label>' + selectHtml("状态", v("状态") || (t ? "" : "收集箱")) + "</div>"
       + '<div class="form-row"><label>计划处理日期</label><input type="date" name="f_计划日期" value="' + esc(dateOnly(v("计划日期"))) + '"><div class="hint">只改这里不影响截止日期</div></div>'
@@ -1451,7 +1652,20 @@ a{color:#185FA5;text-decoration:none}
     var props = {};
     props["标题"] = { text: title };
     if (gv("分类")) props["分类"] = { select: selectTextFromValue("分类", gv("分类")) };
-    props["关联项目"] = { text: gv("关联项目") };
+    var projSel = gv("关联项目");
+    if (projSel) {
+      var projObj = findProjectById(String(projSel).trim());
+      if (projObj) {
+        props["项目ID"] = { text: projObj._id };
+        props["关联项目"] = { text: projObj["项目名称"] };
+      } else { /* 兜底选项（项目表中不存在的历史值） */
+        props["项目ID"] = { text: "" };
+        props["关联项目"] = { text: String(projSel) };
+      }
+    } else {
+      props["项目ID"] = { text: "" };
+      props["关联项目"] = { text: "" };
+    }
     if (gv("优先级")) props["优先级"] = { select: selectTextFromValue("优先级", gv("优先级")) };
     var statusVal = selectTextFromValue("状态", gv("状态"));
     props["状态"] = { select: statusVal || "收集箱" };
@@ -1489,12 +1703,37 @@ a{color:#185FA5;text-decoration:none}
       }).then(refreshAll).catch(function (err) { console.error(err); toast("创建失败，请重试"); btn.disabled = false; btn.textContent = "创建任务"; });
     }
   }
-  /* ---------- 计算层：项目统计（按有效关联任务计算，不凭空估算） ---------- */
-  function computeProjectStats(name) {
+  /* ---------- 计算层：项目统计（任务通过稳定 projectId 关联，名称精确匹配兜底） ---------- */
+  function findProjectById(pid) {
+    if (!pid) return null;
+    for (var i = 0; i < STATE.projects.length; i++) if (STATE.projects[i]._id === pid) return STATE.projects[i];
+    return null;
+  }
+  function projNameOf(t) {
+    var p = findProjectById(String(t["项目ID"] || "").trim());
+    if (p) return p["项目名称"];
+    return t["关联项目"] || "";
+  }
+  function taskBelongsToProj(t, p) {
+    if (!p) return false;
+    var pid = String(t["项目ID"] || "").trim();
+    if (pid && pid === p._id) return true;
+    var n = String(t["关联项目"] || "").trim();
+    return !!n && n === String(p["项目名称"] || "").trim();
+  }
+  function computeProjectStats(name, projId) {
     var st = { total: 0, done: 0, overdue: 0, waiting: 0 };
-    if (!name) return st;
+    if (!name && !projId) return st;
+    var p = (projId && findProjectById(projId)) || null;
+    if (!p) {
+      for (var i = 0; i < STATE.projects.length; i++) {
+        if (name && String(STATE.projects[i]["项目名称"] || "").trim() === String(name).trim()) { p = STATE.projects[i]; break; }
+      }
+    }
+    if (!p) return st;
     STATE.tasks.forEach(function (t) {
-      if (t["关联项目"] !== name || isCanceled(t)) return;
+      if (isCanceled(t)) return;
+      if (!taskBelongsToProj(t, p)) return;
       st.total++;
       if (isDone(t)) st.done++;
       if (isOverdue(t)) st.overdue++;
@@ -1503,13 +1742,12 @@ a{color:#185FA5;text-decoration:none}
     return st;
   }
 
-  /* ---------- 渲染层：项目卡片 ---------- */
+  /* ---------- 渲染层：项目卡片（可点击进详情） ---------- */
   function projCardHtml(p, st, isTodayView, compact) {
     var pct = st.total ? Math.round(st.done / st.total * 100) : 0;
     var layerTag = p["工作层级"] ? '<span class="section-tag ' + (p["工作层级"] === "核心工作" ? "tag-core" : "tag-status") + '">' + esc(p["工作层级"]) + "</span>" : "";
-    var h = '<div class="proj-card">'
+    var h = '<div class="proj-card clickable" data-act="detailproj" data-id="' + esc(p._id) + '" title="点击查看项目详情与关联任务">'
       + '<div class="proj-head"><span class="proj-name">' + sampleTag(p) + layerTag + esc(p["项目名称"]) + "</span>"
-      + (isTodayView ? '<button class="btn-mini btn btn-ghost" data-act="editproj" data-id="' + esc(p._id) + '">编辑</button>' : '<button class="btn-mini btn btn-ghost" data-act="editproj" data-id="' + esc(p._id) + '">编辑</button>')
       + (p["当前阶段"] ? '<span class="section-tag tag-p1">当前：' + esc(p["当前阶段"]) + "</span>" : "")
       + (p["阶段目标日期"] && dateOnly(p["阶段目标日期"]) ? '<span class="muted">阶段目标 ' + esc(dateOnly(p["阶段目标日期"])) + "</span>" : "")
       + "</div>";
@@ -1523,8 +1761,50 @@ a{color:#185FA5;text-decoration:none}
       + "<span>等待 " + st.waiting + "</span></div>";
     h += '<div class="progressbar"><div class="fill" style="width:' + pct + '%"></div></div>';
     h += '<div style="display:flex;justify-content:space-between;align-items:center"><span class="muted">' + pct + "% 按已完成任务计算</span>"
-      + '<button class="btn-mini btn btn-ghost" data-act="newtaskproj" data-proj="' + esc(p["项目名称"]) + '">加一条待办</button></div></div>';
+      + '<button class="btn-mini btn btn-ghost" data-act="newtaskproj" data-proj="' + esc(p["项目名称"]) + '" data-projid="' + esc(p._id) + '">加一条待办</button></div></div>';
     return h;
+  }
+  /* ---------- 项目详情弹窗：全字段 + 关联任务列表 ---------- */
+  function openProjDetail(projId) {
+    var p = findProject(projId);
+    if (!p) return;
+    var st = computeProjectStats(p["项目名称"], p._id);
+    var pct = st.total ? Math.round(st.done / st.total * 100) : 0;
+    var tasks = STATE.tasks.filter(function (t) { return !isCanceled(t) && taskBelongsToProj(t, p); });
+    tasks.sort(function (a, b) {
+      var ra = isDone(a) ? 1 : 0, rb = isDone(b) ? 1 : 0;
+      if (ra !== rb) return ra - rb;
+      return byPriority(a, b) || String(dateOnly(a["计划日期"]) || "9999").localeCompare(String(dateOnly(b["计划日期"]) || "9999"));
+    });
+    var rows = "";
+    tasks.forEach(function (t) {
+      var dl = dateOnly(t["截止日期"]);
+      rows += '<div class="today-item">'
+        + '<button class="check' + (isDone(t) ? " done" : "") + '" data-act="complete" data-id="' + esc(t._id) + '" title="完成/取消完成" aria-label="完成切换"></button>'
+        + '<div class="t-main"><div class="t-title">' + prTag(t["优先级"]) + '<span class="section-tag tag-status">' + esc(t["状态"] || "待开始") + "</span>" + esc(t["标题"]) + "</div>"
+        + '<div class="t-meta">' + (dl ? (isOverdue(t) ? '<span style="color:#A32D2D;font-weight:600">逾期（截止 ' + esc(dl) + "）</span>" : "截止 " + esc(dl)) : "无截止") + (t["下一步"] ? " · 下一步：" + esc(t["下一步"]) : "") + "</div></div>"
+        + '<button class="btn-mini btn btn-ghost" data-act="edit" data-id="' + esc(t._id) + '">详情</button></div>';
+    });
+    if (!rows) rows = '<div class="empty-tip">该项目还没有关联任务（在任务里选「关联项目」即自动统计）</div>';
+    var h = '<h3>' + esc(p["项目名称"]) + (p["工作层级"] ? ' <span class="section-tag ' + (p["工作层级"] === "核心工作" ? "tag-core" : "tag-status") + '">' + esc(p["工作层级"]) + "</span>" : "") + "</h3>"
+      + (p["当前阶段"] ? '<div style="font-size:13px;margin:4px 0"><span style="color:#0F6E56;font-weight:600">当前阶段</span>：' + esc(p["当前阶段"]) + (p["阶段目标日期"] && dateOnly(p["阶段目标日期"]) ? ' <span class="muted">（阶段目标 ' + esc(dateOnly(p["阶段目标日期"])) + "）</span>" : "") + "</div>" : "")
+      + (p["目标"] ? '<div style="font-size:13px;margin:4px 0"><span class="muted">目标</span>：' + esc(p["目标"]) + "</div>" : "")
+      + (p["最近进展"] ? '<div style="font-size:13px;margin:4px 0"><span class="muted">最近进展</span>：' + esc(p["最近进展"]) + "</div>" : "")
+      + (p["下一步"] ? '<div style="font-size:13px;margin:4px 0"><span style="color:#0F6E56;font-weight:600">下一步</span>：' + esc(p["下一步"]) + "</div>" : "")
+      + (p["卡点"] && String(p["卡点"]).replace(/\s/g, "") ? '<div style="font-size:13px;margin:4px 0;color:#A32D2D;font-weight:600">卡点：' + esc(p["卡点"]) + "</div>" : "")
+      + '<div class="proj-stats" style="margin:8px 0"><span>关联待办 ' + st.done + "/" + st.total + "</span>"
+      + (st.overdue ? '<span style="color:#A32D2D;font-weight:600">逾期 ' + st.overdue + "</span>" : '<span>逾期 0</span>')
+      + "<span>等待 " + st.waiting + "</span></div>"
+      + '<div class="progressbar"><div class="fill" style="width:' + pct + '%"></div></div>'
+      + '<p class="muted" style="margin:4px 0 0">' + pct + "% 按已完成任务计算（projectId 稳定关联，名称精确匹配兜底）</p>"
+      + '<div class="proj-detail-tasks"><h4 style="margin:6px 0">关联任务（' + tasks.length + "）</h4>" + rows + "</div>"
+      + '<div class="modal-actions">'
+      + '<button class="btn btn-ghost" data-close="1">关闭</button>'
+      + '<button class="btn btn-ghost" id="pdEditBtn">编辑项目</button>'
+      + '<button class="btn btn-primary" id="pdNewTaskBtn">加一条待办</button></div>';
+    openModal(h);
+    $("pdEditBtn").addEventListener("click", function () { openProjModal(p._id); });
+    $("pdNewTaskBtn").addEventListener("click", function () { openTaskModal(null, { "关联项目": p["项目名称"], "项目ID": p._id }); });
   }
   function renderProjects() {
     var order = { "核心工作": 0, "次要工作": 1, "个人成长": 2 };
@@ -1533,7 +1813,7 @@ a{color:#185FA5;text-decoration:none}
     });
     var html = "";
     list.forEach(function (p) {
-      html += projCardHtml(p, computeProjectStats(p["项目名称"]), false);
+      html += projCardHtml(p, computeProjectStats(p["项目名称"], p._id), false, false);
     });
     if (!html) html = '<div class="empty-tip">还没有项目，点右上角「新建项目」开始</div>';
     $("projList").innerHTML = html;
@@ -1618,9 +1898,9 @@ a{color:#185FA5;text-decoration:none}
     var list = STATE.research.filter(function (r) { return q === "all" || r["性质"] === q; });
     list.sort(function (a, b) { return String(b["调研日期"] || "").localeCompare(String(a["调研日期"] || "")); });
     var html = "";
-    list.forEach(function (r) {
+    function researchCardHtml(r) {
       var natureTag = r["性质"] === "已确认需求" ? '<span class="section-tag tag-core">已确认需求</span>' : '<span class="section-tag tag-p2">待验证想法</span>';
-      html += '<div class="card" style="margin-bottom:12px">'
+      return '<div class="card" style="margin-bottom:12px">'
         + '<div class="proj-head" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">' + sampleTag(r) + natureTag
         + '<span style="font-weight:600">' + esc(r["调研对象"] || "（未填对象）") + "</span>"
         + '<span class="muted">' + esc(dateOnly(r["调研日期"]) || "") + (r["关联项目"] ? " · " + esc(r["关联项目"]) : "") + "</span>"
@@ -1634,7 +1914,20 @@ a{color:#185FA5;text-decoration:none}
         + (r["下一步"] ? '<div style="font-size:13px;margin-top:2px"><span style="color:#0F6E56;font-weight:600">下一步</span>：' + esc(r["下一步"]) + "</div>" : "")
         + (r["资料来源"] ? '<div class="muted" style="margin-top:2px">来源：' + esc(r["资料来源"]) + "</div>" : "")
         + "</div>";
-    });
+    }
+    if (q === "all") {
+      /* 全部：按性质分两组，已确认需求在前 */
+      var confirmed = list.filter(function (r) { return r["性质"] === "已确认需求"; });
+      var ideas = list.filter(function (r) { return r["性质"] !== "已确认需求"; });
+      html += '<div class="group-title tg-doing">已确认需求<span class="gcount">' + confirmed.length + " 条</span></div>";
+      confirmed.forEach(function (r) { html += researchCardHtml(r); });
+      if (!confirmed.length) html += '<div class="empty-tip">还没有已确认需求</div>';
+      html += '<div class="group-title tg-todo">待验证想法<span class="gcount">' + ideas.length + " 条</span></div>";
+      ideas.forEach(function (r) { html += researchCardHtml(r); });
+      if (!ideas.length) html += '<div class="empty-tip">还没有待验证想法</div>';
+    } else {
+      list.forEach(function (r) { html += researchCardHtml(r); });
+    }
     if (!html) html = '<div class="empty-tip">还没有调研记录，点右上角「记调研」</div>';
     $("researchList").innerHTML = html;
   }
@@ -2722,13 +3015,49 @@ a{color:#185FA5;text-decoration:none}
   }
 
   /* ---------- 弹窗 ---------- */
+  var modalLastFocus = null;
   function openModal(html) {
+    modalLastFocus = document.activeElement || null;
     $("modalBox").innerHTML = html;
     $("modalMask").classList.add("open");
     var closeBtns = $("modalBox").querySelectorAll("[data-close]");
     for (var i = 0; i < closeBtns.length; i++) closeBtns[i].addEventListener("click", closeModal);
+    /* 打开后自动聚焦第一个表单控件（无表单则聚焦弹窗内第一个按钮） */
+    var firstField = $("modalBox").querySelector("input:not([type=checkbox]),select,textarea");
+    if (firstField) firstField.focus();
+    else {
+      var fb = $("modalBox").querySelector("button");
+      if (fb) fb.focus();
+    }
   }
-  function closeModal() { $("modalMask").classList.remove("open"); $("modalBox").innerHTML = ""; }
+  function closeModal() {
+    $("modalMask").classList.remove("open");
+    $("modalBox").innerHTML = "";
+    /* 关闭后焦点回到触发入口 */
+    if (modalLastFocus && document.contains(modalLastFocus)) {
+      try { modalLastFocus.focus(); } catch (e) {}
+    }
+    modalLastFocus = null;
+  }
+  /* Esc 关闭 + Tab 焦点圈定在弹窗内 */
+  function bindModalKeyboard() {
+    document.addEventListener("keydown", function (e) {
+      if (!$("modalMask") || !$("modalMask").classList.contains("open")) return;
+      if (e.key === "Escape" || e.keyCode === 27) { e.preventDefault(); closeModal(); return; }
+      if (e.key === "Tab" || e.keyCode === 9) {
+        var box = $("modalBox");
+        var f = box.querySelectorAll("button,input,select,textarea,[tabindex]:not([tabindex='-1'])");
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        var inside = box.contains(document.activeElement);
+        if (e.shiftKey) {
+          if (!inside || document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (!inside || document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      }
+    });
+  }
   var confirmCb = null;
   function confirmDialog(msg, cb) {
     confirmCb = cb;
@@ -2985,17 +3314,23 @@ a{color:#185FA5;text-decoration:none}
   function handleCommonAction(act, el) {
     var id = el.getAttribute("data-id");
     if (act === "complete") completeTask(id);
-    else if (act === "go") switchView(el.getAttribute("data-view"));
+    else if (act === "go") navigate(el.getAttribute("data-view"));
     else if (act === "edit") openTaskModal(id);
     else if (act === "focus") toggleFocus(id);
     else if (act === "postpone") postponeTask(id);
     else if (act === "cancel") cancelTask(id);
     else if (act === "split") {
       var t = findTask(id);
-      if (t) openTaskModal(null, { "标题": "（拆分）" + t["标题"], "关联项目": t["关联项目"], "分类": t["分类"], "备注": "由「" + t["标题"] + "」拆分而来" });
+      if (t) openTaskModal(null, { "标题": "（拆分）" + t["标题"], "关联项目": t["关联项目"], "项目ID": String(t["项目ID"] || "").trim(), "分类": t["分类"], "备注": "由「" + t["标题"] + "」拆分而来" });
     }
     else if (act === "editproj") openProjModal(id);
-    else if (act === "newtaskproj") openTaskModal(null, { "关联项目": el.getAttribute("data-proj") });
+    else if (act === "detailproj") openProjDetail(id);
+    else if (act === "newtaskproj") {
+      var pre = { "关联项目": el.getAttribute("data-proj") };
+      var pid = el.getAttribute("data-projid");
+      if (pid) pre["项目ID"] = pid;
+      openTaskModal(null, pre);
+    }
     else if (act === "editresearch") openResearchModal(id);
     else if (act === "research2task") researchToTask(id);
     else if (act === "editnote") openNoteModal(id);
@@ -3013,8 +3348,17 @@ a{color:#185FA5;text-decoration:none}
   }
   function bindEvents() {
     bindNav();
+    bindModalKeyboard();
     bindDelegate("todayHandleList", handleCommonAction);
     bindDelegate("todayFocusList", handleCommonAction);
+    bindDelegate("boardMetrics", function (act, el) {
+      var f = el.getAttribute("data-goto");
+      if (f) navigate("tasks", f);
+    });
+    bindDelegate("boardScopes", function (act, el) {
+      var f = el.getAttribute("data-goto");
+      if (f) navigate("tasks", f);
+    });
     bindDelegate("taskList", handleCommonAction);
     bindDelegate("projList", handleCommonAction);
     bindDelegate("coreProjList", handleCommonAction);
@@ -3032,10 +3376,7 @@ a{color:#185FA5;text-decoration:none}
       var btn = e.target;
       while (btn && btn !== tf && !btn.getAttribute("data-f")) btn = btn.parentNode;
       if (!btn || !btn.getAttribute || !btn.getAttribute("data-f")) return;
-      UI.taskFilter = btn.getAttribute("data-f");
-      var btns = tf.querySelectorAll("button");
-      for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", btns[i] === btn);
-      renderTasks();
+      setTaskFilter(btn.getAttribute("data-f"));
     });
     var rf = $("researchFilters");
     rf.addEventListener("click", function (e) {
@@ -3093,11 +3434,11 @@ a{color:#185FA5;text-decoration:none}
       reloadAndRender();
     });
     $("btnDailyReport").addEventListener("click", function () {
-      switchView("reports");
+      navigate("reports");
       repQuickSet("today");
     });
     $("btnWeeklyReport").addEventListener("click", function () {
-      switchView("reports");
+      navigate("reports");
       repQuickSet("week");
     });
     $("repQuickToday").addEventListener("click", function () { repQuickSet("today"); });
@@ -3147,6 +3488,7 @@ a{color:#185FA5;text-decoration:none}
   }
   function init() {
     bindEvents();
+    applyRoute(); /* 初始 hash：刷新保留当前板块 / 直接访问指定看板 */
     if (!db) {
       setSync("err", "离线模式");
       refreshAll();

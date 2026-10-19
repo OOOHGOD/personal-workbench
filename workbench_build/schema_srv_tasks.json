@@ -217,6 +217,11 @@
    "id": "GLV9i7zd",
    "name": "创建日期",
    "type": "date"
+  },
+  {
+   "id": "tDDfTdkX",
+   "name": "项目ID",
+   "type": "text"
   }
  ],
  "database_id": "l49vCiVLbpktS5cjT0lhIN",

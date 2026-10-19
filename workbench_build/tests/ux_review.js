@@ -176,13 +176,47 @@ async function newPage(ctx) {
     else finding("P1", "日报生成", "领导摘要不应包含学习与申请段");
     await dp.screenshot({ path: path.join(OUT, "d-reports-gen.png") });
 
-    // 申请视图截止卡
+    /* 申请视图截止卡 */
     await dp.locator('.sidenav .navitem[data-view="apply"]').click();
     await dp.waitForTimeout(400);
     const dlText = await dp.locator("#applyDeadlineList").textContent().catch(() => "");
     if (dlText && dlText.indexOf("某大学A") > -1 && dlText.indexOf("剩 5 天") > -1) console.log("OK 申请页临近截止卡含倒计时");
     else finding("P1", "申请截止卡", '截止卡内容异常: "' + String(dlText).slice(0, 60) + '"');
     if (dlText && dlText.indexOf("某大学B") > -1) finding("P2", "申请截止卡", "60 天后的远期申请不应出现在截止卡");
+
+    /* hash 路由专项：直接访问 / 指标跳转 / 前进后退 */
+    await dp.goto(URL + "#/tasks?f=overdue", { waitUntil: "load", timeout: 30000 });
+    await dp.waitForTimeout(1000);
+    if (await dp.locator("#view-tasks.active").count()) console.log("OK 直接访问 #/tasks?f=overdue 打开任务看板");
+    else finding("P1", "hash 路由", "直接访问带筛选的 hash 未打开任务看板");
+    const odChip = await dp.locator('#taskFilters button[data-f="overdue"].active').count();
+    if (odChip) console.log("OK hash 携带的筛选参数已自动应用（逾期 chip 高亮）");
+    else finding("P1", "hash 路由", "hash ?f=overdue 未应用筛选高亮");
+    await dp.goto(URL + "#/today", { waitUntil: "load", timeout: 30000 });
+    await dp.waitForTimeout(800);
+    if (await dp.locator("#view-today.active").count()) console.log("OK 直接访问 #/today 打开今日看板");
+    else finding("P1", "hash 路由", "直接访问 #/today 未打开今日看板");
+    /* 指标点击 → 任务看板 + 筛选 */
+    await dp.locator('#boardMetrics [data-goto="overdue"]').click();
+    await dp.waitForTimeout(600);
+    if (await dp.locator("#view-tasks.active").count() && await dp.locator('#taskFilters button[data-f="overdue"].active').count()) console.log("OK 点「逾期」指标跳任务看板并应用筛选");
+    else finding("P1", "指标联动", "点逾期指标未跳转或未应用筛选");
+    /* 浏览器后退：回到 #/today */
+    await dp.goBack();
+    await dp.waitForTimeout(600);
+    if (await dp.locator("#view-today.active").count()) console.log("OK 浏览器后退恢复今日看板");
+    else finding("P1", "hash 路由", "浏览器后退未恢复上一看板");
+    /* 显隐双保险：非当前视图全部隐藏 */
+    const vis = await dp.evaluate(() => {
+      const shown = [];
+      document.querySelectorAll(".view").forEach(v => {
+        const cs = window.getComputedStyle(v);
+        if (cs.display !== "none") shown.push(v.id);
+      });
+      return shown;
+    });
+    if (vis.length === 1 && vis[0] === "view-today") console.log("OK 主内容区仅显示当前看板（其余完全隐藏）");
+    else finding("P0", "视图显隐", "同时可见的视图: " + vis.join(","));
 
     const realD = errors.filter(e => e.indexOf("net::") === -1 && e.indexOf("favicon") === -1);
     if (realD.length) finding("P0", "控制台", "桌面端有 " + realD.length + " 个 JS 错误：" + realD.slice(0, 3).join(" | ").slice(0, 200));
@@ -226,7 +260,7 @@ async function newPage(ctx) {
     } else finding("P1", "手机底部导航", "未找到底部导航元素");
 
     /* 视图可达性：主按钮直切；抽屉视图需经「更多」抽屉到达 */
-    const DRAWER_VIEWS = ["projects", "research", "notes", "resources", "reports", "settings"];
+    const DRAWER_VIEWS = ["study", "apply", "notes", "resources", "reports", "settings"];
     for (const v of VIEWS.slice(1)) {
       const nav = mp.locator('#bottomnav button[data-view="' + v + '"]');
       if (await nav.count()) {

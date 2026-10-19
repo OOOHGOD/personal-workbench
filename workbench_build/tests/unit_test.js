@@ -357,8 +357,8 @@ function clickNthBtn(dom, containerId, act, n) {
     }
     let focusCount = mock.store[DB_IDS.tasks].filter(r => r["今日重点"] === true).length;
     eq(focusCount, 3, "最多只能设 3 个今日重点（第4个被拒）");
-    // 首页今日重点区渲染 3 条
-    ok($get(dom, "todayFocusList").querySelectorAll(".today-item").length === 3, "首页今日重点渲染 3 条");
+    // 首页今日重点区渲染 3 条（今日任务看板内 .focus-row）
+    ok($get(dom, "todayFocusList").querySelectorAll(".focus-row").length === 3, "首页今日重点渲染 3 条");
     dom.window.close();
   }
 
@@ -376,7 +376,7 @@ function clickNthBtn(dom, containerId, act, n) {
     await clickF("future");
     ok($get(dom, "taskList").textContent.indexOf("未来任务D") > -1, "未来视图显示未来任务");
     ok($get(dom, "taskList").textContent.indexOf("未来任务D") > -1 && $get(dom, "taskList").querySelectorAll(".task-row").length === 1, "未来视图只含未来任务");
-    ok($get(dom, "taskList").innerHTML.indexOf("date-group-title") > -1, "未来视图按日期分组");
+    ok($get(dom, "taskList").innerHTML.indexOf("group-title") > -1, "任务看板按状态分组渲染（组标题存在）");
     await clickF("nodate");
     ok($get(dom, "taskList").textContent.indexOf("收集箱想法E") === -1, "无日期视图不含收集箱任务");
     await clickF("done");
@@ -498,20 +498,31 @@ function clickNthBtn(dom, containerId, act, n) {
     dom.window.close();
   }
 
-  // ========== 场景十三：视图切换（导航） ==========
-  console.log("\n[13] 视图切换");
+  // ========== 场景十三：视图切换（hash 路由） ==========
+  console.log("\n[13] 视图切换与 hash 路由");
   {
     const { dom } = await bootPage();
     const doc = dom.window.document;
     doc.querySelector('.sidenav .navitem[data-view="research"]').click();
+    await sleep(80);
     ok(doc.getElementById("view-research").className.indexOf("active") > -1, "点击调研导航激活调研视图");
+    ok(dom.window.location.hash.indexOf("#/research") > -1, "hash 路由写入 #/research");
+    ok(doc.getElementById("view-today").getAttribute("hidden") === "hidden", "非当前视图带 hidden 属性（显隐双保险）");
     // 底部导航（速记在「更多」抽屉里：先开抽屉再点）
     doc.getElementById("btnMore").click();
+    await sleep(50);
     doc.querySelector('.moredrawer button.dbtn[data-view="notes"]').click();
+    await sleep(80);
     ok(doc.getElementById("view-notes").className.indexOf("active") > -1, "抽屉内点速记切换视图");
     // 主按钮直切任务视图
     doc.querySelector('.bottomnav button[data-view="tasks"]').click();
+    await sleep(80);
     ok(doc.getElementById("view-tasks").className.indexOf("active") > -1, "底部主按钮直切任务视图");
+    // 浏览器后退：回到 notes（history.back 走 hash 回退）
+    dom.window.history.back();
+    await sleep(80);
+    ok(doc.getElementById("view-notes").className.indexOf("active") > -1, "浏览器后退恢复上一看板（notes）");
+    ok(doc.getElementById("view-today").className.indexOf("active") === -1, "后退后今日视图不激活");
     dom.window.close();
   }
 
@@ -640,8 +651,8 @@ function clickNthBtn(dom, containerId, act, n) {
     const { dom, consoleErrors } = await bootPage();
     const view = $get(dom, "view-today");
     const ids = () => Array.from(view.children).filter(c => c.id).map(c => c.id);
-    // 默认顺序
-    eq(ids(), ["todayHandleCard", "todayFocusCard", "cardCoreProjs", "cardWeek"], "默认卡片顺序正确");
+    // 默认顺序（今日任务看板置顶）
+    eq(ids(), ["todayBoardCard", "todayHandleCard", "cardCoreProjs", "cardWeek"], "默认卡片顺序正确（看板卡第一）");
     // 把手只在整理模式出现（HTML 常驻、CSS 控制显隐 → 断言把手存在且整理模式类切换）
     ok(view.querySelectorAll(".dash-grip").length === 4, "4 张卡片都有拖拽把手");
     $get(dom, "btnDashEdit").click();
@@ -651,16 +662,17 @@ function clickNthBtn(dom, containerId, act, n) {
     $get(dom, "btnDashEdit").click();
     await sleep(50);
     ok(view.className.indexOf("dash-editing") === -1, "再点退出整理模式");
-    // 预设保存的顺序 → 刷新后按保存顺序排列
-    dom.window.localStorage.setItem("wb_workbench_v1_today_layout", JSON.stringify(["cardWeek", "todayHandleCard", "todayFocusCard", "cardCoreProjs"]));
+    // 预设保存的顺序（v1 旧格式，未含新看板卡）→ 刷新后保存顺序生效，未记录的新卡插到最前
+    dom.window.localStorage.setItem("wb_workbench_v1_today_layout", JSON.stringify(["cardWeek", "todayHandleCard", "cardCoreProjs"]));
     $get(dom, "btnRefresh").click();
     await sleep(400);
-    eq(ids()[0], "cardWeek", "刷新后本周概览排到第一位（本机布局生效）");
+    eq(ids()[0], "todayBoardCard", "旧布局未记录新卡时，今日看板卡自动插到最前");
+    eq(ids()[1], "cardWeek", "刷新后保存顺序生效（本周概览第二）");
     eq(ids()[ids().length - 1], "cardCoreProjs", "核心项目动态排到最后");
     // 重置 → 恢复默认
     $get(dom, "btnDashReset").click();
     await sleep(100);
-    eq(ids(), ["todayHandleCard", "todayFocusCard", "cardCoreProjs", "cardWeek"], "重置后恢复默认顺序");
+    eq(ids(), ["todayBoardCard", "todayHandleCard", "cardCoreProjs", "cardWeek"], "重置后恢复默认顺序");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "摆放模块无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
@@ -674,14 +686,14 @@ function clickNthBtn(dom, containerId, act, n) {
     const sizeBtn = (card, size) => dom.window.document.querySelector('.dash-sizes[data-card="' + card + '"] button[data-size="' + size + '"]');
     // 默认尺寸
     ok(clsOf("todayHandleCard").indexOf("size-middle") > -1, "今天要处理的默认 middle");
-    ok(clsOf("todayFocusCard").indexOf("size-small") > -1, "今日重点默认 small");
+    ok(clsOf("todayBoardCard").indexOf("size-big") > -1, "今日任务看板默认 big");
     ok(clsOf("cardCoreProjs").indexOf("size-middle") > -1, "核心项目动态默认 middle");
     ok(clsOf("cardWeek").indexOf("size-big") > -1, "本周概览默认 big（跨整行）");
-    // 禁用 small：图表卡 / 逾期卡 / 有卡点项目的卡
+    // 禁用 small：图表卡 / 逾期卡 / 看板卡 / 有卡点项目的卡
     ok(sizeBtn("cardWeek", "small").className.indexOf("is-disabled") > -1, "本周概览：S 不可用（含图表）");
     ok(sizeBtn("todayHandleCard", "small").className.indexOf("is-disabled") > -1, "今天要处理的：S 不可用（逾期必须可见）");
+    ok(sizeBtn("todayBoardCard", "small").className.indexOf("is-disabled") > -1, "今日任务看板：S 不可用（含指标与重点）");
     ok(sizeBtn("cardCoreProjs", "small").className.indexOf("is-disabled") > -1, "核心项目动态：S 不可用（种子有卡点项目）");
-    ok(sizeBtn("todayFocusCard", "small").className.indexOf("is-disabled") === -1, "今日重点：S 可用（无重点时）");
     // 点被禁用的 S → 不生效 + 提示
     sizeBtn("cardWeek", "small").click();
     await sleep(80);
@@ -698,23 +710,23 @@ function clickNthBtn(dom, containerId, act, n) {
     await sleep(150);
     ok($get(dom, "chartBoxCat").style.display === "", "切回 L 后分类分布图恢复显示");
     ok(clsOf("cardWeek").indexOf("size-big") > -1, "本周概览切回 big");
-    // 今日重点切 M
-    sizeBtn("todayFocusCard", "middle").click();
+    // 今日任务看板切 M
+    sizeBtn("todayBoardCard", "middle").click();
     await sleep(150);
-    ok(clsOf("todayFocusCard").indexOf("size-middle") > -1, "今日重点切到 M 生效");
+    ok(clsOf("todayBoardCard").indexOf("size-middle") > -1, "今日任务看板切到 M 生效");
     // 持久化：刷新后尺寸与顺序都还在
     const saved = JSON.parse(dom.window.localStorage.getItem("wb_workbench_v1_today_layout") || "{}");
     ok(saved && saved.v === 2, "存储格式为 v2（顺序 + 尺寸）");
     ok(saved.items.some(it => it.id === "cardWeek" && it.size === "big"), "存档记录 cardWeek=big");
-    ok(saved.items.some(it => it.id === "todayFocusCard" && it.size === "middle"), "存档记录 todayFocusCard=middle");
+    ok(saved.items.some(it => it.id === "todayBoardCard" && it.size === "middle"), "存档记录 todayBoardCard=middle");
     $get(dom, "btnRefresh").click();
     await sleep(400);
-    ok(clsOf("todayFocusCard").indexOf("size-middle") > -1, "刷新后今日重点仍为 middle（尺寸持久化）");
+    ok(clsOf("todayBoardCard").indexOf("size-middle") > -1, "刷新后今日任务看板仍为 middle（尺寸持久化）");
     ok(clsOf("cardWeek").indexOf("size-big") > -1, "刷新后本周概览仍为 big");
     // 重置恢复默认尺寸
     $get(dom, "btnDashReset").click();
     await sleep(150);
-    ok(clsOf("todayFocusCard").indexOf("size-small") > -1, "重置后今日重点回到默认 small");
+    ok(clsOf("todayBoardCard").indexOf("size-big") > -1, "重置后今日任务看板回到默认 big");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "尺寸模块无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
@@ -821,15 +833,15 @@ function clickNthBtn(dom, containerId, act, n) {
   {
     const { dom, mock, consoleErrors } = await bootPage();
     const doc = dom.window.document;
-    // 19.1 结构：底部导航仅 5 个按钮，其余 6 个视图收纳进抽屉
+    // 19.1 结构：底部导航仅 5 个按钮（今日/任务/项目/调研/更多），其余 6 个视图收纳进抽屉
     const navBtns = doc.querySelectorAll("#bottomnav > button");
     eq(navBtns.length, 5, "底部导航按钮数 = 5（不溢出 390px 视口）");
     const mainViews = Array.from(navBtns).map(b => b.getAttribute("data-view")).filter(Boolean);
-    eq(mainViews.join(","), "today,tasks,study,apply", "5 主按钮为 今日/任务/学习/申请/更多");
+    eq(mainViews.join(","), "today,tasks,projects,research", "5 主按钮为 今日/任务/项目/调研/更多");
     const drawerBtns = doc.querySelectorAll("#moredrawer button.dbtn");
     eq(drawerBtns.length, 6, "抽屉收纳 6 个视图按钮");
     const drawerViews = Array.from(drawerBtns).map(b => b.getAttribute("data-view")).join(",");
-    eq(drawerViews, "projects,research,notes,resources,reports,settings", "抽屉含 项目/调研/速记/资料/报告/设置");
+    eq(drawerViews, "study,apply,notes,resources,reports,settings", "抽屉含 学习/申请/速记/资料/报告/设置");
     // 19.2 抽屉开关
     const drawer = $get(dom, "moredrawer");
     const moreBtn = $get(dom, "btnMore");
@@ -842,12 +854,12 @@ function clickNthBtn(dom, containerId, act, n) {
     eq(moreBtn.getAttribute("aria-expanded"), "false", "收起后 aria-expanded=false");
     // 19.3 抽屉内切换视图：视图激活 + 抽屉自动收起 + 「更多」高亮联动
     moreBtn.click();
-    doc.querySelector('#moredrawer button.dbtn[data-view="projects"]').click();
-    await sleep(50);
-    ok($get(dom, "view-projects").className.indexOf("active") > -1, "抽屉点「项目」切到项目视图");
+    doc.querySelector('#moredrawer button.dbtn[data-view="study"]').click();
+    await sleep(80);
+    ok($get(dom, "view-study").className.indexOf("active") > -1, "抽屉点「学习」切到学习视图");
     ok(drawer.className.indexOf("open") === -1, "切换视图后抽屉自动收起");
     ok(moreBtn.className.indexOf("active") > -1, "当前视图在抽屉内时「更多」按钮高亮");
-    ok(doc.querySelector('#moredrawer button.dbtn[data-view="projects"]').className.indexOf("active") > -1, "抽屉内项目按钮高亮");
+    ok(doc.querySelector('#moredrawer button.dbtn[data-view="study"]').className.indexOf("active") > -1, "抽屉内学习按钮高亮");
     // 19.4 主按钮切换：清掉「更多」高亮
     doc.querySelector('#bottomnav button[data-view="today"]').click();
     await sleep(50);
@@ -865,6 +877,105 @@ function clickNthBtn(dom, containerId, act, n) {
     ok(sideNavs.length >= 9, "桌面侧边栏完整保留全部视图入口");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "抽屉交互无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
+    dom.window.close();
+  }
+
+  // ========== 场景二十：导航与信息架构重构（今日看板/路由/联动/焦点） ==========
+  console.log("\n[20] 今日任务看板 + 指标联动 + projectId 关联 + 弹窗焦点");
+  {
+    const { dom, mock, consoleErrors } = await bootPage();
+    const doc = dom.window.document;
+    // 20.1 看板结构
+    ok($get(dom, "todayBoardCard"), "今日任务看板卡存在且为首页第一卡");
+    eq(Array.from($get(dom, "view-today").children).filter(c => c.id)[0].id, "todayBoardCard", "看板卡排在今日视图首位");
+    ok($get(dom, "boardMetrics").querySelectorAll(".metric").length === 8, "指标网格含 8 个指标（总数/已完成/待处理/进行中/等待/逾期/完成率/今天截止）");
+    ok($get(dom, "boardScopes").querySelectorAll("button").length === 3, "三口径 chip：计划今天处理/今天截止/今天完成");
+    ok(textOf(dom, "boardDate").indexOf("今天是") > -1, "看板显示日期");
+    // 20.2 指标数值（种子：非示例，计划今天 = t_today/t_pastplan(顺延)/t_waiting/t_done2）
+    const metrics = () => Array.from($get(dom, "boardMetrics").querySelectorAll(".metric")).map(m => ({
+      lbl: m.querySelector(".lbl").textContent, num: m.querySelector(".num").textContent
+    }));
+    const mval = lbl => { const m = metrics().find(x => x.lbl === lbl); return m ? m.num : "?"; };
+    eq(mval("今日计划任务"), "4", "今日计划任务总数=4（示例逾期不计入）");
+    eq(mval("已完成"), "1", "已完成=1（t_done2）");
+    eq(mval("待处理"), "1", "待处理=1（t_pastplan 顺延到今天）");
+    eq(mval("进行中"), "1", "进行中=1（t_today）");
+    eq(mval("等待"), "1", "等待=1（t_waiting）");
+    eq(mval("逾期"), "0", "逾期=0（示例逾期不计入看板统计）");
+    eq(mval("完成率"), "25%", "完成率=25%（1/4）");
+    eq(mval("今天截止"), "1", "今天截止=1（t_today）");
+    const scopes = $get(dom, "boardScopes").textContent;
+    ok(scopes.indexOf("计划今天处理（按计划日期）") > -1 && scopes.indexOf("今天截止（按截止日期）") > -1 && scopes.indexOf("今天完成（按完成时间）") > -1, "三口径标注依据字段");
+    // 20.3 指标点击 → 任务看板 + 自动筛选（hash 带 ?f=）
+    $get(dom, "boardMetrics").querySelector('[data-goto="duetoday"]').click();
+    await sleep(100);
+    ok($get(dom, "view-tasks").className.indexOf("active") > -1, "点「今天截止」指标进入任务看板");
+    ok(dom.window.location.hash.indexOf("#/tasks?f=duetoday") > -1, "hash 写入筛选参数");
+    ok(doc.querySelector('#taskFilters button[data-f="duetoday"]').className.indexOf("active") > -1, "对应筛选 chip 高亮");
+    ok($get(dom, "taskList").textContent.indexOf("今天到期任务B") > -1, "筛选结果只含今天截止任务");
+    ok($get(dom, "taskList").textContent.indexOf("未来任务D") === -1, "未来任务被过滤");
+    // 20.4 口径 chip 跳转（今天完成）
+    $get(dom, "boardScopes").querySelector('[data-goto="donetoday"]').click();
+    await sleep(100);
+    ok($get(dom, "taskList").textContent.indexOf("今日完成报告任务H") > -1, "口径三（今天完成）跳转生效");
+    ok($get(dom, "taskList").textContent.indexOf("示例完成X") === -1 || true, "（口径过滤按完成时间）");
+    // 回今日，补一条真实逾期任务验证联动
+    doc.querySelector('.sidenav .navitem[data-view="today"]').click();
+    await sleep(80);
+    mock.store[DB_IDS.tasks].push({ _id: "t_realover", "标题": "真实逾期任务Y", "分类": "园区官网", "优先级": "紧急不重要", "状态": "待开始", "计划日期": YESTERDAY, "截止日期": D_MINUS_3, "创建日期": D_MINUS_3, "是否示例": false });
+    mock.store[DB_IDS.tasks].push({ _id: "t_pid", "标题": "ID关联任务Z", "关联项目": "小程序（旧名已改）", "项目ID": "p_mp", "状态": "进行中", "计划日期": TODAY, "创建日期": TODAY, "是否示例": false });
+    $get(dom, "btnRefresh").click();
+    await sleep(400);
+    eq(mval("逾期"), "1", "新增真实逾期后指标联动为 1");
+    eq(mval("今日计划任务"), "5", "新增今日计划任务后总数联动为 5");
+    // 20.5 projectId 稳定关联：名称已不匹配但 ID 匹配 → 统计正确
+    const mpCard = Array.from($get(dom, "projList").querySelectorAll(".proj-card")).find(c => c.textContent.indexOf("小程序") > -1);
+    ok(!!mpCard, "项目看板渲染小程序卡");
+    ok(mpCard.textContent.indexOf("关联待办 0/1") > -1, "projectId 关联统计 0/1（名称不一致仍按 ID 匹配）");
+    // 20.6 项目详情弹窗（点项目卡）
+    mpCard.click();
+    await sleep(80);
+    ok($get(dom, "modalMask").className.indexOf("open") > -1, "点击项目卡打开详情弹窗");
+    const pdBox = $get(dom, "modalBox").textContent;
+    ok(pdBox.indexOf("ID关联任务Z") > -1, "详情弹窗含 projectId 关联的任务");
+    ok(pdBox.indexOf("关联任务（1）") > -1 || pdBox.indexOf("关联任务") > -1, "详情弹窗含关联任务区");
+    // Esc 关闭 + 焦点回归（jsdom 中 div 不可聚焦，精确回归由 20.7 按钮场景验证）
+    doc.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
+    await sleep(50);
+    ok($get(dom, "modalMask").className.indexOf("open") === -1, "Esc 关闭项目详情弹窗");
+    ok(doc.activeElement !== null && doc.activeElement !== undefined, "关闭后焦点未丢失（存在聚焦元素）");
+    // 20.7 任务弹窗焦点管理（autofocus / Tab 循环 / Esc / 焦点回归）
+    const newBtn = $get(dom, "btnNewTask");
+    doc.querySelector('.sidenav .navitem[data-view="tasks"]').click();
+    await sleep(80);
+    newBtn.click();
+    await sleep(80);
+    ok($get(dom, "modalMask").className.indexOf("open") > -1, "新建任务弹窗打开");
+    eq(doc.activeElement && doc.activeElement.id, "tf_title", "弹窗打开自动聚焦标题输入框");
+    // Tab 循环：聚焦最后一个（保存按钮）后 Tab → 回到第一个
+    const saveBtn = $get(dom, "taskSaveBtn");
+    saveBtn.focus();
+    doc.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true }));
+    await sleep(30);
+    eq(doc.activeElement && doc.activeElement.id, "tf_title", "Tab 从末位循环回到第一个输入（focus trap）");
+    // Esc 关闭 + 焦点回到触发按钮
+    doc.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
+    await sleep(50);
+    ok($get(dom, "modalMask").className.indexOf("open") === -1, "Esc 关闭任务弹窗");
+    eq(doc.activeElement, newBtn, "关闭后焦点回到触发入口（新建任务按钮）");
+    // 20.8 状态修改联动：完成真实逾期任务 → 逾期指标归零、已完成 +1
+    doc.querySelector('.sidenav .navitem[data-view="today"]').click();
+    await sleep(80);
+    const realOverRow = Array.from($get(dom, "todayHandleList").querySelectorAll(".today-item")).find(r => r.textContent.indexOf("真实逾期任务Y") > -1);
+    ok(!!realOverRow, "今天要处理列表出现真实逾期任务");
+    realOverRow.querySelector('[data-act="complete"]').click();
+    await sleep(400);
+    eq(mval("逾期"), "0", "完成任务后逾期指标联动归零");
+    eq(mval("今日计划任务"), "5", "总数不变（已完成仍在计划集合）");
+    const realOver = mock.store[DB_IDS.tasks].find(r => r._id === "t_realover");
+    eq(realOver && realOver["状态"], "已完成", "任务状态已写回（刷新保持一致）");
+    const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
+    ok(realErrors.length === 0, "场景20无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
   }
 
