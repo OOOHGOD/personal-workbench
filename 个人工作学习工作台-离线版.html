@@ -155,14 +155,23 @@ a{color:#185FA5;text-decoration:none}
 .notice-list li{margin:6px 0 6px 18px}
 .copy-path{cursor:pointer;color:#185FA5;border-bottom:1px dashed #85B7EB}
 .bottomnav{display:none}
+.moredrawer{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:767px){
   .layout{display:block}
   .sidenav{display:none}
-  .bottomnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.68);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-top:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 -4px 20px rgba(31,45,61,.08);z-index:60;overflow-x:auto;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
-  .bottomnav button{flex:1;min-width:62px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#5F6E7A;padding:6px 2px;min-height:48px;justify-content:center;transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
+  .bottomnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.68);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-top:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 -4px 20px rgba(31,45,61,.08);z-index:60;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+  .bottomnav button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#5F6E7A;padding:6px 2px;min-height:48px;justify-content:center;transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
   .bottomnav button:active{transform:scale(.9)}
   .bottomnav button.active{color:#0F6E56;font-weight:600}
+  /* 「更多」抽屉：收纳项目/调研/速记/资料/报告/设置，解决 10 按钮溢出 */
+  .moredrawer{display:block;position:fixed;left:8px;right:8px;bottom:calc(64px + env(safe-area-inset-bottom));z-index:59;background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.8);border-radius:14px;box-shadow:0 8px 28px rgba(31,45,61,.16);padding:8px;opacity:0;transform:translateY(14px);pointer-events:none;transition:transform .18s ease,opacity .18s ease}
+  .moredrawer.open{opacity:1;transform:translateY(0);pointer-events:auto}
+  .moredrawer .drawer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .moredrawer .drawer-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9AA5AE;padding:2px 8px 6px}
+  .moredrawer .drawer-head button{display:flex;flex-direction:row;min-height:0;font-size:12px;color:#5F6E7A;padding:4px 10px;gap:4px}
+  .moredrawer button.dbtn{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:#5F6E7A;padding:10px 2px;min-height:52px;justify-content:center;border-radius:10px;background:transparent}
+  .moredrawer button.dbtn.active{color:#0F6E56;background:#E1F5EE;font-weight:600}
   .content{padding:12px 12px 92px}
   .form-grid2{grid-template-columns:1fr}
   .capture-bar{top:53px}
@@ -435,15 +444,21 @@ a{color:#185FA5;text-decoration:none}
 <nav class="bottomnav" id="bottomnav">
   <button class="active" data-view="today"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>今日</button>
   <button data-view="tasks"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg>任务</button>
-  <button data-view="projects"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>项目</button>
-  <button data-view="research"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>调研</button>
-  <button data-view="notes"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>速记</button>
-  <button data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
   <button data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>学习</button>
   <button data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>申请</button>
-  <button data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>报告</button>
-  <button data-view="settings"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>设置</button>
+  <button id="btnMore" aria-expanded="false" aria-controls="moredrawer"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>更多</button>
 </nav>
+<div class="moredrawer" id="moredrawer" role="dialog" aria-label="更多视图">
+  <div class="drawer-head"><span>更多视图</span><button id="btnMoreClose"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>收起</button></div>
+  <div class="drawer-grid">
+    <button class="dbtn" data-view="projects"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>项目</button>
+    <button class="dbtn" data-view="research"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>调研</button>
+    <button class="dbtn" data-view="notes"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>速记</button>
+    <button class="dbtn" data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
+    <button class="dbtn" data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>报告</button>
+    <button class="dbtn" data-view="settings"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>设置</button>
+  </div>
+</div>
 <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
 <div id="toast"></div>
 <script>
@@ -963,17 +978,41 @@ a{color:#185FA5;text-decoration:none}
   }
 
   /* ---------- 视图切换 ---------- */
+  /* 抽屉收纳的视图：当前处于这些视图时，底部「更多」按钮高亮 */
+  var DRAWER_VIEWS = { projects: 1, research: 1, notes: 1, resources: 1, reports: 1, settings: 1 };
+  function closeMoreDrawer() {
+    var d = $("moredrawer");
+    if (d) d.classList.remove("open");
+    var m = $("btnMore");
+    if (m) m.setAttribute("aria-expanded", "false");
+  }
+  function toggleMoreDrawer() {
+    var d = $("moredrawer");
+    if (!d) return;
+    if (d.classList.contains("open")) closeMoreDrawer();
+    else {
+      d.classList.add("open");
+      var m2 = $("btnMore");
+      if (m2) m2.setAttribute("aria-expanded", "true");
+    }
+  }
   function switchView(view) {
     var views = document.querySelectorAll(".view");
     for (var i = 0; i < views.length; i++) views[i].classList.remove("active");
     var el = $("view-" + view);
     if (el) el.classList.add("active");
-    var navs = document.querySelectorAll(".sidenav .navitem, .bottomnav button");
+    var navs = document.querySelectorAll(".sidenav .navitem, .bottomnav button, .moredrawer button.dbtn");
     for (var j = 0; j < navs.length; j++) {
       var b = navs[j];
       if (b.getAttribute("data-view") === view) b.classList.add("active");
       else b.classList.remove("active");
     }
+    var more = $("btnMore");
+    if (more) {
+      if (DRAWER_VIEWS[view]) more.classList.add("active");
+      else more.classList.remove("active");
+    }
+    closeMoreDrawer();
     window.scrollTo(0, 0);
   }
 
@@ -995,13 +1034,26 @@ a{color:#185FA5;text-decoration:none}
   }
 
   function bindNav() {
-    var navs = document.querySelectorAll(".sidenav .navitem, .bottomnav button");
+    var navs = document.querySelectorAll(".sidenav .navitem, .bottomnav button, .moredrawer button.dbtn");
     for (var i = 0; i < navs.length; i++) {
       (function (btn) {
         if (!btn.getAttribute("data-view")) return;
         btn.addEventListener("click", function () { switchView(btn.getAttribute("data-view")); });
       })(navs[i]);
     }
+    var more = $("btnMore");
+    if (more) more.addEventListener("click", toggleMoreDrawer);
+    var closeBtn = $("btnMoreClose");
+    if (closeBtn) closeBtn.addEventListener("click", closeMoreDrawer);
+    /* 点击抽屉与导航以外的区域时自动收起抽屉（active 高亮由 switchView 管理） */
+    document.addEventListener("click", function (e) {
+      var d = $("moredrawer");
+      if (!d || !d.classList.contains("open")) return;
+      if (d.contains(e.target)) return;
+      var m = $("btnMore");
+      if (m && m.contains(e.target)) return;
+      closeMoreDrawer();
+    });
   }
 
   /* ---------- 快速记录（一句话 → 收集箱） ---------- */

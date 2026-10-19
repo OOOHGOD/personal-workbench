@@ -505,9 +505,13 @@ function clickNthBtn(dom, containerId, act, n) {
     const doc = dom.window.document;
     doc.querySelector('.sidenav .navitem[data-view="research"]').click();
     ok(doc.getElementById("view-research").className.indexOf("active") > -1, "点击调研导航激活调研视图");
-    // 底部导航
-    doc.querySelector('.bottomnav button[data-view="notes"]').click();
-    ok(doc.getElementById("view-notes").className.indexOf("active") > -1, "底部导航切换速记视图");
+    // 底部导航（速记在「更多」抽屉里：先开抽屉再点）
+    doc.getElementById("btnMore").click();
+    doc.querySelector('.moredrawer button.dbtn[data-view="notes"]').click();
+    ok(doc.getElementById("view-notes").className.indexOf("active") > -1, "抽屉内点速记切换视图");
+    // 主按钮直切任务视图
+    doc.querySelector('.bottomnav button[data-view="tasks"]').click();
+    ok(doc.getElementById("view-tasks").className.indexOf("active") > -1, "底部主按钮直切任务视图");
     dom.window.close();
   }
 
@@ -809,6 +813,58 @@ function clickNthBtn(dom, containerId, act, n) {
     ok(hint.indexOf("真实记录") > -1, "备份提示行渲染（真实记录统计含新表）");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "第3期模块无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
+    dom.window.close();
+  }
+
+  // ========== 场景十九：手机底部导航「更多」抽屉（P0 溢出修复） ==========
+  console.log("\n[19] 底部导航 5 主按钮 + 更多抽屉");
+  {
+    const { dom, mock, consoleErrors } = await bootPage();
+    const doc = dom.window.document;
+    // 19.1 结构：底部导航仅 5 个按钮，其余 6 个视图收纳进抽屉
+    const navBtns = doc.querySelectorAll("#bottomnav > button");
+    eq(navBtns.length, 5, "底部导航按钮数 = 5（不溢出 390px 视口）");
+    const mainViews = Array.from(navBtns).map(b => b.getAttribute("data-view")).filter(Boolean);
+    eq(mainViews.join(","), "today,tasks,study,apply", "5 主按钮为 今日/任务/学习/申请/更多");
+    const drawerBtns = doc.querySelectorAll("#moredrawer button.dbtn");
+    eq(drawerBtns.length, 6, "抽屉收纳 6 个视图按钮");
+    const drawerViews = Array.from(drawerBtns).map(b => b.getAttribute("data-view")).join(",");
+    eq(drawerViews, "projects,research,notes,resources,reports,settings", "抽屉含 项目/调研/速记/资料/报告/设置");
+    // 19.2 抽屉开关
+    const drawer = $get(dom, "moredrawer");
+    const moreBtn = $get(dom, "btnMore");
+    ok(drawer.className.indexOf("open") === -1, "初始抽屉关闭");
+    moreBtn.click();
+    ok(drawer.className.indexOf("open") > -1, "点「更多」打开抽屉");
+    eq(moreBtn.getAttribute("aria-expanded"), "true", "打开后 aria-expanded=true");
+    moreBtn.click();
+    ok(drawer.className.indexOf("open") === -1, "再点「更多」收起抽屉");
+    eq(moreBtn.getAttribute("aria-expanded"), "false", "收起后 aria-expanded=false");
+    // 19.3 抽屉内切换视图：视图激活 + 抽屉自动收起 + 「更多」高亮联动
+    moreBtn.click();
+    doc.querySelector('#moredrawer button.dbtn[data-view="projects"]').click();
+    await sleep(50);
+    ok($get(dom, "view-projects").className.indexOf("active") > -1, "抽屉点「项目」切到项目视图");
+    ok(drawer.className.indexOf("open") === -1, "切换视图后抽屉自动收起");
+    ok(moreBtn.className.indexOf("active") > -1, "当前视图在抽屉内时「更多」按钮高亮");
+    ok(doc.querySelector('#moredrawer button.dbtn[data-view="projects"]').className.indexOf("active") > -1, "抽屉内项目按钮高亮");
+    // 19.4 主按钮切换：清掉「更多」高亮
+    doc.querySelector('#bottomnav button[data-view="today"]').click();
+    await sleep(50);
+    ok($get(dom, "view-today").className.indexOf("active") > -1, "主按钮切回今日视图");
+    ok(moreBtn.className.indexOf("active") === -1, "离开抽屉视图后「更多」取消高亮");
+    // 19.5 收起按钮 + 点外部自动收起
+    moreBtn.click();
+    $get(dom, "btnMoreClose").click();
+    ok(drawer.className.indexOf("open") === -1, "点「收起」关闭抽屉");
+    moreBtn.click();
+    doc.body.click(); // 点空白区域
+    ok(drawer.className.indexOf("open") === -1, "点击抽屉外部区域自动收起");
+    // 19.6 侧边栏（桌面）导航项与抽屉等价可达
+    const sideNavs = doc.querySelectorAll(".sidenav .navitem[data-view]");
+    ok(sideNavs.length >= 9, "桌面侧边栏完整保留全部视图入口");
+    const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
+    ok(realErrors.length === 0, "抽屉交互无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
   }
 
