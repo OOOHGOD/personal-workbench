@@ -1,0 +1,36 @@
+{
+  "title": "工作任务表",
+  "space_id": "njAwuhjNLk8PCccMzYZFvR",
+  "properties": [
+    { "name": "标题", "config": { "text": "" } },
+    { "name": "分类", "config": { "select": { "options": [
+      { "text": "园区官网" }, { "text": "园区小程序" }, { "text": "需求调研" },
+      { "text": "工作流优化" }, { "text": "企微自动化" }, { "text": "日常报告" },
+      { "text": "个人学习" }, { "text": "留学申请" }, { "text": "其他" }
+    ] } } },
+    { "name": "关联项目", "config": { "text": "" } },
+    { "name": "优先级", "config": { "select": { "options": [
+      { "text": "重要且紧急" }, { "text": "重要不紧急" }, { "text": "紧急不重要" }, { "text": "一般" }
+    ] } } },
+    { "name": "状态", "config": { "select": { "options": [
+      { "text": "收集箱" }, { "text": "待开始" }, { "text": "进行中" },
+      { "text": "等待" }, { "text": "已完成" }, { "text": "已取消" }
+    ] } } },
+    { "name": "计划日期", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "截止日期", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "完成时间", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "下一步", "config": { "text": "" } },
+    { "name": "等待谁", "config": { "text": "" } },
+    { "name": "等待事项", "config": { "text": "" } },
+    { "name": "下次跟进", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "顺延次数", "config": { "number": { "decimalPlaces": 0, "useSeparate": false } } },
+    { "name": "原计划日期", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "最近顺延", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "截止调整记录", "config": { "text": "" } },
+    { "name": "备注", "config": { "text": "" } },
+    { "name": "资料链接", "config": { "url": { "text": "", "link": "" } } },
+    { "name": "今日重点", "config": { "checkbox": false } },
+    { "name": "是否示例", "config": { "checkbox": false } },
+    { "name": "创建日期", "config": { "date": "1970-01-01T00:00:00Z" } }
+  ]
+}

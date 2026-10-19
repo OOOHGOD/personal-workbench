@@ -1,0 +1,11 @@
+{
+  "title": "灵感速记表",
+  "space_id": "njAwuhjNLk8PCccMzYZFvR",
+  "properties": [
+    { "name": "正文", "config": { "text": "" } },
+    { "name": "标签", "config": { "text": "" } },
+    { "name": "关联项目", "config": { "text": "" } },
+    { "name": "资料链接", "config": { "url": { "text": "", "link": "" } } },
+    { "name": "是否示例", "config": { "checkbox": false } }
+  ]
+}

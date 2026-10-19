@@ -1,0 +1,17 @@
+# 派生产物：从线上资料库下载下来做校验的副本，不入库
+workbench_build/tests/pub_check/
+
+# 临时检查输出
+workbench_build/dsdk_out.txt
+workbench_build/lint_result.txt
+workbench_build/pq_out.txt
+*.log
+
+# 系统与编辑器垃圾
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/

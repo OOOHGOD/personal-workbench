@@ -1,0 +1,18 @@
+{
+  "title": "项目表",
+  "space_id": "njAwuhjNLk8PCccMzYZFvR",
+  "properties": [
+    { "name": "项目名称", "config": { "text": "" } },
+    { "name": "工作层级", "config": { "select": { "options": [
+      { "text": "核心工作" }, { "text": "次要工作" }, { "text": "个人成长" }
+    ] } } },
+    { "name": "当前阶段", "config": { "text": "" } },
+    { "name": "阶段目标日期", "config": { "date": "1970-01-01T00:00:00Z" } },
+    { "name": "下一步", "config": { "text": "" } },
+    { "name": "卡点", "config": { "text": "" } },
+    { "name": "目标", "config": { "text": "" } },
+    { "name": "最近进展", "config": { "text": "" } },
+    { "name": "资料链接", "config": { "url": { "text": "", "link": "" } } },
+    { "name": "是否示例", "config": { "checkbox": false } }
+  ]
+}

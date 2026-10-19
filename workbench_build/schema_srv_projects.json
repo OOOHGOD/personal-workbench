@@ -1,0 +1,77 @@
+{
+ "database_id": "2klqa8d0rbO47x0FhoVK3W",
+ "space_id": "",
+ "property_count": 10,
+ "properties": [
+  {
+   "id": "3ldgENH2",
+   "name": "项目名称",
+   "type": "text"
+  },
+  {
+   "id": "nVrpYojD",
+   "name": "工作层级",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "of9GaxP5PPEr",
+      "text": "核心工作",
+      "style": 25
+     },
+     {
+      "id": "k9JjlH3DTcaG",
+      "text": "次要工作",
+      "style": 23
+     },
+     {
+      "id": "mJgXdu6TfT8M",
+      "text": "个人成长",
+      "style": 11
+     }
+    ]
+   }
+  },
+  {
+   "id": "YzKBzmxg",
+   "name": "当前阶段",
+   "type": "text"
+  },
+  {
+   "id": "ebLWwSLl",
+   "name": "阶段目标日期",
+   "type": "date"
+  },
+  {
+   "id": "CKGEX4IT",
+   "name": "下一步",
+   "type": "text"
+  },
+  {
+   "id": "Cqw4jtmi",
+   "name": "卡点",
+   "type": "text"
+  },
+  {
+   "id": "xAaJSGX1",
+   "name": "目标",
+   "type": "text"
+  },
+  {
+   "id": "qBKdtP8S",
+   "name": "最近进展",
+   "type": "text"
+  },
+  {
+   "id": "u5o0UxKz",
+   "name": "资料链接",
+   "type": "url"
+  },
+  {
+   "id": "zWFYHRyV",
+   "name": "是否示例",
+   "type": "checkbox"
+  }
+ ],
+ "url": "https://www.workbuddy.cn/space/d/2klqa8d0rbO47x0FhoVK3W"
+}

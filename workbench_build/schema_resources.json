@@ -1,0 +1,12 @@
+{
+  "title": "资料索引表",
+  "space_id": "njAwuhjNLk8PCccMzYZFvR",
+  "properties": [
+    { "name": "名称", "config": { "text": "" } },
+    { "name": "网页链接", "config": { "url": { "text": "", "link": "" } } },
+    { "name": "本地路径", "config": { "text": "" } },
+    { "name": "关联项目", "config": { "text": "" } },
+    { "name": "用途说明", "config": { "text": "" } },
+    { "name": "是否示例", "config": { "checkbox": false } }
+  ]
+}
