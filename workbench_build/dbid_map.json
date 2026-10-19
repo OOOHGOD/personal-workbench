@@ -1,0 +1,47 @@
+{
+  "tasks": {
+    "old_id": "tdNWBhRqvwIKXkz2ji0uyb",
+    "new_id": "l49vCiVLbpktS5cjT0lhIN",
+    "title": "工作任务表"
+  },
+  "projects": {
+    "old_id": "2klqa8d0rbO47x0FhoVK3W",
+    "new_id": "mSz8E9WaHkTvUE5U4Kupz8",
+    "title": "项目表"
+  },
+  "research": {
+    "old_id": "f20RfANYTZAqezxUqZ1ZrJ",
+    "new_id": "phzTOFqvt32Bz7ficmcP2f",
+    "title": "调研记录表"
+  },
+  "notes": {
+    "old_id": "PDFBIwRRZEGd2jfJbGiuY5",
+    "new_id": "mIwePYmB2y60zJIBcic0qQ",
+    "title": "灵感速记表"
+  },
+  "resources": {
+    "old_id": "wBJtimnuDTDrgg2Zaf36ZA",
+    "new_id": "V3oLEwRkEaoYSdEaZCDHFX",
+    "title": "资料索引表"
+  },
+  "reports": {
+    "old_id": "VnPlGp0UnpMluFmFnkTpSz",
+    "new_id": "bvsokQJzsZFP38OtkYXFLA",
+    "title": "报告存档表"
+  },
+  "airecords": {
+    "old_id": "DHd1C9sNJOt2SRa35BKRME",
+    "new_id": "GrSPRzmXmFwLxWJRJB2UKY",
+    "title": "AI工作记录表"
+  },
+  "study": {
+    "old_id": null,
+    "new_id": "sole16fronDUGBPBEHJCIJ",
+    "title": "学习记录表"
+  },
+  "apply": {
+    "old_id": null,
+    "new_id": "PCnEjp2fsObRBZug1Z2DPK",
+    "title": "留学申请表"
+  }
+}
