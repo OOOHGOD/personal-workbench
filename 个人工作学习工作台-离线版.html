@@ -198,7 +198,9 @@ a{color:#185FA5;text-decoration:none}
     <button class="navitem" data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
     <div class="navsep">第 2-4 期模块</div>
     <button class="navitem" data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>日报周报</button>
-    <button class="navitem" disabled style="opacity:.45;cursor:default"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>学习/申请/简历（未上线）</button>
+    <button class="navitem" data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>个人学习</button>
+    <button class="navitem" data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>留学申请</button>
+    <button class="navitem" disabled style="opacity:.45;cursor:default"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>简历月更（第 4 期，未上线）</button>
     <div class="navsep">维护</div>
     <button class="navitem" data-view="settings"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>数据与设置</button>
   </aside>
@@ -215,8 +217,9 @@ a{color:#185FA5;text-decoration:none}
       <div class="card size-middle" id="todayHandleCard">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
         <div class="dash-sizes" data-card="todayHandleCard"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
-        <h2>今天要处理的 <span class="count" id="todayHandleCount" data-sp-bindable="database" data-sp-database-id="tdNWBhRqvwIKXkz2ji0uyb"></span></h2>
+        <h2>今天要处理的 <span class="count" id="todayHandleCount" data-sp-bindable="database" data-sp-database-id="l49vCiVLbpktS5cjT0lhIN"></span></h2>
         <div id="todayHandleList"></div>
+        <div id="todayApplyBox"></div>
       </div>
       <div class="card size-small" id="todayFocusCard">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
@@ -299,6 +302,38 @@ a{color:#185FA5;text-decoration:none}
       <div id="resourceList"></div>
     </section>
 
+    <section class="view" id="view-study">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap">
+        <div class="filters" id="studyFilters" style="margin-bottom:0">
+          <button data-f="all" class="active">全部</button>
+          <button data-f="进行中">进行中</button>
+          <button data-f="未开始">未开始</button>
+          <button data-f="已完成">已完成</button>
+        </div>
+        <span class="muted" id="studyStats"></span>
+        <button class="btn btn-primary btn-mini" id="btnNewStudy">记学习</button>
+      </div>
+      <div id="studyList"></div>
+    </section>
+
+    <section class="view" id="view-apply">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap">
+        <div class="filters" id="applyFilters" style="margin-bottom:0">
+          <button data-f="open" class="active">进行中申请</button>
+          <button data-f="all">全部</button>
+          <button data-f="已录取">已录取</button>
+          <button data-f="已放弃">已放弃</button>
+        </div>
+        <button class="btn btn-primary btn-mini" id="btnNewApply">加申请</button>
+      </div>
+      <div class="card" id="applyDeadlineCard" style="display:none">
+        <h2>临近截止提醒 <span class="count" id="applyDeadlineCount"></span></h2>
+        <p class="muted" style="margin-bottom:8px">14 天内截止（含已逾期）的申请会出现在这里，也会进「今日工作」页的提醒。</p>
+        <div id="applyDeadlineList"></div>
+      </div>
+      <div id="applyList"></div>
+    </section>
+
     <section class="view" id="view-reports">
       <div class="card">
         <h2>生成报告草稿</h2>
@@ -356,7 +391,7 @@ a{color:#185FA5;text-decoration:none}
       </div>
       <div class="card">
         <h2>备份与恢复</h2>
-        <p class="muted" style="margin-bottom:10px">JSON 备份包含任务、项目、调研、速记、资料全部记录及格式版本，导入前可预览，支持合并或替换。</p>
+        <p class="muted" style="margin-bottom:10px">JSON 备份包含任务、项目、调研、速记、资料、报告存档、AI 记录、学习、申请全部记录及格式版本（v3），导入前可预览，支持合并或替换；v2 老备份也能导入（学习/申请按空处理）。</p>
         <div class="shortcut-row">
           <button class="btn btn-primary" id="btnExport">导出 JSON 备份</button>
           <button class="btn btn-ghost" id="btnImport">导入恢复</button>
@@ -390,7 +425,8 @@ a{color:#185FA5;text-decoration:none}
           <li>数据存在云端资料库数据表：手机、电脑登录同一账号打开本页即共用；直接改数据表，页面会自动收到更新。</li>
           <li>离线 HTML 版（可下载）仅支持查看缓存数据，本地新增需通过导出/导入 JSON 与云端合并，暂不支持自动补同步——此能力如实标注为「半自动」。</li>
           <li>日报周报已上线：数据来自任务完成记录 + AI 工作记录（10 秒记一条），自动去重、双版本（自用/领导）、导出真实 .docx 与 Markdown、一键存档云端。</li>
-          <li>个人学习、留学申请、简历月更为第 3-4 期模块，上线后在导航中出现。</li>
+          <li>个人学习与留学申请已上线（第 3 期）：学习记录按「学习日期 + 时长」统计；申请截止日 14 天内自动进「今日工作」提醒；两者只进自用版日报周报，不进领导摘要。</li>
+          <li>简历月更为第 4 期模块（计划用 WorkBuddy 自动化每月 1 日提醒），上线后在导航中出现。</li>
         </ul>
       </div>
     </section>
@@ -403,6 +439,8 @@ a{color:#185FA5;text-decoration:none}
   <button data-view="research"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>调研</button>
   <button data-view="notes"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>速记</button>
   <button data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
+  <button data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>学习</button>
+  <button data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>申请</button>
   <button data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>报告</button>
   <button data-view="settings"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>设置</button>
 </nav>
@@ -411,19 +449,21 @@ a{color:#185FA5;text-decoration:none}
 <script>
 (function () {
   "use strict";
-  var DB_TASKS = "tdNWBhRqvwIKXkz2ji0uyb";
-  var DB_PROJECTS = "2klqa8d0rbO47x0FhoVK3W";
-  var DB_RESEARCH = "f20RfANYTZAqezxUqZ1ZrJ";
-  var DB_NOTES = "PDFBIwRRZEGd2jfJbGiuY5";
-  var DB_RESOURCES = "wBJtimnuDTDrgg2Zaf36ZA";
-  var DB_REPORTS = "VnPlGp0UnpMluFmFnkTpSz";
-  var DB_AI = "DHd1C9sNJOt2SRa35BKRME";
-  var ALL_DBS = [DB_TASKS, DB_PROJECTS, DB_RESEARCH, DB_NOTES, DB_RESOURCES, DB_REPORTS, DB_AI];
+  var DB_TASKS = "l49vCiVLbpktS5cjT0lhIN";
+  var DB_PROJECTS = "mSz8E9WaHkTvUE5U4Kupz8";
+  var DB_RESEARCH = "phzTOFqvt32Bz7ficmcP2f";
+  var DB_NOTES = "mIwePYmB2y60zJIBcic0qQ";
+  var DB_RESOURCES = "V3oLEwRkEaoYSdEaZCDHFX";
+  var DB_REPORTS = "bvsokQJzsZFP38OtkYXFLA";
+  var DB_AI = "GrSPRzmXmFwLxWJRJB2UKY";
+  var DB_STUDY = "sole16fronDUGBPBEHJCIJ";
+  var DB_APPLY = "PCnEjp2fsObRBZug1Z2DPK";
+  var ALL_DBS = [DB_TASKS, DB_PROJECTS, DB_RESEARCH, DB_NOTES, DB_RESOURCES, DB_REPORTS, DB_AI, DB_STUDY, DB_APPLY];
   var db = null;
   try { db = window.__SMART_PAGE__ && window.__SMART_PAGE__.database ? window.__SMART_PAGE__.database : null; } catch (e) { db = null; }
 
-  var STATE = { tasks: [], projects: [], research: [], notes: [], resources: [], reports: [], airecords: [], loaded: false };
-  var UI = { taskFilter: "today", researchFilter: "all", taskSearch: "", noteTagSearch: "" };
+  var STATE = { tasks: [], projects: [], research: [], notes: [], resources: [], reports: [], airecords: [], study: [], apply: [], loaded: false };
+  var UI = { taskFilter: "today", researchFilter: "all", taskSearch: "", noteTagSearch: "", studyFilter: "all", applyFilter: "open" };
   var PRIORITY_ORDER = { "重要且紧急": 0, "紧急不重要": 1, "重要不紧急": 2, "一般": 3 };
   var ACTIVE_STATUS = ["待开始", "进行中", "等待"];
   var LS_KEY = "wb_workbench_v1_";
@@ -483,7 +523,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllTasks(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "l49vCiVLbpktS5cjT0lhIN", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -496,7 +536,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllProjects(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "2klqa8d0rbO47x0FhoVK3W", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -509,7 +549,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllResearch(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "phzTOFqvt32Bz7ficmcP2f", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -522,7 +562,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllNotes(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "mIwePYmB2y60zJIBcic0qQ", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -535,7 +575,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllResources(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -548,7 +588,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllReports(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "bvsokQJzsZFP38OtkYXFLA", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -561,12 +601,38 @@ a{color:#185FA5;text-decoration:none}
   function loadAllAIRecords(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "DHd1C9sNJOt2SRa35BKRME", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
         var next = r.nextCursor;
         if (r.hasMore && next && next !== cursor && rows.length) return loadAllAIRecords(next, acc, guard + 1);
+        return Promise.resolve(acc);
+      })
+      .catch(function (err) { console.error("[database] 加载失败:", err); throw err; });
+  }
+  function loadAllStudy(cursor, acc, guard) {
+    acc = acc || []; guard = guard || 0;
+    if (guard > 100) return Promise.resolve(acc);
+    return db.query({ databaseId: "sole16fronDUGBPBEHJCIJ", pageSize: 200, startCursor: cursor })
+      .then(function (r) {
+        var rows = r.results || [];
+        acc = acc.concat(rows);
+        var next = r.nextCursor;
+        if (r.hasMore && next && next !== cursor && rows.length) return loadAllStudy(next, acc, guard + 1);
+        return Promise.resolve(acc);
+      })
+      .catch(function (err) { console.error("[database] 加载失败:", err); throw err; });
+  }
+  function loadAllApply(cursor, acc, guard) {
+    acc = acc || []; guard = guard || 0;
+    if (guard > 100) return Promise.resolve(acc);
+    return db.query({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", pageSize: 200, startCursor: cursor })
+      .then(function (r) {
+        var rows = r.results || [];
+        acc = acc.concat(rows);
+        var next = r.nextCursor;
+        if (r.hasMore && next && next !== cursor && rows.length) return loadAllApply(next, acc, guard + 1);
         return Promise.resolve(acc);
       })
       .catch(function (err) { console.error("[database] 加载失败:", err); throw err; });
@@ -585,7 +651,9 @@ a{color:#185FA5;text-decoration:none}
       .then(function (rows) { STATE.notes = rows; return loadAllResources(); })
       .then(function (rows) { STATE.resources = rows; return loadAllReports(); })
       .then(function (rows) { STATE.reports = rows; return loadAllAIRecords(); })
-      .then(function (rows) { STATE.airecords = rows;
+      .then(function (rows) { STATE.airecords = rows; return loadAllStudy(); })
+      .then(function (rows) { STATE.study = rows; return loadAllApply(); })
+      .then(function (rows) { STATE.apply = rows;
         STATE.loaded = true;
         setSync("ok", "已同步");
         checkBackupReminder();
@@ -601,13 +669,15 @@ a{color:#185FA5;text-decoration:none}
   function dbAdd(databaseId, properties) {
     setSync("busy", "保存中");
     var p;
-    if (databaseId === DB_TASKS) p = db.addRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", properties: properties });
-    else if (databaseId === DB_PROJECTS) p = db.addRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", properties: properties });
-    else if (databaseId === DB_RESEARCH) p = db.addRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", properties: properties });
-    else if (databaseId === DB_NOTES) p = db.addRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", properties: properties });
-    else if (databaseId === DB_REPORTS) p = db.addRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", properties: properties });
-    else if (databaseId === DB_AI) p = db.addRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", properties: properties });
-    else p = db.addRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", properties: properties });
+    if (databaseId === DB_TASKS) p = db.addRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", properties: properties });
+    else if (databaseId === DB_PROJECTS) p = db.addRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", properties: properties });
+    else if (databaseId === DB_RESEARCH) p = db.addRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", properties: properties });
+    else if (databaseId === DB_NOTES) p = db.addRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", properties: properties });
+    else if (databaseId === DB_REPORTS) p = db.addRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", properties: properties });
+    else if (databaseId === DB_AI) p = db.addRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", properties: properties });
+    else if (databaseId === DB_STUDY) p = db.addRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", properties: properties });
+    else if (databaseId === DB_APPLY) p = db.addRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", properties: properties });
+    else p = db.addRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
       .catch(function (err) { setSync("err", "同步失败"); throw err; });
@@ -615,26 +685,30 @@ a{color:#185FA5;text-decoration:none}
   function dbUpdate(databaseId, recordId, properties) {
     setSync("busy", "保存中");
     var p;
-    if (databaseId === DB_TASKS) p = db.updateRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", recordId: recordId, properties: properties });
-    else if (databaseId === DB_PROJECTS) p = db.updateRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", recordId: recordId, properties: properties });
-    else if (databaseId === DB_RESEARCH) p = db.updateRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", recordId: recordId, properties: properties });
-    else if (databaseId === DB_NOTES) p = db.updateRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", recordId: recordId, properties: properties });
-    else if (databaseId === DB_REPORTS) p = db.updateRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", recordId: recordId, properties: properties });
-    else if (databaseId === DB_AI) p = db.updateRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId, properties: properties });
-    else p = db.updateRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId, properties: properties });
+    if (databaseId === DB_TASKS) p = db.updateRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", recordId: recordId, properties: properties });
+    else if (databaseId === DB_PROJECTS) p = db.updateRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", recordId: recordId, properties: properties });
+    else if (databaseId === DB_RESEARCH) p = db.updateRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", recordId: recordId, properties: properties });
+    else if (databaseId === DB_NOTES) p = db.updateRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", recordId: recordId, properties: properties });
+    else if (databaseId === DB_REPORTS) p = db.updateRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", recordId: recordId, properties: properties });
+    else if (databaseId === DB_AI) p = db.updateRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", recordId: recordId, properties: properties });
+    else if (databaseId === DB_STUDY) p = db.updateRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", recordId: recordId, properties: properties });
+    else if (databaseId === DB_APPLY) p = db.updateRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", recordId: recordId, properties: properties });
+    else p = db.updateRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", recordId: recordId, properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
       .catch(function (err) { setSync("err", "同步失败"); throw err; });
   }
   function dbDelete(databaseId, recordId) {
     var p;
-    if (databaseId === DB_TASKS) p = db.deleteRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", recordId: recordId });
-    else if (databaseId === DB_PROJECTS) p = db.deleteRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", recordId: recordId });
-    else if (databaseId === DB_RESEARCH) p = db.deleteRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", recordId: recordId });
-    else if (databaseId === DB_NOTES) p = db.deleteRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", recordId: recordId });
-    else if (databaseId === DB_REPORTS) p = db.deleteRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", recordId: recordId });
-    else if (databaseId === DB_AI) p = db.deleteRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId });
-    else p = db.deleteRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId });
+    if (databaseId === DB_TASKS) p = db.deleteRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", recordId: recordId });
+    else if (databaseId === DB_PROJECTS) p = db.deleteRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", recordId: recordId });
+    else if (databaseId === DB_RESEARCH) p = db.deleteRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", recordId: recordId });
+    else if (databaseId === DB_NOTES) p = db.deleteRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", recordId: recordId });
+    else if (databaseId === DB_REPORTS) p = db.deleteRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", recordId: recordId });
+    else if (databaseId === DB_AI) p = db.deleteRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", recordId: recordId });
+    else if (databaseId === DB_STUDY) p = db.deleteRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", recordId: recordId });
+    else if (databaseId === DB_APPLY) p = db.deleteRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", recordId: recordId });
+    else p = db.deleteRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", recordId: recordId });
     return p;
   }
 
@@ -913,6 +987,9 @@ a{color:#185FA5;text-decoration:none}
     renderResearch();
     renderNotes();
     renderResources();
+    renderStudy();
+    renderApply();
+    renderTodayApplyBox();
     renderReports();
     renderSettings();
   }
@@ -1248,7 +1325,7 @@ a{color:#185FA5;text-decoration:none}
 
   /* ---------- 任务编辑弹窗 ---------- */
   function selectHtml(field, current) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_TASKS] || {})[field] || [];
     if (!opts.length) return '<input type="text" name="f_' + field + '" value="' + esc(current || "") + '">';
     var h = '<select name="f_' + field + '"><option value="">请选择</option>';
     opts.forEach(function (o) {
@@ -1305,7 +1382,7 @@ a{color:#185FA5;text-decoration:none}
     if (titleEl) titleEl.focus();
   }
   function selectTextFromValue(field, val) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_TASKS] || {})[field] || [];
     for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
     return val;
   }
@@ -1438,7 +1515,7 @@ a{color:#185FA5;text-decoration:none}
     if (nameEl) nameEl.focus();
   }
   function projSelectHtml(field, current) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_PROJECTS] || {})[field] || [];
     if (!opts.length) return '<input type="text" name="p_' + field + '" value="' + esc(current || "") + '">';
     var h = '<select name="p_' + field + '"><option value="">请选择</option>';
     opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
@@ -1449,7 +1526,7 @@ a{color:#185FA5;text-decoration:none}
     return el ? el.value : "";
   }
   function projSelectText(field, val) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_PROJECTS] || {})[field] || [];
     for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
     return val;
   }
@@ -1535,7 +1612,7 @@ a{color:#185FA5;text-decoration:none}
     return '<datalist id="projNames2">' + names.map(function (n) { return "<option value=\"" + n + "\">"; }).join("") + "</datalist>";
   }
   function researchSelectHtml(field, current) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_RESEARCH] || {})[field] || [];
     if (!opts.length) return '<input type="text" name="r_' + field + '" value="' + esc(current || "") + '">';
     var h = '<select name="r_' + field + '">';
     opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
@@ -1546,7 +1623,7 @@ a{color:#185FA5;text-decoration:none}
     return el ? el.value : "";
   }
   function researchSelectText(field, val) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_RESEARCH] || {})[field] || [];
     for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
     return val;
   }
@@ -1748,6 +1825,285 @@ a{color:#185FA5;text-decoration:none}
       document.body.removeChild(ta);
     }
   }
+
+  /* ---------- 个人学习（第 3 期）：默认只进自用报告，不进领导摘要 ---------- */
+  function findStudy(id) {
+    for (var i = 0; i < STATE.study.length; i++) if (STATE.study[i]._id === id) return STATE.study[i];
+    return null;
+  }
+  function renderStudy() {
+    var q = UI.studyFilter;
+    var list = STATE.study.filter(function (s) { return q === "all" || s["进度状态"] === q; });
+    list.sort(function (a, b) { return String(b["学习日期"] || b["计划日期"] || "").localeCompare(String(a["学习日期"] || a["计划日期"] || "")); });
+    var html = "";
+    list.forEach(function (s) {
+      var st = s["进度状态"] || "未开始";
+      var stTag = st === "已完成" ? '<span class="section-tag tag-core">已完成</span>' : (st === "进行中" ? '<span class="section-tag tag-status">进行中</span>' : (st === "暂停" ? '<span class="section-tag tag-p3">暂停</span>' : '<span class="section-tag tag-p2">未开始</span>'));
+      html += '<div class="card" style="margin-bottom:12px">'
+        + '<div class="proj-head" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">' + sampleTag(s) + stTag
+        + '<span style="font-weight:600">' + esc(s["学习主题"] || "（未填主题）") + "</span>"
+        + (s["类型"] ? '<span class="section-tag tag-p1">' + esc(s["类型"]) + "</span>" : "")
+        + '<span class="muted">' + esc(dateOnly(s["学习日期"]) || dateOnly(s["计划日期"]) || "") + (s["时长分钟"] ? " · " + esc(s["时长分钟"]) + " 分钟" : "") + "</span>"
+        + '<span style="flex:1"></span>'
+        + '<button class="btn-mini btn btn-ghost" data-act="editstudy" data-id="' + esc(s._id) + '">编辑</button>'
+        + '<button class="btn-mini btn btn-ghost" data-act="study2task" data-id="' + esc(s._id) + '" title="把这条学习排成今天计划的任务">转任务</button></div>'
+        + (s["笔记"] ? '<div style="font-size:13px;white-space:pre-wrap;word-break:break-all">' + esc(s["笔记"]) + "</div>" : "")
+        + (s["资料链接"] && s["资料链接"].link ? '<div style="font-size:13px;margin-top:2px"><a href="' + esc(s["资料链接"].link) + '" target="_blank" rel="noopener">' + esc(s["资料链接"].text || s["资料链接"].link) + "</a></div>" : "")
+        + "</div>";
+    });
+    if (!html) html = '<div class="empty-tip">还没有学习记录，点右上角「记学习」</div>';
+    $("studyList").innerHTML = html;
+    var real = STATE.study.filter(function (s) { return !s["是否示例"]; });
+    var doneWeek = 0, minsWeek = 0;
+    var mon = mondayOf(todayStr());
+    real.forEach(function (s) {
+      if (s["进度状态"] === "已完成" && inRange(dateOnly(s["学习日期"]), mon, todayStr())) {
+        doneWeek++;
+        minsWeek += Number(s["时长分钟"]) || 0;
+      }
+    });
+    $("studyStats").textContent = real.length ? "本周完成 " + doneWeek + " 条 · 累计 " + minsWeek + " 分钟" : "";
+  }
+  function studySelectHtml(field, current) {
+    var opts = (SCHEMA_OPTIONS[DB_STUDY] || {})[field] || [];
+    if (!opts.length) return '<input type="text" name="sd_' + field + '" value="' + esc(current || "") + '">';
+    var h = '<select name="sd_' + field + '">';
+    opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
+    return h + "</select>";
+  }
+  function sdgv(name) {
+    var el = $("modalBox").querySelector('[name="sd_' + name + '"]');
+    return el ? el.value : "";
+  }
+  function studySelectText(field, val) {
+    var opts = (SCHEMA_OPTIONS[DB_STUDY] || {})[field] || [];
+    for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
+    return val;
+  }
+  function openStudyModal(sid) {
+    var s = sid ? findStudy(sid) : null;
+    var v = function (f) { return s ? (s[f] || "") : ""; };
+    var urlv = s && s["资料链接"] && s["资料链接"].link ? s["资料链接"].link : "";
+    var h = '<h3>' + (s ? "编辑学习记录" : "记一条学习") + "</h3>"
+      + '<div class="form-row"><label>学习主题 *</label><input type="text" name="sd_学习主题" value="' + esc(v("学习主题")) + '" maxlength="120"></div>'
+      + '<div class="form-grid2">'
+      + '<div class="form-row"><label>类型</label>' + studySelectHtml("类型", v("类型") || "技能学习") + "</div>"
+      + '<div class="form-row"><label>进度状态</label>' + studySelectHtml("进度状态", v("进度状态") || "进行中") + "</div>"
+      + '<div class="form-row"><label>计划日期</label><input type="date" name="sd_计划日期" value="' + esc(dateOnly(v("计划日期"))) + '"></div>'
+      + '<div class="form-row"><label>学习日期（实际学了哪天）</label><input type="date" name="sd_学习日期" value="' + esc(dateOnly(v("学习日期")) || todayStr()) + '"></div>'
+      + '<div class="form-row"><label>时长（分钟）</label><input type="number" name="sd_时长分钟" min="0" max="1440" step="5" value="' + esc(v("时长分钟")) + '"></div>'
+      + '<div class="form-row"><label>资料链接</label><input type="text" name="sd_资料链接" value="' + esc(urlv) + '" placeholder="https://…"></div>'
+      + "</div>"
+      + '<div class="form-row"><label>笔记</label><textarea name="sd_笔记" rows="3">' + esc(v("笔记")) + "</textarea></div>"
+      + '<div class="modal-actions"><button class="btn btn-ghost" data-close="1">取消</button><button class="btn btn-primary" id="studySaveBtn">保存</button></div>';
+    openModal(h);
+    $("studySaveBtn").addEventListener("click", function () { saveStudyModal(s ? s._id : null); });
+  }
+  function saveStudyModal(sid) {
+    var topic = String(sdgv("学习主题")).replace(/^\s+|\s+$/g, "");
+    if (!topic) { toast("学习主题必填"); return; }
+    var btn = $("studySaveBtn");
+    btn.disabled = true; btn.textContent = "保存中…";
+    var props = {};
+    props["学习主题"] = { text: topic };
+    props["类型"] = { select: studySelectText("类型", sdgv("类型")) || "技能学习" };
+    props["进度状态"] = { select: studySelectText("进度状态", sdgv("进度状态")) || "进行中" };
+    props["计划日期"] = sdgv("计划日期") ? { date: sdgv("计划日期") } : { date: null };
+    props["学习日期"] = sdgv("学习日期") ? { date: sdgv("学习日期") } : { date: null };
+    props["时长分钟"] = sdgv("时长分钟") !== "" ? { number: Number(sdgv("时长分钟")) || 0 } : { number: null };
+    props["笔记"] = { text: sdgv("笔记") };
+    props["资料链接"] = sdgv("资料链接") ? { url: { text: sdgv("资料链接"), link: sdgv("资料链接") } } : { url: { text: "", link: "" } };
+    var op = sid ? dbUpdate(DB_STUDY, sid, props) : dbAdd(DB_STUDY, props);
+    op.then(function () {
+      toast("已保存");
+      closeModal();
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("保存失败，请重试"); btn.disabled = false; btn.textContent = "保存"; });
+  }
+  function studyToTask(sid) {
+    var s = findStudy(sid); if (!s || !db) return;
+    var props = {};
+    props["标题"] = { text: "学习：" + (s["学习主题"] || "") };
+    props["分类"] = { select: "个人学习" };
+    props["状态"] = { select: "待开始" };
+    props["计划日期"] = { date: todayStr() };
+    props["创建日期"] = { date: todayStr() };
+    props["备注"] = { text: "来自学习记录（" + (s["类型"] || "学习") + "）" };
+    dbAdd(DB_TASKS, props).then(function () {
+      toast("已转成任务（分类：个人学习，今天计划）");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("转任务失败"); });
+  }
+
+  /* ---------- 留学申请（第 3 期）：截止临近进今日提醒；默认不进领导报告 ---------- */
+  var APPLY_OPEN = ["待开始", "材料准备中", "已提交", "面试中"];
+  var APPLY_DEADLINE_WINDOW = 14;
+  function findApply(id) {
+    for (var i = 0; i < STATE.apply.length; i++) if (STATE.apply[i]._id === id) return STATE.apply[i];
+    return null;
+  }
+  function applyTag(st) {
+    if (st === "已录取") return '<span class="section-tag tag-core">已录取</span>';
+    if (st === "已放弃") return '<span class="section-tag tag-p3">已放弃</span>';
+    if (st === "材料准备中") return '<span class="section-tag tag-p1">材料准备中</span>';
+    if (st === "面试中") return '<span class="section-tag tag-p0">面试中</span>';
+    if (st === "已提交") return '<span class="section-tag tag-status">已提交</span>';
+    return '<span class="section-tag tag-p2">待开始</span>';
+  }
+  function deadlineText(deadline) {
+    if (!deadline) return "";
+    var days = daysBetween(todayStr(), deadline); // 正数 = 未来还有 N 天
+    if (days < 0) return "已逾期 " + (-days) + " 天";
+    if (days === 0) return "今天截止！";
+    return "剩 " + days + " 天";
+  }
+  function deadlineHtml(deadline) {
+    var t = deadlineText(deadline);
+    if (!t) return "";
+    if (t.indexOf("逾期") > -1 || t.indexOf("今天截止") > -1) return '<span style="color:#C03E33;font-weight:600">' + t + "</span>";
+    if (t === "剩 1 天" || t === "剩 2 天" || t === "剩 3 天") return '<span style="color:#854F0B;font-weight:600">' + t + "</span>";
+    return t;
+  }
+  function applyNearDeadline() {
+    var today = todayStr(), limit = addDays(today, APPLY_DEADLINE_WINDOW);
+    return STATE.apply.filter(function (a) {
+      if (APPLY_OPEN.indexOf(a["申请状态"]) === -1) return false;
+      var d = dateOnly(a["截止日期"]);
+      return !!d && d <= limit;
+    }).sort(function (a, b) { return String(dateOnly(a["截止日期"])).localeCompare(String(dateOnly(b["截止日期"]))); });
+  }
+  function renderApplyDeadlineList(box, compact) {
+    var list = applyNearDeadline();
+    var html = "";
+    list.forEach(function (a) {
+      html += '<div class="today-item' + (compact ? " compact" : "") + '" style="margin-bottom:6px">'
+        + '<div style="flex:1;min-width:0">'
+        + '<div style="font-weight:600;word-break:break-all">' + sampleTag(a) + esc(a["学校"] || "?") + (a["专业项目"] ? " · " + esc(a["专业项目"]) : "") + "</div>"
+        + '<div class="muted" style="margin-top:2px">截止 ' + esc(dateOnly(a["截止日期"]) || "?") + " · " + deadlineHtml(dateOnly(a["截止日期"])) + (a["下一步"] ? " · 下一步：" + esc(a["下一步"]) : "") + "</div>"
+        + "</div>"
+        + '<button class="btn-mini btn btn-ghost" data-act="go" data-view="apply">去处理</button></div>';
+    });
+    box.innerHTML = html;
+    return list.length;
+  }
+  function renderTodayApplyBox() {
+    var box = $("todayApplyBox");
+    if (!box) return;
+    var n = renderApplyDeadlineList(box, true);
+    box.innerHTML = n ? '<div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(66,82,94,.25)"><div class="muted" style="margin-bottom:4px">留学申请临近截止</div>' + box.innerHTML + "</div>" : "";
+  }
+  function renderApply() {
+    var q = UI.applyFilter;
+    var list = STATE.apply.filter(function (a) {
+      if (q === "all") return true;
+      if (q === "open") return APPLY_OPEN.indexOf(a["申请状态"]) > -1;
+      return a["申请状态"] === q;
+    });
+    list.sort(function (a, b) { return String(dateOnly(a["截止日期"]) || "9999").localeCompare(String(dateOnly(b["截止日期"]) || "9999")); });
+    var html = "";
+    list.forEach(function (a) {
+      var d = dateOnly(a["截止日期"]);
+      html += '<div class="card" style="margin-bottom:12px">'
+        + '<div class="proj-head" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">' + sampleTag(a) + applyTag(a["申请状态"] || "待开始")
+        + '<span style="font-weight:600">' + esc(a["学校"] || "（未填学校）") + "</span>"
+        + (a["专业项目"] ? '<span class="muted">' + esc(a["专业项目"]) + "</span>" : "")
+        + (a["申请轮次"] ? '<span class="section-tag tag-p1">' + esc(a["申请轮次"]) + "</span>" : "")
+        + (d ? '<span>' + deadlineHtml(d) + "</span>" : "")
+        + '<span style="flex:1"></span>'
+        + '<button class="btn-mini btn btn-ghost" data-act="editapply" data-id="' + esc(a._id) + '">编辑</button>'
+        + '<button class="btn-mini btn btn-ghost" data-act="apply2task" data-id="' + esc(a._id) + '" title="把这条申请的下一步排成任务">转任务</button></div>'
+        + (a["材料清单"] ? '<div style="font-size:13px"><span class="muted">材料清单</span>：' + esc(a["材料清单"]) + "</div>" : "")
+        + (a["下一步"] ? '<div style="font-size:13px;margin-top:2px"><span style="color:#0F6E56;font-weight:600">下一步</span>：' + esc(a["下一步"]) + "</div>" : "")
+        + (a["备注"] ? '<div class="muted" style="margin-top:2px">' + esc(a["备注"]) + "</div>" : "")
+        + "</div>";
+    });
+    if (!html) html = '<div class="empty-tip">还没有申请记录，点右上角「加申请」</div>';
+    $("applyList").innerHTML = html;
+    var near = applyNearDeadline();
+    var card = $("applyDeadlineCard");
+    if (near.length) {
+      card.style.display = "";
+      $("applyDeadlineCount").textContent = near.length + " 项";
+      renderApplyDeadlineList($("applyDeadlineList"), false);
+    } else {
+      card.style.display = "none";
+    }
+  }
+  function applySelectHtml(field, current) {
+    var opts = (SCHEMA_OPTIONS[DB_APPLY] || {})[field] || [];
+    if (!opts.length) return '<input type="text" name="ap_' + field + '" value="' + esc(current || "") + '">';
+    var h = '<select name="ap_' + field + '">';
+    opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
+    return h + "</select>";
+  }
+  function apgv(name) {
+    var el = $("modalBox").querySelector('[name="ap_' + name + '"]');
+    return el ? el.value : "";
+  }
+  function applySelectText(field, val) {
+    var opts = (SCHEMA_OPTIONS[DB_APPLY] || {})[field] || [];
+    for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
+    return val;
+  }
+  function openApplyModal(aid) {
+    var a = aid ? findApply(aid) : null;
+    var v = function (f) { return a ? (a[f] || "") : ""; };
+    var h = '<h3>' + (a ? "编辑申请" : "加一条申请") + "</h3>"
+      + '<div class="form-grid2">'
+      + '<div class="form-row"><label>学校 *</label><input type="text" name="ap_学校" value="' + esc(v("学校")) + '" maxlength="80"></div>'
+      + '<div class="form-row"><label>专业项目</label><input type="text" name="ap_专业项目" value="' + esc(v("专业项目")) + '" maxlength="120"></div>'
+      + '<div class="form-row"><label>申请轮次</label>' + applySelectHtml("申请轮次", v("申请轮次") || "第一轮") + "</div>"
+      + '<div class="form-row"><label>截止日期</label><input type="date" name="ap_截止日期" value="' + esc(dateOnly(v("截止日期"))) + '"></div>'
+      + '<div class="form-row"><label>申请状态</label>' + applySelectHtml("申请状态", v("申请状态") || "待开始") + "</div>"
+      + '<div class="form-row"><label>优先级</label>' + applySelectHtml("优先级", v("优先级") || "重要不紧急") + "</div>"
+      + "</div>"
+      + '<div class="form-row"><label>材料清单</label><textarea name="ap_材料清单" rows="2" placeholder="PS、推荐信 x2、成绩单、语言成绩…">' + esc(v("材料清单")) + "</textarea></div>"
+      + '<div class="form-row"><label>下一步</label><input type="text" name="ap_下一步" value="' + esc(v("下一步")) + '" maxlength="200"></div>'
+      + '<div class="form-row"><label>备注</label><input type="text" name="ap_备注" value="' + esc(v("备注")) + '" maxlength="200"></div>'
+      + '<div class="modal-actions"><button class="btn btn-ghost" data-close="1">取消</button><button class="btn btn-primary" id="applySaveBtn">保存</button></div>';
+    openModal(h);
+    $("applySaveBtn").addEventListener("click", function () { saveApplyModal(a ? a._id : null); });
+  }
+  function saveApplyModal(aid) {
+    var school = String(apgv("学校")).replace(/^\s+|\s+$/g, "");
+    if (!school) { toast("学校必填"); return; }
+    var btn = $("applySaveBtn");
+    btn.disabled = true; btn.textContent = "保存中…";
+    var props = {};
+    props["学校"] = { text: school };
+    props["专业项目"] = { text: apgv("专业项目") };
+    props["申请轮次"] = { select: applySelectText("申请轮次", apgv("申请轮次")) || "第一轮" };
+    props["截止日期"] = apgv("截止日期") ? { date: apgv("截止日期") } : { date: null };
+    props["申请状态"] = { select: applySelectText("申请状态", apgv("申请状态")) || "待开始" };
+    props["优先级"] = { select: applySelectText("优先级", apgv("优先级")) || "重要不紧急" };
+    props["材料清单"] = { text: apgv("材料清单") };
+    props["下一步"] = { text: apgv("下一步") };
+    props["备注"] = { text: apgv("备注") };
+    var op = aid ? dbUpdate(DB_APPLY, aid, props) : dbAdd(DB_APPLY, props);
+    op.then(function () {
+      toast("已保存");
+      closeModal();
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("保存失败，请重试"); btn.disabled = false; btn.textContent = "保存"; });
+  }
+  function applyToTask(aid) {
+    var a = findApply(aid); if (!a || !db) return;
+    var title = (a["下一步"] || "").replace(/^\s+|\s+$/g, "");
+    if (!title) { toast("这条申请没有填「下一步」，先补上再转"); return; }
+    var props = {};
+    props["标题"] = { text: title + "（" + (a["学校"] || "申请") + "）" };
+    props["分类"] = { select: "留学申请" };
+    props["状态"] = { select: "待开始" };
+    props["计划日期"] = { date: todayStr() };
+    props["创建日期"] = { date: todayStr() };
+    if (a["截止日期"]) props["截止日期"] = { date: dateOnly(a["截止日期"]) };
+    props["备注"] = { text: "来自留学申请：" + (a["学校"] || "") + (a["专业项目"] ? " " + a["专业项目"] : "") };
+    dbAdd(DB_TASKS, props).then(function () {
+      toast("已转成任务（分类：留学申请，今天计划）");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("转任务失败"); });
+  }
+
   /* ---------- 日报周报：状态与工具 ---------- */
   var REP = { type: "日报", start: "", end: "", dirtySelf: false, dirtyLeader: false };
   function mondayOf(s) {
@@ -1797,7 +2153,18 @@ a{color:#185FA5;text-decoration:none}
       else if (p && p > end && p <= nextEnd) nextWeek.push(t);
     });
     done.sort(function (a, b) { return String(a["完成时间"] || "").localeCompare(String(b["完成时间"] || "")); });
-    return { done: done, newTasks: newTasks, aiUsed: aiUsed, aiDup: aiDup, backlog: backlog, nextWeek: nextWeek };
+    var studyDone = STATE.study.filter(function (s) {
+      return !isSampleRec(s) && s["进度状态"] === "已完成" && inRange(dateOnly(s["学习日期"]), start, end);
+    });
+    var applyActive = STATE.apply.filter(function (a) {
+      if (isSampleRec(a)) return false;
+      if (APPLY_OPEN.indexOf(a["申请状态"]) === -1) return false;
+      var d = dateOnly(a["截止日期"]);
+      return !!d && d <= addDays(end, 14);
+    });
+    var studyMins = 0;
+    studyDone.forEach(function (s) { studyMins += Number(s["时长分钟"]) || 0; });
+    return { done: done, newTasks: newTasks, aiUsed: aiUsed, aiDup: aiDup, backlog: backlog, nextWeek: nextWeek, studyDone: studyDone, studyMins: studyMins, applyActive: applyActive };
   }
   function catDist(list) {
     var m = {}, keys = [];
@@ -1856,9 +2223,17 @@ a{color:#185FA5;text-decoration:none}
       L.push(line); projLines++;
     });
     if (!projLines) L.push("（暂无项目）");
+    L.push("");
+    L.push("## 六、个人学习与留学申请（仅自用版，不进领导摘要）");
+    L.push("- 本期完成学习 " + d.studyDone.length + " 条，累计 " + d.studyMins + " 分钟；");
+    if (d.studyDone.length) d.studyDone.forEach(function (s) { L.push("  - " + s["学习主题"] + "（" + (s["类型"] || "学习") + (s["时长分钟"] ? "，" + s["时长分钟"] + " 分钟" : "") + "）"); });
+    if (d.applyActive.length) {
+      L.push("- 申请进度（14 天内截止或进行中）：");
+      d.applyActive.forEach(function (a) { L.push("  - " + (a["学校"] || "?") + (a["专业项目"] ? " " + a["专业项目"] : "") + "（" + (a["申请状态"] || "待开始") + "，截止 " + dateOnly(a["截止日期"]) + "，" + deadlineText(dateOnly(a["截止日期"])) + "）"); });
+    } else L.push("- 申请：本期无进行中或临期的申请项。");
     if (!isDaily) {
       L.push("");
-      L.push("## 六、下周重点（" + d.nextWeek.length + " 项计划）");
+      L.push("## 七、下周重点（" + d.nextWeek.length + " 项计划）");
       if (d.nextWeek.length) d.nextWeek.sort(byPriority).forEach(function (t) { L.push("- " + t["标题"] + "（计划 " + dateOnly(t["计划日期"]) + "）"); });
       else L.push("（下周暂无已排期任务，建议从「未完成」里挑重点安排）");
     }
@@ -1930,7 +2305,8 @@ a{color:#185FA5;text-decoration:none}
   function updateRepStats(d) {
     $("repStats").textContent = "本期数据：完成任务 " + d.done.length + " · 新增待办 " + d.newTasks.length
       + " · AI 记录 " + d.aiUsed.length + " 条（去重 " + d.aiDup + "）· 未完成 " + d.backlog.length
-      + " · 下周已排期 " + d.nextWeek.length + "（按任务数量统计，非工时）";
+      + " · 下周已排期 " + d.nextWeek.length + " · 学习 " + d.studyDone.length + " 条 / " + d.studyMins + " 分钟（仅自用版）"
+      + "（按任务数量统计，非工时）";
   }
   function repFilename(type, end, ext) {
     return type === "日报" ? (end + "工作日报." + ext) : (weekLabel(end) + "工作周报." + ext);
@@ -2216,7 +2592,7 @@ a{color:#185FA5;text-decoration:none}
     $("reportCount").textContent = "共 " + reps.length + " 份";
   }
   function aiSelectHtml(field, current) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_AI] || {})[field] || [];
     if (!opts.length) return '<input type="text" name="a_' + field + '" value="' + esc(current || "") + '">';
     var h = '<select name="a_' + field + '">';
     opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
@@ -2227,7 +2603,7 @@ a{color:#185FA5;text-decoration:none}
     return el ? el.value : "";
   }
   function aiSelectText(field, val) {
-    var opts = SCHEMA_OPTIONS[field] || [];
+    var opts = (SCHEMA_OPTIONS[DB_AI] || {})[field] || [];
     for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
     return val;
   }
@@ -2343,7 +2719,7 @@ a{color:#185FA5;text-decoration:none}
   /* ---------- 备份提醒（每新增 20 条真实记录且未备份时提醒；示例不计入） ---------- */
   function realRecordCount() {
     var n = 0;
-    ["tasks", "projects", "research", "notes", "resources", "reports", "airecords"].forEach(function (k) {
+    ["tasks", "projects", "research", "notes", "resources", "reports", "airecords", "study", "apply"].forEach(function (k) {
       STATE[k].forEach(function (r) { if (!r["是否示例"]) n++; });
     });
     return n;
@@ -2377,11 +2753,12 @@ a{color:#185FA5;text-decoration:none}
   /* ---------- 导出 JSON 备份 ---------- */
   function exportBackup() {
     var payload = {
-      formatVersion: 2,
+      formatVersion: 3,
       exportedAt: new Date().toISOString(),
       tasks: STATE.tasks, projects: STATE.projects, research: STATE.research,
       notes: STATE.notes, resources: STATE.resources,
-      reports: STATE.reports, airecords: STATE.airecords
+      reports: STATE.reports, airecords: STATE.airecords,
+      study: STATE.study, apply: STATE.apply
     };
     var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     var a = document.createElement("a");
@@ -2406,15 +2783,15 @@ a{color:#185FA5;text-decoration:none}
     reader.onload = function () {
       try {
         var data = JSON.parse(String(reader.result));
-        if (!data || (!data.tasks && !data.projects && !data.research && !data.notes && !data.resources && !data.reports && !data.airecords)) {
+        if (!data || (!data.tasks && !data.projects && !data.research && !data.notes && !data.resources && !data.reports && !data.airecords && !data.study && !data.apply)) {
           toast("文件格式不对：缺少工作台数据");
           return;
         }
         importPayload = data;
-        var cnt = { tasks: (data.tasks || []).length, projects: (data.projects || []).length, research: (data.research || []).length, notes: (data.notes || []).length, resources: (data.resources || []).length, reports: (data.reports || []).length, airecords: (data.airecords || []).length };
+        var cnt = { tasks: (data.tasks || []).length, projects: (data.projects || []).length, research: (data.research || []).length, notes: (data.notes || []).length, resources: (data.resources || []).length, reports: (data.reports || []).length, airecords: (data.airecords || []).length, study: (data.study || []).length, apply: (data.apply || []).length };
         openModal('<h3>导入预览</h3>'
-          + '<p style="font-size:14px;margin-bottom:10px">文件中包含：任务 ' + cnt.tasks + " · 项目 " + cnt.projects + " · 调研 " + cnt.research + " · 速记 " + cnt.notes + " · 资料 " + cnt.resources + " · 报告存档 " + cnt.reports + " · AI记录 " + cnt.airecords + "</p>"
-          + '<p class="muted" style="margin-bottom:10px">合并：跳过已存在的记录（按记录 ID 判断），只新增云端没有的；替换：先删除云端全部记录再写入文件内容（危险）。</p>'
+          + '<p style="font-size:14px;margin-bottom:10px">文件中包含：任务 ' + cnt.tasks + " · 项目 " + cnt.projects + " · 调研 " + cnt.research + " · 速记 " + cnt.notes + " · 资料 " + cnt.resources + " · 报告存档 " + cnt.reports + " · AI记录 " + cnt.airecords + " · 学习 " + cnt.study + " · 申请 " + cnt.apply + "</p>"
+          + '<p class="muted" style="margin-bottom:10px">合并：跳过已存在的记录（按记录 ID 判断），只新增云端没有的；替换：先删除云端全部记录再写入文件内容（危险）。v2 老备份的学习/申请数据为空，可正常导入。</p>'
           + '<div class="form-row"><label>导入方式</label><select id="importMode"><option value="merge">合并（推荐）</option><option value="replace">替换（删云端全部后写入）</option></select></div>'
           + '<div class="modal-actions"><button class="btn btn-ghost" data-close="1">取消</button><button class="btn btn-primary" id="importRunBtn">开始导入</button></div>');
         $("importRunBtn").addEventListener("click", runImport);
@@ -2424,7 +2801,7 @@ a{color:#185FA5;text-decoration:none}
     };
     reader.readAsText(file, "utf-8");
   }
-  var IMPORT_KEYS = [["tasks", DB_TASKS], ["projects", DB_PROJECTS], ["research", DB_RESEARCH], ["notes", DB_NOTES], ["resources", DB_RESOURCES], ["reports", DB_REPORTS], ["airecords", DB_AI]];
+  var IMPORT_KEYS = [["tasks", DB_TASKS], ["projects", DB_PROJECTS], ["research", DB_RESEARCH], ["notes", DB_NOTES], ["resources", DB_RESOURCES], ["reports", DB_REPORTS], ["airecords", DB_AI], ["study", DB_STUDY], ["apply", DB_APPLY]];
   function recordProps(row) {
     var out = {};
     for (var k in row) {
@@ -2481,7 +2858,7 @@ a{color:#185FA5;text-decoration:none}
       }).then(refreshAll).catch(function (err) { console.error(err); toast("导入中断，已完成部分请检查"); });
     };
     if (mode === "replace") {
-      confirmDialog("替换会先删除云端全部任务、项目、调研、速记、资料记录，再写入文件内容，删除不可恢复。确定继续？", doRun);
+      confirmDialog("替换会先删除云端全部 9 张表（任务、项目、调研、速记、资料、报告存档、AI记录、学习、申请）的记录，再写入文件内容，删除不可恢复。确定继续？", doRun);
     } else {
       doRun();
     }
@@ -2507,32 +2884,36 @@ a{color:#185FA5;text-decoration:none}
     });
   }
   /* ---------- 事件绑定与初始化 ---------- */
+  /* SCHEMA_OPTIONS 按表分键：不同表的同名字段（如 AI 表与学习表都有「类型」）选项互不覆盖 */
   var SCHEMA_OPTIONS = {};
+  function readSchemaOpts(schema) {
+    var out = {};
+    (schema.properties || []).forEach(function (f) {
+      if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) out[f.name] = f.config.options;
+    });
+    return out;
+  }
   function fetchSchemas() {
-    return db.getSchema({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb" }).then(function (schema) {
-      (schema.properties || []).forEach(function (f) {
-        if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) SCHEMA_OPTIONS[f.name] = f.config.options;
-      });
-      return db.getSchema({ databaseId: "2klqa8d0rbO47x0FhoVK3W" });
+    return db.getSchema({ databaseId: "l49vCiVLbpktS5cjT0lhIN" }).then(function (schema) {
+      SCHEMA_OPTIONS[DB_TASKS] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8" });
     }).then(function (schema) {
-      (schema.properties || []).forEach(function (f) {
-        if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) SCHEMA_OPTIONS[f.name] = f.config.options;
-      });
-      return db.getSchema({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ" });
+      SCHEMA_OPTIONS[DB_PROJECTS] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "phzTOFqvt32Bz7ficmcP2f" });
     }).then(function (schema) {
-      (schema.properties || []).forEach(function (f) {
-        if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) SCHEMA_OPTIONS[f.name] = f.config.options;
-      });
-      return db.getSchema({ databaseId: "VnPlGp0UnpMluFmFnkTpSz" });
+      SCHEMA_OPTIONS[DB_RESEARCH] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "bvsokQJzsZFP38OtkYXFLA" });
     }).then(function (schema) {
-      (schema.properties || []).forEach(function (f) {
-        if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) SCHEMA_OPTIONS[f.name] = f.config.options;
-      });
-      return db.getSchema({ databaseId: "DHd1C9sNJOt2SRa35BKRME" });
+      SCHEMA_OPTIONS[DB_REPORTS] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY" });
     }).then(function (schema) {
-      (schema.properties || []).forEach(function (f) {
-        if ((f.type === "select" || f.type === "multi_select") && f.config && f.config.options) SCHEMA_OPTIONS[f.name] = f.config.options;
-      });
+      SCHEMA_OPTIONS[DB_AI] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "sole16fronDUGBPBEHJCIJ" });
+    }).then(function (schema) {
+      SCHEMA_OPTIONS[DB_STUDY] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "PCnEjp2fsObRBZug1Z2DPK" });
+    }).then(function (schema) {
+      SCHEMA_OPTIONS[DB_APPLY] = readSchemaOpts(schema);
     }).catch(function (err) { console.error("[database] schema 加载失败:", err); });
   }
   function bindDelegate(containerId, handler) {
@@ -2573,6 +2954,10 @@ a{color:#185FA5;text-decoration:none}
     else if (act === "editai") openAiModal(id);
     else if (act === "openreport") openArchivedReport(id);
     else if (act === "delreport") deleteReport(id);
+    else if (act === "editstudy") openStudyModal(id);
+    else if (act === "study2task") studyToTask(id);
+    else if (act === "editapply") openApplyModal(id);
+    else if (act === "apply2task") applyToTask(id);
   }
   function bindEvents() {
     bindNav();
@@ -2584,6 +2969,10 @@ a{color:#185FA5;text-decoration:none}
     bindDelegate("researchList", handleCommonAction);
     bindDelegate("noteList", handleCommonAction);
     bindDelegate("resourceList", handleCommonAction);
+    bindDelegate("studyList", handleCommonAction);
+    bindDelegate("applyList", handleCommonAction);
+    bindDelegate("applyDeadlineList", handleCommonAction);
+    bindDelegate("todayApplyBox", handleCommonAction);
     bindDelegate("aiList", handleCommonAction);
     bindDelegate("reportList", handleCommonAction);
     var tf = $("taskFilters");
@@ -2606,6 +2995,26 @@ a{color:#185FA5;text-decoration:none}
       for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", btns[i] === btn);
       renderResearch();
     });
+    var sf = $("studyFilters");
+    sf.addEventListener("click", function (e) {
+      var btn = e.target;
+      while (btn && btn !== sf && !btn.getAttribute("data-f")) btn = btn.parentNode;
+      if (!btn || !btn.getAttribute || !btn.getAttribute("data-f")) return;
+      UI.studyFilter = btn.getAttribute("data-f");
+      var btns = sf.querySelectorAll("button");
+      for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", btns[i] === btn);
+      renderStudy();
+    });
+    var af = $("applyFilters");
+    af.addEventListener("click", function (e) {
+      var btn = e.target;
+      while (btn && btn !== af && !btn.getAttribute("data-f")) btn = btn.parentNode;
+      if (!btn || !btn.getAttribute || !btn.getAttribute("data-f")) return;
+      UI.applyFilter = btn.getAttribute("data-f");
+      var btns = af.querySelectorAll("button");
+      for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", btns[i] === btn);
+      renderApply();
+    });
     var searchTimer = null;
     $("taskSearch").addEventListener("input", function (e) {
       clearTimeout(searchTimer);
@@ -2625,6 +3034,8 @@ a{color:#185FA5;text-decoration:none}
     $("btnNewResearch").addEventListener("click", function () { openResearchModal(null); });
     $("btnNewNote").addEventListener("click", function () { openNoteModal(null); });
     $("btnNewResource").addEventListener("click", function () { openResourceModal(null); });
+    $("btnNewStudy").addEventListener("click", function () { openStudyModal(null); });
+    $("btnNewApply").addEventListener("click", function () { openApplyModal(null); });
     $("btnRefresh").addEventListener("click", function () {
       toast("正在刷新…");
       reloadAndRender();

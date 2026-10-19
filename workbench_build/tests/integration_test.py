@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
-"""集成测试：云端 5 张数据表真实 CRUD 回环 + 已发布产物校验 + 页面-数据表关系"""
+"""集成测试：云端 9 张数据表真实 CRUD 回环 + 已发布产物校验 + 页面-数据表关系
+（第3期：新增学习记录表、留学申请表；页面为云重建后的新节点）"""
 import subprocess, json, sys, io, os, tempfile
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 PY = r"C:/Users/DC/.workbuddy/binaries/python/versions/3.13.12/python.exe"
 SKILL = r"C:/Program Files/WorkBuddy/resources/app.asar.unpacked/resources/plugins/workbuddy-builtin/skills/library"
-PAGE = "MwXKAV7BlcR9zZAXXf0p3z"
+PAGE = "Uo1qyjrSZ67qmecuVnAxXU"
 TABLES = {
-    "工作任务表": ("tdNWBhRqvwIKXkz2ji0uyb", {
+    "工作任务表": ("l49vCiVLbpktS5cjT0lhIN", {
         "标题": {"text": "[TEST] 集成测试任务"},
         "分类": {"select": "园区官网"},
         "优先级": {"select": "重要且紧急"},
         "状态": {"select": "待开始"},
-        "计划日期": {"date": "2026-10-14"},
-        "截止日期": {"date": "2026-10-16"},
+        "计划日期": {"date": "2026-10-19"},
+        "截止日期": {"date": "2026-10-21"},
         "是否示例": {"checkbox": False},
     }, [
-        ("状态改为等待", {"状态": {"select": "等待"}, "等待谁": {"text": "[TEST]数据组"}, "下次跟进": {"date": "2026-10-15"}}),
+        ("状态改为等待", {"状态": {"select": "等待"}, "等待谁": {"text": "[TEST]数据组"}, "下次跟进": {"date": "2026-10-20"}}),
         ("date:null 清空截止日期", {"截止日期": {"date": None}}),
     ]),
-    "项目表": ("2klqa8d0rbO47x0FhoVK3W", {
+    "项目表": ("mSz8E9WaHkTvUE5U4Kupz8", {
         "项目名称": {"text": "[TEST] 集成测试项目"},
         "工作层级": {"select": "核心工作"},
         "当前阶段": {"text": "需求"},
@@ -26,22 +27,22 @@ TABLES = {
     }, [
         ("更新卡点", {"卡点": {"text": "[TEST]等数据"}, "下一步": {"text": "[TEST]催一下"}}),
     ]),
-    "调研记录表": ("f20RfANYTZAqezxUqZ1ZrJ", {
+    "调研记录表": ("phzTOFqvt32Bz7ficmcP2f", {
         "调研对象": {"text": "[TEST] 测试部门"},
         "性质": {"select": "待验证想法"},
-        "调研日期": {"date": "2026-10-14"},
+        "调研日期": {"date": "2026-10-19"},
         "是否示例": {"checkbox": False},
     }, [
         ("改性质为已确认需求", {"性质": {"select": "已确认需求"}, "初步结论": {"text": "[TEST]结论"}}),
     ]),
-    "灵感速记表": ("PDFBIwRRZEGd2jfJbGiuY5", {
+    "灵感速记表": ("mIwePYmB2y60zJIBcic0qQ", {
         "正文": {"text": "[TEST] 集成测试速记"},
         "标签": {"text": "测试"},
         "是否示例": {"checkbox": False},
     }, [
         ("更新标签", {"标签": {"text": "测试,集成"}}),
     ]),
-    "资料索引表": ("wBJtimnuDTDrgg2Zaf36ZA", {
+    "资料索引表": ("V3oLEwRkEaoYSdEaZCDHFX", {
         "名称": {"text": "[TEST] 集成测试资料"},
         "网页链接": {"url": {"text": "WorkBuddy", "link": "https://www.workbuddy.cn"}},
         "本地路径": {"text": "C:\\test\\[TEST].md"},
@@ -49,11 +50,11 @@ TABLES = {
     }, [
         ("更新用途", {"用途说明": {"text": "[TEST]验证写入"}}),
     ]),
-    "报告存档表": ("VnPlGp0UnpMluFmFnkTpSz", {
+    "报告存档表": ("bvsokQJzsZFP38OtkYXFLA", {
         "报告类型": {"select": "日报"},
-        "起始日期": {"date": "2026-10-14"},
-        "结束日期": {"date": "2026-10-14"},
-        "生成时间": {"date": "2026-10-14"},
+        "起始日期": {"date": "2026-10-19"},
+        "结束日期": {"date": "2026-10-19"},
+        "生成时间": {"date": "2026-10-19"},
         "自用记录": {"text": "[TEST] 自用记录草稿"},
         "领导摘要": {"text": "[TEST] 领导摘要草稿"},
         "是否示例": {"checkbox": False},
@@ -61,8 +62,8 @@ TABLES = {
         ("改为周报并更新摘要", {"报告类型": {"select": "周报"}, "领导摘要": {"text": "[TEST] 周报摘要"}}),
         ("date:null 清空起始日期", {"起始日期": {"date": None}}),
     ]),
-    "AI工作记录表": ("DHd1C9sNJOt2SRa35BKRME", {
-        "日期": {"date": "2026-10-14"},
+    "AI工作记录表": ("GrSPRzmXmFwLxWJRJB2UKY", {
+        "日期": {"date": "2026-10-19"},
         "来源": {"select": "WorkBuddy"},
         "类型": {"select": "产出物"},
         "主题": {"text": "[TEST] 集成测试AI记录"},
@@ -71,6 +72,30 @@ TABLES = {
         "是否示例": {"checkbox": False},
     }, [
         ("改类型为尝试失败", {"类型": {"select": "尝试失败"}}),
+    ]),
+    "学习记录表": ("sole16fronDUGBPBEHJCIJ", {
+        "学习主题": {"text": "[TEST] 集成测试学习"},
+        "类型": {"select": "技能学习"},
+        "进度状态": {"select": "进行中"},
+        "计划日期": {"date": "2026-10-19"},
+        "学习日期": {"date": "2026-10-19"},
+        "时长分钟": {"number": 30},
+        "是否示例": {"checkbox": False},
+    }, [
+        ("改进度为已完成", {"进度状态": {"select": "已完成"}, "笔记": {"text": "[TEST]学完了"}}),
+        ("date:null 清空计划日期", {"计划日期": {"date": None}}),
+    ]),
+    "留学申请表": ("PCnEjp2fsObRBZug1Z2DPK", {
+        "学校": {"text": "[TEST] 集成测试大学"},
+        "专业项目": {"text": "计算机"},
+        "申请轮次": {"select": "第一轮"},
+        "截止日期": {"date": "2026-11-01"},
+        "申请状态": {"select": "材料准备中"},
+        "优先级": {"select": "重要且紧急"},
+        "是否示例": {"checkbox": False},
+    }, [
+        ("改申请状态为已提交", {"申请状态": {"select": "已提交"}, "下一步": {"text": "[TEST]等结果"}}),
+        ("date:null 清空截止日期", {"截止日期": {"date": None}}),
     ]),
 }
 
@@ -92,7 +117,7 @@ def run(script, *args):
 def space_api(api, *args):
     return subprocess.run([PY, SKILL + "/space_api.py", api] + list(args), capture_output=True, text=True, encoding="utf-8").stdout.strip()
 
-print("[A] 云端 CRUD 回环（7 张表）")
+print("[A] 云端 CRUD 回环（9 张表）")
 created = []
 for tname, (dbid, add_props, updates) in TABLES.items():
     print("-- " + tname)
@@ -122,7 +147,7 @@ for tname, (dbid, add_props, updates) in TABLES.items():
         for k, pv in upd.items():
             expect = pv[list(pv.keys())[0]]
             actual = f2.get(k)
-            if k in ("状态", "性质", "优先级", "分类", "工作层级", "报告类型", "来源", "类型"):
+            if k in ("状态", "性质", "优先级", "分类", "工作层级", "报告类型", "来源", "类型", "进度状态", "申请轮次", "申请状态"):
                 actual = actual if isinstance(actual, str) else (actual or {}).get("text") if isinstance(actual, dict) else actual
             if expect is None:
                 ok(actual is None, tname + "：" + label + " 字段 " + k + " 已清空(实际=%r)" % actual)
@@ -142,9 +167,9 @@ print("\n[B] 页面-数据表绑定关系")
 r = space_api("space.workspace.node-info", "--node-id", PAGE)
 node = json.loads(r)["data"]["node"]
 ok(node["kind"] == "web", "页面节点存在且为 web 类型")
-ok(len(node.get("nodes", [])) == 7, "页面下挂 7 张子数据表（实际 %d）" % len(node.get("nodes", [])))
+ok(len(node.get("nodes", [])) == 9, "页面下挂 9 张子数据表（实际 %d）" % len(node.get("nodes", [])))
 rel = json.loads(run("page/page_database_relation.py", "--action", "list", "--page-id", PAGE))
-ok(len(rel["data"]["relations"]) == 7, "页面绑定关系 7 条")
+ok(len(rel["data"]["relations"]) == 9, "页面绑定关系 9 条")
 
 print("\n[C] 已发布产物校验")
 work = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pub_check")
@@ -155,10 +180,16 @@ if r.startswith("KS_ARTIFACTS_OK"):
     entry = json.loads(r[len("KS_ARTIFACTS_OK"):])["entry_html"]
     html = open(os.path.join(work, entry), encoding="utf-8").read()
     ok("__SMART_PAGE__" in html, "发布产物含 SDK 注入点")
-    ok(html.count('"tdNWBhRqvwIKXkz2ji0uyb"') >= 3, "发布产物含任务表 databaseId 字面量")
-    ok(html.count('"VnPlGp0UnpMluFmFnkTpSz"') >= 3, "发布产物含报告存档表 databaseId 字面量")
-    ok(html.count('"DHd1C9sNJOt2SRa35BKRME"') >= 3, "发布产物含 AI 工作记录表 databaseId 字面量")
+    ok(html.count('"l49vCiVLbpktS5cjT0lhIN"') >= 3, "发布产物含任务表 databaseId 字面量")
+    ok(html.count('"bvsokQJzsZFP38OtkYXFLA"') >= 3, "发布产物含报告存档表 databaseId 字面量")
+    ok(html.count('"GrSPRzmXmFwLxWJRJB2UKY"') >= 3, "发布产物含 AI 工作记录表 databaseId 字面量")
+    ok(html.count('"sole16fronDUGBPBEHJCIJ"') >= 3, "发布产物含学习记录表 databaseId 字面量")
+    ok(html.count('"PCnEjp2fsObRBZug1Z2DPK"') >= 3, "发布产物含留学申请表 databaseId 字面量")
     ok("view-reports" in html and 'data-view="reports"' in html, "发布产物含报告视图与导航入口")
+    ok("view-study" in html and 'data-view="study"' in html, "发布产物含学习视图与导航入口")
+    ok("view-apply" in html and 'data-view="apply"' in html, "发布产物含申请视图与导航入口")
+    ok("todayApplyBox" in html and "renderTodayApplyBox" in html, "发布产物含今日申请截止提醒")
+    ok("个人学习与留学申请" in html, "发布产物含自用版学习/申请报告段")
     ok("buildDocx" in html and "crc32" in html, "发布产物含纯 JS docx 生成器")
     ok("generateReport" in html, "发布产物含报告草稿生成逻辑")
     ok("refreshAll" in html and "function refreshAll" in html, "发布产物含修复后的 refreshAll")
@@ -166,14 +197,19 @@ if r.startswith("KS_ARTIFACTS_OK"):
     ok("onUpdated" in html, "发布产物含双向同步订阅")
 
 print("\n[D] 示例数据完整性（页面首屏数据来源）")
-r = json.loads(run("database/query_database_record.py", "--database-id", "tdNWBhRqvwIKXkz2ji0uyb"))
+r = json.loads(run("database/query_database_record.py", "--database-id", "l49vCiVLbpktS5cjT0lhIN"))
 sample_tasks = [x for x in r["results"] if x.get("是否示例")]
 real_tasks = [x for x in r["results"] if not x.get("是否示例")]
 ok(len(sample_tasks) == 5, "任务表 5 条示例数据（实际 %d）" % len(sample_tasks))
 ok(len(real_tasks) == 0, "任务表无残留真实/测试数据")
-overdue_sample = [x for x in sample_tasks if x.get("截止日期") and str(x["截止日期"])[:10] < "2026-10-14"]
+overdue_sample = [x for x in sample_tasks if x.get("截止日期") and str(x["截止日期"])[:10] < "2026-10-19"]
 ok(len(overdue_sample) == 1, "示例含 1 条逾期任务")
 ok(any(x.get("今日重点") for x in sample_tasks), "示例含今日重点任务")
+r = json.loads(run("database/query_database_record.py", "--database-id", "sole16fronDUGBPBEHJCIJ"))
+ok(len([x for x in r["results"] if x.get("是否示例")]) == 2, "学习表 2 条示例数据")
+r = json.loads(run("database/query_database_record.py", "--database-id", "PCnEjp2fsObRBZug1Z2DPK"))
+sample_apply = [x for x in r["results"] if x.get("是否示例")]
+ok(len(sample_apply) == 2, "申请表 2 条示例数据（其中 1 条临期演示截止提醒）")
 
 print("\n========================")
 print("集成测试结果：PASS %d / FAIL %d" % (passed, len(failed)))
