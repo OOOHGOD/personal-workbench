@@ -1,0 +1,77 @@
+{
+ "id": "f20RfANYTZAqezxUqZ1ZrJ",
+ "title": "research",
+ "properties": [
+  {
+   "id": "y1fC8ufU",
+   "name": "调研对象",
+   "type": "text"
+  },
+  {
+   "id": "cLDXtRpu",
+   "name": "调研日期",
+   "type": "date"
+  },
+  {
+   "id": "LmIXCUdI",
+   "name": "关联项目",
+   "type": "text"
+  },
+  {
+   "id": "8egsxwQj",
+   "name": "性质",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "CifvAilDxIgP",
+      "text": "已确认需求",
+      "style": 23
+     },
+     {
+      "id": "jVbNM6xr252q",
+      "text": "待验证想法",
+      "style": 14
+     }
+    ]
+   }
+  },
+  {
+   "id": "r31MMIFF",
+   "name": "真实问题或场景",
+   "type": "text"
+  },
+  {
+   "id": "nY1Zu83y",
+   "name": "期望效果",
+   "type": "text"
+  },
+  {
+   "id": "x09FVScK",
+   "name": "初步结论",
+   "type": "text"
+  },
+  {
+   "id": "bUnkhAXY",
+   "name": "待确认事项",
+   "type": "text"
+  },
+  {
+   "id": "ywozsw81",
+   "name": "下一步",
+   "type": "text"
+  },
+  {
+   "id": "auUTZriY",
+   "name": "资料来源",
+   "type": "text"
+  },
+  {
+   "id": "RI2vMxmR",
+   "name": "是否示例",
+   "type": "checkbox"
+  }
+ ],
+ "database_id": "f20RfANYTZAqezxUqZ1ZrJ",
+ "space_id": ""
+}

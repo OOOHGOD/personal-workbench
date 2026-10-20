@@ -22,9 +22,9 @@ const TODAY = todayStr();
 
 // ---------- mock SDK 种子数据（与单测一致口径） ----------
 const DB = {
-  tasks: "l49vCiVLbpktS5cjT0lhIN", projects: "mSz8E9WaHkTvUE5U4Kupz8", research: "phzTOFqvt32Bz7ficmcP2f",
-  notes: "mIwePYmB2y60zJIBcic0qQ", resources: "V3oLEwRkEaoYSdEaZCDHFX", reports: "bvsokQJzsZFP38OtkYXFLA",
-  airecords: "GrSPRzmXmFwLxWJRJB2UKY", study: "sole16fronDUGBPBEHJCIJ", apply: "PCnEjp2fsObRBZug1Z2DPK",
+  tasks: "tdNWBhRqvwIKXkz2ji0uyb", projects: "2klqa8d0rbO47x0FhoVK3W", research: "f20RfANYTZAqezxUqZ1ZrJ",
+  notes: "PDFBIwRRZEGd2jfJbGiuY5", resources: "wBJtimnuDTDrgg2Zaf36ZA", reports: "VnPlGp0UnpMluFmFnkTpSz",
+  airecords: "DHd1C9sNJOt2SRa35BKRME", study: "xY6fAaJczfGY0gTkdYeZwu", apply: "SE9AvDWGnB1YBZd6hrFdry",
 };
 const STORE = {};
 STORE[DB.tasks] = [

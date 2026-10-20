@@ -22,8 +22,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:
 input,select,textarea{font-family:inherit;font-size:16px;border:1px solid rgba(213,219,225,.85);border-radius:8px;padding:8px 12px;background:rgba(255,255,255,.72);color:#2A333C;width:100%}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#0F6E56;background:rgba(255,255,255,.9)}
 a{color:#185FA5;text-decoration:none}
-.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.6);backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid rgba(255,255,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.25),0 2px 16px rgba(31,45,61,.07);padding:10px 16px}
-.topbar h1{font-size:16px;font-weight:600;color:#0F6E56;flex:1}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.62);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border-bottom:.5px solid rgba(15,23,30,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 16px rgba(31,45,61,.06);padding:10px 16px}
+.topbar h1{font-size:16px;font-weight:600;letter-spacing:-.011em;color:#0F6E56;flex:1}
 .iconbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:#5F6E7A}
 .iconbtn:hover{background:rgba(255,255,255,.75);color:#0F6E56;box-shadow:inset 0 1px 0 rgba(255,255,255,.95)}
 .sync-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#5F6E7A;background:rgba(255,255,255,.55);backdrop-filter:blur(8px) saturate(1.4);-webkit-backdrop-filter:blur(8px) saturate(1.4);border:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.85);border-radius:999px;padding:4px 12px;white-space:nowrap}
@@ -32,23 +32,34 @@ a{color:#185FA5;text-decoration:none}
 .sync-pill.busy .dot{background:#EF9F27}
 .sync-pill.err .dot{background:#E24B4A}
 .layout{display:flex;min-height:calc(100vh - 57px)}
-.sidenav{width:196px;flex-shrink:0;background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-right:1px solid rgba(255,255,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.8);padding:12px 8px;display:flex;flex-direction:column;gap:2px}
+.sidenav{width:196px;flex-shrink:0;background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border-right:.5px solid rgba(15,23,30,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.8);padding:12px 8px;display:flex;flex-direction:column;gap:2px}
 .sidenav .navitem{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#42525E;font-size:14px;text-align:left;width:100%}
 .sidenav .navitem:hover{background:rgba(255,255,255,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
 .sidenav .navitem.active{background:#E1F5EE;color:#0F6E56;font-weight:600}
 .sidenav .navitem svg{flex-shrink:0}
 .sidenav .navsep{font-size:11px;color:#9AA5AE;padding:12px 12px 4px}
-.content{flex:1;min-width:0;padding:16px 20px 90px;max-width:1080px}
+.content{flex:1;min-width:0;padding:24px 24px 96px;max-width:1360px;margin:0 auto;width:100%}
 .view{display:none}
 .view.active{display:block}
 /* iCloud 式小组件面板（今日工作） */
-#view-today{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start;grid-auto-flow:row dense}
+/* Bento Grid（便当盒）：12 列网格，大/中/小卡按内容量占 8/4/3 列，dense 自动补洞 */
+#view-today{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start;grid-auto-flow:row dense}
 #view-today .card{margin-bottom:0}
 #view-today .dash-head{grid-column:1/-1;display:flex;justify-content:flex-end;align-items:center;margin-bottom:0}
-/* 三档尺寸：small 紧凑 / middle 标准 / big 跨整行 */
-#view-today .card.size-small{grid-column:span 1}
-#view-today .card.size-middle{grid-column:span 1}
-#view-today .card.size-big{grid-column:1/-1}
+/* 三档尺寸：small 1/4 宽 / middle 1/3 宽 / big 2/3 宽（默认今日看板 8 + 待处理 4、项目 4 + 本周 8 整齐满行） */
+#view-today .card.size-small{grid-column:span 3}
+#view-today .card.size-middle{grid-column:span 4}
+#view-today .card.size-big{grid-column:span 8}
+/* 中屏（平板/小窗）：收敛为 6 列，大卡占整行，中小卡半宽 */
+@media (min-width:768px) and (max-width:1199px){
+  #view-today{grid-template-columns:repeat(6,1fr)}
+  #view-today .card.size-small,#view-today .card.size-middle{grid-column:span 3}
+  #view-today .card.size-big{grid-column:span 6}
+  #view-today .dash-ph,#view-today .dash-ph.is-middle{grid-column:span 3}
+  #view-today .dash-ph.is-big{grid-column:span 6}
+}
+/* 超宽屏：内容限宽，避免卡片被拉得过长 */
+@media (min-width:2000px){.content{max-width:1520px}}
 #view-today .card.size-small{padding:12px}
 #view-today .card.size-small h2{font-size:14px;margin-bottom:8px}
 #view-today .card.size-small .today-item{padding:7px 10px;margin-bottom:6px}
@@ -57,9 +68,10 @@ a{color:#185FA5;text-decoration:none}
 #view-today .card.size-small .proj-card{padding:10px;margin-bottom:8px}
 #view-today .card.size-small .proj-stats{font-size:11px}
 #view-today .card.size-big .charts-row{gap:22px}
-#view-today .card.size-big .chart-box{min-width:300px}
-#view-today .dash-ph{border:2px dashed rgba(15,110,86,.45);border-radius:16px;background:rgba(15,110,86,.06);grid-column:span 1}
-#view-today .dash-ph.is-big{grid-column:1/-1}
+#view-today .card.size-big .chart-box{min-width:240px}
+#view-today .dash-ph{border:2px dashed rgba(15,110,86,.45);border-radius:20px;background:rgba(15,110,86,.06);grid-column:span 3}
+#view-today .dash-ph.is-middle{grid-column:span 4}
+#view-today .dash-ph.is-big{grid-column:span 8}
 #view-today .card.dragging{position:fixed;z-index:120;pointer-events:none;cursor:grabbing;opacity:.97;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 24px 54px rgba(31,45,61,.24);will-change:transform}
 .dash-sizes{position:absolute;top:8px;right:46px;display:none;gap:4px;z-index:4}
 #view-today.dash-editing .dash-sizes{display:flex}
@@ -76,16 +88,25 @@ a{color:#185FA5;text-decoration:none}
 #view-today.dash-editing .card{outline:2px dashed rgba(15,110,86,.4);outline-offset:2px;animation:dashwob 1.8s ease-in-out infinite}
 #view-today .card.dragging{opacity:.55;outline:2px solid #0F6E56;animation:none;pointer-events:none;z-index:5}
 @keyframes dashwob{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-.4deg)}75%{transform:rotate(.4deg)}}
-@media (prefers-reduced-motion: reduce){#view-today.dash-editing .card{animation:none}.btn,.btn-ghost,.dash-grip,.card{transition:none}}
+/* Bento 卡片入场：50ms 阶梯淡入上滑；backwards 填充避免结束后压住拖拽 transform */
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#view-today:not(.dash-editing) .card{animation:cardIn .32s cubic-bezier(.25,.1,.25,1) backwards}
+#view-today:not(.dash-editing) #todayHandleCard{animation-delay:.05s}
+#view-today:not(.dash-editing) #cardCoreProjs{animation-delay:.1s}
+#view-today:not(.dash-editing) #cardWeek{animation-delay:.15s}
+/* 卡片标题右侧「进入详情」链接 */
+.card-more{margin-left:auto;flex-shrink:0;font-size:12px;font-weight:500;color:#0F6E56;background:rgba(15,110,86,.09);border-radius:999px;padding:3px 12px;min-height:28px;display:inline-flex;align-items:center;transition:background .18s ease,transform .18s ease}
+.card-more:hover{background:rgba(15,110,86,.16);transform:translateX(1px)}
+@media (prefers-reduced-motion: reduce){#view-today.dash-editing .card{animation:none}#view-today:not(.dash-editing) .card{animation:none}.btn,.btn-ghost,.dash-grip,.card{transition:none}}
 @media (hover:hover){
   #view-today .card:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.28),0 14px 36px rgba(31,45,61,.13)}
   .check:hover{border-color:#0F6E56}
   .copy-path:hover{color:#0F6E56}
 }
-.capture-bar{display:flex;gap:8px;background:rgba(255,255,255,.55);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(255,255,255,.65);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 18px rgba(31,45,61,.08);border-radius:12px;padding:8px;margin-bottom:16px;position:sticky;top:57px;z-index:40}
+.capture-bar{display:flex;gap:8px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border:.5px solid rgba(15,23,30,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 18px rgba(31,45,61,.07);border-radius:12px;padding:8px;margin-bottom:16px;position:sticky;top:57px;z-index:40}
 .capture-bar input{border:none;padding:6px 8px;font-size:15px;background:transparent}
 .capture-bar input:focus{border:none;outline:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;padding:8px 14px;font-size:14px;font-weight:500;min-height:36px;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease,background .18s ease,border-color .18s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:8px 14px;font-size:14px;font-weight:500;min-height:36px;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease,background .18s ease,border-color .18s ease}
 .btn-primary{background:rgba(15,110,86,.88);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 4px 14px rgba(15,110,86,.28)}
 .btn-primary:hover{background:rgba(12,91,71,.92);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 8px 20px rgba(15,110,86,.34)}
 .btn-primary:active{transform:scale(.96)}
@@ -97,11 +118,11 @@ a{color:#185FA5;text-decoration:none}
 .btn-danger:active{transform:scale(.96)}
 .btn-danger{background:#A32D2D;color:#fff}
 .btn-mini{min-height:28px;padding:4px 10px;font-size:12px;border-radius:6px}
-.card{position:relative;background:rgba(255,255,255,.58);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);border:1px solid rgba(255,255,255,.65);border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.28),0 8px 28px rgba(31,45,61,.09);padding:16px;margin-bottom:16px;transition:box-shadow .25s ease,transform .25s ease}
-.card h2{font-size:15px;font-weight:600;color:#2A333C;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card{position:relative;background:rgba(255,255,255,.72);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border:.5px solid rgba(15,23,30,.08);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.3),0 4px 24px rgba(31,45,61,.08);padding:16px;margin-bottom:16px;transition:box-shadow .3s cubic-bezier(.25,.1,.25,1),transform .3s cubic-bezier(.25,.1,.25,1)}
+.card h2{font-size:15px;font-weight:600;letter-spacing:-.011em;color:#2A333C;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .card h2 .count{font-size:12px;color:#5F6E7A;font-weight:400}
 .muted{color:#8B98A1;font-size:12px}
-.section-tag{display:inline-block;font-size:11px;border-radius:4px;padding:1px 6px;margin-right:6px;font-weight:500}
+.section-tag{display:inline-block;font-size:11px;border-radius:8px;padding:1px 6px;margin-right:6px;font-weight:500}
 .tag-p0{background:#FCEBEB;color:#A32D2D}
 .tag-p1{background:#E6F1FB;color:#185FA5}
 .tag-p2{background:#FAEEDA;color:#854F0B}
@@ -126,7 +147,7 @@ a{color:#185FA5;text-decoration:none}
 .filters button.active{background:#0F6E56;color:#fff;border-color:#0F6E56}
 .searchbox{margin-bottom:12px}
 .date-group-title{font-size:12px;color:#8B98A1;margin:14px 0 8px;font-weight:500}
-.proj-card{border:1px solid rgba(255,255,255,.68);border-radius:14px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.25),0 4px 16px rgba(31,45,61,.06)}
+.proj-card{border:.5px solid rgba(15,23,30,.08);border-radius:16px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.25),0 4px 16px rgba(31,45,61,.06)}
 .proj-card .proj-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .proj-card .proj-name{font-size:15px;font-weight:600}
 .proj-stats{display:flex;gap:14px;font-size:12px;color:#5F6E7A;margin:8px 0;flex-wrap:wrap}
@@ -141,7 +162,7 @@ a{color:#185FA5;text-decoration:none}
 .banner-info{background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB}
 .modal-mask{position:fixed;inset:0;background:rgba(42,51,60,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:30px 14px}
 .modal-mask.open{display:flex}
-.modal{background:rgba(255,255,255,.82);backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);border:1px solid rgba(255,255,255,.72);border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 18px 48px rgba(31,45,61,.2);max-width:560px;width:100%;padding:20px;margin-bottom:40px}
+.modal{background:rgba(255,255,255,.82);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border:.5px solid rgba(15,23,30,.1);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 18px 48px rgba(31,45,61,.2);max-width:560px;width:100%;padding:20px;margin-bottom:40px}
 .modal h3{font-size:15px;font-weight:600;margin-bottom:14px;color:#2A333C}
 .form-row{margin-bottom:12px}
 .form-row label{display:block;font-size:12px;color:#5F6E7A;margin-bottom:4px}
@@ -156,8 +177,9 @@ a{color:#185FA5;text-decoration:none}
 .copy-path{cursor:pointer;color:#185FA5;border-bottom:1px dashed #85B7EB}
 /* ---------- 今日任务看板 ---------- */
 .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-.metric{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.85);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;min-width:0}
-.metric:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(31,45,61,.10)}
+.metric{background:rgba(255,255,255,.72);border:.5px solid rgba(15,23,30,.08);border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;transition:transform .3s cubic-bezier(.25,.1,.25,1),box-shadow .3s cubic-bezier(.25,.1,.25,1);min-width:0}
+.metric:hover{transform:scale(1.02);box-shadow:0 4px 14px rgba(31,45,61,.10)}
+.metric:active{transform:scale(.96)}
 .metric .num{font-size:22px;font-weight:700;color:#0F6E56;line-height:1.15;font-variant-numeric:tabular-nums}
 .metric.warn .num{color:#854F0B}
 .metric.danger .num{color:#A32D2D}
@@ -177,7 +199,7 @@ a{color:#185FA5;text-decoration:none}
 .group-title.tg-done{border-left:3px solid #8B98A1}
 /* ---------- 视图标题 ---------- */
 .view-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-.view-title h2{font-size:18px;color:#2A333C;margin:0}
+.view-title h2{font-size:18px;font-weight:600;letter-spacing:-.011em;color:#2A333C;margin:0}
 .view-title .muted{font-size:13px}
 /* ---------- 项目卡点击 / 详情 ---------- */
 .proj-card.clickable{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
@@ -208,9 +230,12 @@ a{color:#185FA5;text-decoration:none}
   .btn,.filters button,.sidenav .navitem{min-height:44px}
   .modal{padding:16px}
   /* 移动端：降低模糊半径保流畅，卡片更紧凑，把手命中区加大到 44px */
-  .card{backdrop-filter:blur(12px) saturate(1.35);-webkit-backdrop-filter:blur(12px) saturate(1.35);padding:14px;border-radius:14px}
+  .card{backdrop-filter:blur(12px) saturate(1.5);-webkit-backdrop-filter:blur(12px) saturate(1.5);padding:14px;border-radius:20px}
   .proj-card{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.8)}
-  #view-today{gap:12px}
+  /* 窄屏：单列堆叠，保持 DOM 阅读顺序 */
+  #view-today{gap:12px;grid-template-columns:1fr}
+  #view-today .card.size-small,#view-today .card.size-middle,#view-today .card.size-big{grid-column:span 1}
+  #view-today .dash-ph,#view-today .dash-ph.is-middle,#view-today .dash-ph.is-big{grid-column:span 1}
   .dash-grip{width:44px;height:44px;border-radius:12px;top:6px;right:6px;font-size:16px}
   #view-today.dash-editing .card h2{padding-right:48px}
   .topbar{backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4)}
@@ -265,20 +290,20 @@ a{color:#185FA5;text-decoration:none}
       <div class="card size-middle" id="todayHandleCard">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
         <div class="dash-sizes" data-card="todayHandleCard"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
-        <h2>今天要处理的 <span class="count" id="todayHandleCount" data-sp-bindable="database" data-sp-database-id="l49vCiVLbpktS5cjT0lhIN"></span></h2>
+        <h2>今天要处理的 <span class="count" id="todayHandleCount" data-sp-bindable="database" data-sp-database-id="tdNWBhRqvwIKXkz2ji0uyb"></span><button class="card-more" type="button" data-view="tasks" data-filter="today">进入任务看板 ›</button></h2>
         <div id="todayHandleList"></div>
         <div id="todayApplyBox"></div>
       </div>
       <div class="card size-middle" id="cardCoreProjs">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
         <div class="dash-sizes" data-card="cardCoreProjs"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
-        <h2>核心项目动态 <span class="count">官网 · 小程序 · 需求调研</span></h2>
+        <h2>核心项目动态 <span class="count">官网 · 小程序 · 需求调研</span><button class="card-more" type="button" data-view="projects">进入项目看板 ›</button></h2>
         <div id="coreProjList"></div>
       </div>
       <div class="card size-big" id="cardWeek">
         <button class="dash-grip" title="拖动调整位置" aria-label="拖动调整位置">⠿</button>
         <div class="dash-sizes" data-card="cardWeek"><button type="button" data-size="small" title="小">S</button><button type="button" data-size="middle" title="中">M</button><button type="button" data-size="big" title="大（占整行）">L</button></div>
-        <h2>本周概览</h2>
+        <h2>本周概览 <span class="count">近 7 天趋势</span><button class="card-more" type="button" data-view="reports">生成报告 ›</button></h2>
         <div class="charts-row">
           <div class="chart-box" id="chartBoxWeek"><h3>近 7 天完成任务数</h3><div id="chartWeek"></div></div>
           <div class="chart-box" id="chartBoxProj"><h3>项目待办进度</h3><div id="chartProj"></div></div>
@@ -511,15 +536,15 @@ a{color:#185FA5;text-decoration:none}
 <script>
 (function () {
   "use strict";
-  var DB_TASKS = "l49vCiVLbpktS5cjT0lhIN";
-  var DB_PROJECTS = "mSz8E9WaHkTvUE5U4Kupz8";
-  var DB_RESEARCH = "phzTOFqvt32Bz7ficmcP2f";
-  var DB_NOTES = "mIwePYmB2y60zJIBcic0qQ";
-  var DB_RESOURCES = "V3oLEwRkEaoYSdEaZCDHFX";
-  var DB_REPORTS = "bvsokQJzsZFP38OtkYXFLA";
-  var DB_AI = "GrSPRzmXmFwLxWJRJB2UKY";
-  var DB_STUDY = "sole16fronDUGBPBEHJCIJ";
-  var DB_APPLY = "PCnEjp2fsObRBZug1Z2DPK";
+  var DB_TASKS = "tdNWBhRqvwIKXkz2ji0uyb";
+  var DB_PROJECTS = "2klqa8d0rbO47x0FhoVK3W";
+  var DB_RESEARCH = "f20RfANYTZAqezxUqZ1ZrJ";
+  var DB_NOTES = "PDFBIwRRZEGd2jfJbGiuY5";
+  var DB_RESOURCES = "wBJtimnuDTDrgg2Zaf36ZA";
+  var DB_REPORTS = "VnPlGp0UnpMluFmFnkTpSz";
+  var DB_AI = "DHd1C9sNJOt2SRa35BKRME";
+  var DB_STUDY = "xY6fAaJczfGY0gTkdYeZwu";
+  var DB_APPLY = "SE9AvDWGnB1YBZd6hrFdry";
   var ALL_DBS = [DB_TASKS, DB_PROJECTS, DB_RESEARCH, DB_NOTES, DB_RESOURCES, DB_REPORTS, DB_AI, DB_STUDY, DB_APPLY];
   var db = null;
   try { db = window.__SMART_PAGE__ && window.__SMART_PAGE__.database ? window.__SMART_PAGE__.database : null; } catch (e) { db = null; }
@@ -585,7 +610,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllTasks(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "l49vCiVLbpktS5cjT0lhIN", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -598,7 +623,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllProjects(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "2klqa8d0rbO47x0FhoVK3W", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -611,7 +636,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllResearch(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "phzTOFqvt32Bz7ficmcP2f", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -624,7 +649,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllNotes(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "mIwePYmB2y60zJIBcic0qQ", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -637,7 +662,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllResources(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -650,7 +675,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllReports(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "bvsokQJzsZFP38OtkYXFLA", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -663,7 +688,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllAIRecords(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "DHd1C9sNJOt2SRa35BKRME", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -676,7 +701,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllStudy(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "sole16fronDUGBPBEHJCIJ", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -689,7 +714,7 @@ a{color:#185FA5;text-decoration:none}
   function loadAllApply(cursor, acc, guard) {
     acc = acc || []; guard = guard || 0;
     if (guard > 100) return Promise.resolve(acc);
-    return db.query({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", pageSize: 200, startCursor: cursor })
+    return db.query({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", pageSize: 200, startCursor: cursor })
       .then(function (r) {
         var rows = r.results || [];
         acc = acc.concat(rows);
@@ -731,15 +756,15 @@ a{color:#185FA5;text-decoration:none}
   function dbAdd(databaseId, properties) {
     setSync("busy", "保存中");
     var p;
-    if (databaseId === DB_TASKS) p = db.addRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", properties: properties });
-    else if (databaseId === DB_PROJECTS) p = db.addRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", properties: properties });
-    else if (databaseId === DB_RESEARCH) p = db.addRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", properties: properties });
-    else if (databaseId === DB_NOTES) p = db.addRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", properties: properties });
-    else if (databaseId === DB_REPORTS) p = db.addRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", properties: properties });
-    else if (databaseId === DB_AI) p = db.addRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", properties: properties });
-    else if (databaseId === DB_STUDY) p = db.addRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", properties: properties });
-    else if (databaseId === DB_APPLY) p = db.addRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", properties: properties });
-    else p = db.addRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", properties: properties });
+    if (databaseId === DB_TASKS) p = db.addRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", properties: properties });
+    else if (databaseId === DB_PROJECTS) p = db.addRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", properties: properties });
+    else if (databaseId === DB_RESEARCH) p = db.addRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", properties: properties });
+    else if (databaseId === DB_NOTES) p = db.addRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", properties: properties });
+    else if (databaseId === DB_REPORTS) p = db.addRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", properties: properties });
+    else if (databaseId === DB_AI) p = db.addRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", properties: properties });
+    else if (databaseId === DB_STUDY) p = db.addRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", properties: properties });
+    else if (databaseId === DB_APPLY) p = db.addRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", properties: properties });
+    else p = db.addRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
       .catch(function (err) { setSync("err", "同步失败"); throw err; });
@@ -747,30 +772,30 @@ a{color:#185FA5;text-decoration:none}
   function dbUpdate(databaseId, recordId, properties) {
     setSync("busy", "保存中");
     var p;
-    if (databaseId === DB_TASKS) p = db.updateRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", recordId: recordId, properties: properties });
-    else if (databaseId === DB_PROJECTS) p = db.updateRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", recordId: recordId, properties: properties });
-    else if (databaseId === DB_RESEARCH) p = db.updateRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", recordId: recordId, properties: properties });
-    else if (databaseId === DB_NOTES) p = db.updateRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", recordId: recordId, properties: properties });
-    else if (databaseId === DB_REPORTS) p = db.updateRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", recordId: recordId, properties: properties });
-    else if (databaseId === DB_AI) p = db.updateRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", recordId: recordId, properties: properties });
-    else if (databaseId === DB_STUDY) p = db.updateRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", recordId: recordId, properties: properties });
-    else if (databaseId === DB_APPLY) p = db.updateRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", recordId: recordId, properties: properties });
-    else p = db.updateRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", recordId: recordId, properties: properties });
+    if (databaseId === DB_TASKS) p = db.updateRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", recordId: recordId, properties: properties });
+    else if (databaseId === DB_PROJECTS) p = db.updateRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", recordId: recordId, properties: properties });
+    else if (databaseId === DB_RESEARCH) p = db.updateRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", recordId: recordId, properties: properties });
+    else if (databaseId === DB_NOTES) p = db.updateRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", recordId: recordId, properties: properties });
+    else if (databaseId === DB_REPORTS) p = db.updateRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", recordId: recordId, properties: properties });
+    else if (databaseId === DB_AI) p = db.updateRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId, properties: properties });
+    else if (databaseId === DB_STUDY) p = db.updateRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", recordId: recordId, properties: properties });
+    else if (databaseId === DB_APPLY) p = db.updateRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", recordId: recordId, properties: properties });
+    else p = db.updateRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId, properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
       .catch(function (err) { setSync("err", "同步失败"); throw err; });
   }
   function dbDelete(databaseId, recordId) {
     var p;
-    if (databaseId === DB_TASKS) p = db.deleteRecord({ databaseId: "l49vCiVLbpktS5cjT0lhIN", recordId: recordId });
-    else if (databaseId === DB_PROJECTS) p = db.deleteRecord({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8", recordId: recordId });
-    else if (databaseId === DB_RESEARCH) p = db.deleteRecord({ databaseId: "phzTOFqvt32Bz7ficmcP2f", recordId: recordId });
-    else if (databaseId === DB_NOTES) p = db.deleteRecord({ databaseId: "mIwePYmB2y60zJIBcic0qQ", recordId: recordId });
-    else if (databaseId === DB_REPORTS) p = db.deleteRecord({ databaseId: "bvsokQJzsZFP38OtkYXFLA", recordId: recordId });
-    else if (databaseId === DB_AI) p = db.deleteRecord({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY", recordId: recordId });
-    else if (databaseId === DB_STUDY) p = db.deleteRecord({ databaseId: "sole16fronDUGBPBEHJCIJ", recordId: recordId });
-    else if (databaseId === DB_APPLY) p = db.deleteRecord({ databaseId: "PCnEjp2fsObRBZug1Z2DPK", recordId: recordId });
-    else p = db.deleteRecord({ databaseId: "V3oLEwRkEaoYSdEaZCDHFX", recordId: recordId });
+    if (databaseId === DB_TASKS) p = db.deleteRecord({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb", recordId: recordId });
+    else if (databaseId === DB_PROJECTS) p = db.deleteRecord({ databaseId: "2klqa8d0rbO47x0FhoVK3W", recordId: recordId });
+    else if (databaseId === DB_RESEARCH) p = db.deleteRecord({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ", recordId: recordId });
+    else if (databaseId === DB_NOTES) p = db.deleteRecord({ databaseId: "PDFBIwRRZEGd2jfJbGiuY5", recordId: recordId });
+    else if (databaseId === DB_REPORTS) p = db.deleteRecord({ databaseId: "VnPlGp0UnpMluFmFnkTpSz", recordId: recordId });
+    else if (databaseId === DB_AI) p = db.deleteRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId });
+    else if (databaseId === DB_STUDY) p = db.deleteRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", recordId: recordId });
+    else if (databaseId === DB_APPLY) p = db.deleteRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", recordId: recordId });
+    else p = db.deleteRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId });
     return p;
   }
 
@@ -981,7 +1006,10 @@ a{color:#185FA5;text-decoration:none}
     e.preventDefault();
     var r = card.getBoundingClientRect();
     var ph = document.createElement("div");
-    ph.className = "dash-ph" + (card.classList.contains("size-big") ? " is-big" : "");
+    var phCls = "dash-ph";
+    if (card.classList.contains("size-big")) phCls += " is-big";
+    else if (card.classList.contains("size-middle")) phCls += " is-middle";
+    ph.className = phCls;
     ph.style.height = r.height + "px";
     card.parentNode.insertBefore(ph, card);
     dragState = {
@@ -3275,24 +3303,24 @@ a{color:#185FA5;text-decoration:none}
     return out;
   }
   function fetchSchemas() {
-    return db.getSchema({ databaseId: "l49vCiVLbpktS5cjT0lhIN" }).then(function (schema) {
+    return db.getSchema({ databaseId: "tdNWBhRqvwIKXkz2ji0uyb" }).then(function (schema) {
       SCHEMA_OPTIONS[DB_TASKS] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "mSz8E9WaHkTvUE5U4Kupz8" });
+      return db.getSchema({ databaseId: "2klqa8d0rbO47x0FhoVK3W" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_PROJECTS] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "phzTOFqvt32Bz7ficmcP2f" });
+      return db.getSchema({ databaseId: "f20RfANYTZAqezxUqZ1ZrJ" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_RESEARCH] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "bvsokQJzsZFP38OtkYXFLA" });
+      return db.getSchema({ databaseId: "VnPlGp0UnpMluFmFnkTpSz" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_REPORTS] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "GrSPRzmXmFwLxWJRJB2UKY" });
+      return db.getSchema({ databaseId: "DHd1C9sNJOt2SRa35BKRME" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_AI] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "sole16fronDUGBPBEHJCIJ" });
+      return db.getSchema({ databaseId: "xY6fAaJczfGY0gTkdYeZwu" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_STUDY] = readSchemaOpts(schema);
-      return db.getSchema({ databaseId: "PCnEjp2fsObRBZug1Z2DPK" });
+      return db.getSchema({ databaseId: "SE9AvDWGnB1YBZd6hrFdry" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_APPLY] = readSchemaOpts(schema);
     }).catch(function (err) { console.error("[database] schema 加载失败:", err); });
@@ -3349,6 +3377,15 @@ a{color:#185FA5;text-decoration:none}
   function bindEvents() {
     bindNav();
     bindModalKeyboard();
+    /* 卡片标题右侧「进入详情」直达链接 */
+    var moreBtns = document.querySelectorAll(".card-more");
+    for (var mi = 0; mi < moreBtns.length; mi++) {
+      (function (btn) {
+        btn.addEventListener("click", function () {
+          navigate(btn.getAttribute("data-view"), btn.getAttribute("data-filter") || undefined);
+        });
+      })(moreBtns[mi]);
+    }
     bindDelegate("todayHandleList", handleCommonAction);
     bindDelegate("todayFocusList", handleCommonAction);
     bindDelegate("boardMetrics", function (act, el) {

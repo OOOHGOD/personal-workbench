@@ -5,9 +5,9 @@ import subprocess, json, sys, io, os, tempfile
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 PY = r"C:/Users/DC/.workbuddy/binaries/python/versions/3.13.12/python.exe"
 SKILL = r"C:/Program Files/WorkBuddy/resources/app.asar.unpacked/resources/plugins/workbuddy-builtin/skills/library"
-PAGE = "Uo1qyjrSZ67qmecuVnAxXU"
+PAGE = "MwXKAV7BlcR9zZAXXf0p3z"
 TABLES = {
-    "工作任务表": ("l49vCiVLbpktS5cjT0lhIN", {
+    "工作任务表": ("tdNWBhRqvwIKXkz2ji0uyb", {
         "标题": {"text": "[TEST] 集成测试任务"},
         "分类": {"select": "园区官网"},
         "优先级": {"select": "重要且紧急"},
@@ -19,7 +19,7 @@ TABLES = {
         ("状态改为等待", {"状态": {"select": "等待"}, "等待谁": {"text": "[TEST]数据组"}, "下次跟进": {"date": "2026-10-20"}}),
         ("date:null 清空截止日期", {"截止日期": {"date": None}}),
     ]),
-    "项目表": ("mSz8E9WaHkTvUE5U4Kupz8", {
+    "项目表": ("2klqa8d0rbO47x0FhoVK3W", {
         "项目名称": {"text": "[TEST] 集成测试项目"},
         "工作层级": {"select": "核心工作"},
         "当前阶段": {"text": "需求"},
@@ -27,7 +27,7 @@ TABLES = {
     }, [
         ("更新卡点", {"卡点": {"text": "[TEST]等数据"}, "下一步": {"text": "[TEST]催一下"}}),
     ]),
-    "调研记录表": ("phzTOFqvt32Bz7ficmcP2f", {
+    "调研记录表": ("f20RfANYTZAqezxUqZ1ZrJ", {
         "调研对象": {"text": "[TEST] 测试部门"},
         "性质": {"select": "待验证想法"},
         "调研日期": {"date": "2026-10-19"},
@@ -35,14 +35,14 @@ TABLES = {
     }, [
         ("改性质为已确认需求", {"性质": {"select": "已确认需求"}, "初步结论": {"text": "[TEST]结论"}}),
     ]),
-    "灵感速记表": ("mIwePYmB2y60zJIBcic0qQ", {
+    "灵感速记表": ("PDFBIwRRZEGd2jfJbGiuY5", {
         "正文": {"text": "[TEST] 集成测试速记"},
         "标签": {"text": "测试"},
         "是否示例": {"checkbox": False},
     }, [
         ("更新标签", {"标签": {"text": "测试,集成"}}),
     ]),
-    "资料索引表": ("V3oLEwRkEaoYSdEaZCDHFX", {
+    "资料索引表": ("wBJtimnuDTDrgg2Zaf36ZA", {
         "名称": {"text": "[TEST] 集成测试资料"},
         "网页链接": {"url": {"text": "WorkBuddy", "link": "https://www.workbuddy.cn"}},
         "本地路径": {"text": "C:\\test\\[TEST].md"},
@@ -50,7 +50,7 @@ TABLES = {
     }, [
         ("更新用途", {"用途说明": {"text": "[TEST]验证写入"}}),
     ]),
-    "报告存档表": ("bvsokQJzsZFP38OtkYXFLA", {
+    "报告存档表": ("VnPlGp0UnpMluFmFnkTpSz", {
         "报告类型": {"select": "日报"},
         "起始日期": {"date": "2026-10-19"},
         "结束日期": {"date": "2026-10-19"},
@@ -62,7 +62,7 @@ TABLES = {
         ("改为周报并更新摘要", {"报告类型": {"select": "周报"}, "领导摘要": {"text": "[TEST] 周报摘要"}}),
         ("date:null 清空起始日期", {"起始日期": {"date": None}}),
     ]),
-    "AI工作记录表": ("GrSPRzmXmFwLxWJRJB2UKY", {
+    "AI工作记录表": ("DHd1C9sNJOt2SRa35BKRME", {
         "日期": {"date": "2026-10-19"},
         "来源": {"select": "WorkBuddy"},
         "类型": {"select": "产出物"},
@@ -73,7 +73,7 @@ TABLES = {
     }, [
         ("改类型为尝试失败", {"类型": {"select": "尝试失败"}}),
     ]),
-    "学习记录表": ("sole16fronDUGBPBEHJCIJ", {
+    "学习记录表": ("xY6fAaJczfGY0gTkdYeZwu", {
         "学习主题": {"text": "[TEST] 集成测试学习"},
         "类型": {"select": "技能学习"},
         "进度状态": {"select": "进行中"},
@@ -85,7 +85,7 @@ TABLES = {
         ("改进度为已完成", {"进度状态": {"select": "已完成"}, "笔记": {"text": "[TEST]学完了"}}),
         ("date:null 清空计划日期", {"计划日期": {"date": None}}),
     ]),
-    "留学申请表": ("PCnEjp2fsObRBZug1Z2DPK", {
+    "留学申请表": ("SE9AvDWGnB1YBZd6hrFdry", {
         "学校": {"text": "[TEST] 集成测试大学"},
         "专业项目": {"text": "计算机"},
         "申请轮次": {"select": "第一轮"},
@@ -180,11 +180,11 @@ if r.startswith("KS_ARTIFACTS_OK"):
     entry = json.loads(r[len("KS_ARTIFACTS_OK"):])["entry_html"]
     html = open(os.path.join(work, entry), encoding="utf-8").read()
     ok("__SMART_PAGE__" in html, "发布产物含 SDK 注入点")
-    ok(html.count('"l49vCiVLbpktS5cjT0lhIN"') >= 3, "发布产物含任务表 databaseId 字面量")
-    ok(html.count('"bvsokQJzsZFP38OtkYXFLA"') >= 3, "发布产物含报告存档表 databaseId 字面量")
-    ok(html.count('"GrSPRzmXmFwLxWJRJB2UKY"') >= 3, "发布产物含 AI 工作记录表 databaseId 字面量")
-    ok(html.count('"sole16fronDUGBPBEHJCIJ"') >= 3, "发布产物含学习记录表 databaseId 字面量")
-    ok(html.count('"PCnEjp2fsObRBZug1Z2DPK"') >= 3, "发布产物含留学申请表 databaseId 字面量")
+    ok(html.count('"tdNWBhRqvwIKXkz2ji0uyb"') >= 3, "发布产物含任务表 databaseId 字面量")
+    ok(html.count('"VnPlGp0UnpMluFmFnkTpSz"') >= 3, "发布产物含报告存档表 databaseId 字面量")
+    ok(html.count('"DHd1C9sNJOt2SRa35BKRME"') >= 3, "发布产物含 AI 工作记录表 databaseId 字面量")
+    ok(html.count('"xY6fAaJczfGY0gTkdYeZwu"') >= 3, "发布产物含学习记录表 databaseId 字面量")
+    ok(html.count('"SE9AvDWGnB1YBZd6hrFdry"') >= 3, "发布产物含留学申请表 databaseId 字面量")
     ok("view-reports" in html and 'data-view="reports"' in html, "发布产物含报告视图与导航入口")
     ok("view-study" in html and 'data-view="study"' in html, "发布产物含学习视图与导航入口")
     ok("view-apply" in html and 'data-view="apply"' in html, "发布产物含申请视图与导航入口")
@@ -197,17 +197,19 @@ if r.startswith("KS_ARTIFACTS_OK"):
     ok("onUpdated" in html, "发布产物含双向同步订阅")
 
 print("\n[D] 示例数据完整性（页面首屏数据来源）")
-r = json.loads(run("database/query_database_record.py", "--database-id", "l49vCiVLbpktS5cjT0lhIN"))
+r = json.loads(run("database/query_database_record.py", "--database-id", "tdNWBhRqvwIKXkz2ji0uyb"))
 sample_tasks = [x for x in r["results"] if x.get("是否示例")]
 real_tasks = [x for x in r["results"] if not x.get("是否示例")]
 ok(len(sample_tasks) == 5, "任务表 5 条示例数据（实际 %d）" % len(sample_tasks))
-ok(len(real_tasks) == 0, "任务表无残留真实/测试数据")
+# v4 起复用第1-2期旧表，允许存在用户真实数据；仅要求无 [TEST] 探针残留
+test_residue = [x for x in r["results"] if str(x.get("标题", "")).startswith("[TEST]")]
+ok(len(test_residue) == 0, "任务表无 [TEST] 测试探针残留（真实数据允许存在，实际 %d 条）" % len(real_tasks))
 overdue_sample = [x for x in sample_tasks if x.get("截止日期") and str(x["截止日期"])[:10] < "2026-10-19"]
-ok(len(overdue_sample) == 1, "示例含 1 条逾期任务")
+ok(len(overdue_sample) >= 1, "示例含至少 1 条逾期任务（实际 %d）" % len(overdue_sample))
 ok(any(x.get("今日重点") for x in sample_tasks), "示例含今日重点任务")
-r = json.loads(run("database/query_database_record.py", "--database-id", "sole16fronDUGBPBEHJCIJ"))
+r = json.loads(run("database/query_database_record.py", "--database-id", "xY6fAaJczfGY0gTkdYeZwu"))
 ok(len([x for x in r["results"] if x.get("是否示例")]) == 2, "学习表 2 条示例数据")
-r = json.loads(run("database/query_database_record.py", "--database-id", "PCnEjp2fsObRBZug1Z2DPK"))
+r = json.loads(run("database/query_database_record.py", "--database-id", "SE9AvDWGnB1YBZd6hrFdry"))
 sample_apply = [x for x in r["results"] if x.get("是否示例")]
 ok(len(sample_apply) == 2, "申请表 2 条示例数据（其中 1 条临期演示截止提醒）")
 

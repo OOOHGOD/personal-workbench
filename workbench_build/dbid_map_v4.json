@@ -1,0 +1,45 @@
+{
+  "tasks": {
+    "new_id": "tdNWBhRqvwIKXkz2ji0uyb",
+    "title": "工作任务表",
+    "note": "复用第1-2期旧表"
+  },
+  "projects": {
+    "new_id": "2klqa8d0rbO47x0FhoVK3W",
+    "title": "项目表",
+    "note": "复用第1-2期旧表"
+  },
+  "research": {
+    "new_id": "f20RfANYTZAqezxUqZ1ZrJ",
+    "title": "调研记录表",
+    "note": "复用第1-2期旧表"
+  },
+  "notes": {
+    "new_id": "PDFBIwRRZEGd2jfJbGiuY5",
+    "title": "灵感速记表",
+    "note": "复用第1-2期旧表"
+  },
+  "resources": {
+    "new_id": "wBJtimnuDTDrgg2Zaf36ZA",
+    "title": "资料索引表",
+    "note": "复用第1-2期旧表"
+  },
+  "reports": {
+    "new_id": "VnPlGp0UnpMluFmFnkTpSz",
+    "title": "报告存档表",
+    "note": "复用第1-2期旧表"
+  },
+  "airecords": {
+    "new_id": "DHd1C9sNJOt2SRa35BKRME",
+    "title": "AI工作记录表",
+    "note": "复用第1-2期旧表"
+  },
+  "study": {
+    "new_id": "xY6fAaJczfGY0gTkdYeZwu",
+    "title": "学习记录表"
+  },
+  "apply": {
+    "new_id": "SE9AvDWGnB1YBZd6hrFdry",
+    "title": "留学申请表"
+  }
+}

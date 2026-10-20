@@ -1,0 +1,57 @@
+{
+ "id": "VnPlGp0UnpMluFmFnkTpSz",
+ "title": "reports",
+ "properties": [
+  {
+   "id": "9MaQAx7r",
+   "name": "报告类型",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "sZS9vhVMdoUM",
+      "text": "日报",
+      "style": 13
+     },
+     {
+      "id": "bjeK1Q9TYIsl",
+      "text": "周报",
+      "style": 23
+     }
+    ]
+   }
+  },
+  {
+   "id": "yfDk2ixB",
+   "name": "起始日期",
+   "type": "date"
+  },
+  {
+   "id": "xlFhFEqX",
+   "name": "结束日期",
+   "type": "date"
+  },
+  {
+   "id": "FrVD6soL",
+   "name": "生成时间",
+   "type": "date"
+  },
+  {
+   "id": "y7wcvcLs",
+   "name": "自用记录",
+   "type": "text"
+  },
+  {
+   "id": "w0sQLAZb",
+   "name": "领导摘要",
+   "type": "text"
+  },
+  {
+   "id": "xWqg1czi",
+   "name": "是否示例",
+   "type": "checkbox"
+  }
+ ],
+ "database_id": "VnPlGp0UnpMluFmFnkTpSz",
+ "space_id": ""
+}
