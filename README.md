@@ -3,6 +3,8 @@
 > 单文件 HTML + WorkBuddy 云数据表驱动的个人效率工作台：任务 / 项目 / 需求调研 / 速记 / 资料 / 日报周报 / 个人学习 / 留学申请，9 大板块一站管理。
 > 玻璃拟态 + Bento Grid（便当盒）界面，PC / 手机双端适配，全内联零外部依赖，离线可用。
 
+**[English](README_EN.md) | 简体中文**
+
 - **在线版**：<https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z>（登录 WorkBuddy 账号后数据自动同步）
 - **离线版**：仓库根 `个人工作学习工作台-离线版.html`，双击即开
 - **当前版本**：v4.0（玻璃拟态 + Bento Grid 改造后）
