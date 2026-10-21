@@ -1,7 +1,8 @@
 # personal-workbench 项目记忆
 
 ## 项目定位
-DC的个人工作台（WorkBuddy 资料库在线页面 + 云数据表 + 离线 HTML 副本），GitHub 同步仓库 https://github.com/OOOHGOD/personal-workbench，用户要求每个关键节点同步 GitHub。
+「DC的个人工作台」（2026-10-21 由「个人工作学习工作台」改名；WorkBuddy 资料库在线页面 + 云数据表 + 离线 HTML 副本），GitHub 同步仓库 https://github.com/OOOHGOD/personal-workbench，用户要求每个关键节点同步 GitHub。
+- 改名影响面清单（以后再改名照此照做）：源文件 title/h1、离线版文件名（git mv）、README 中英双语、docs/01-08、各期测试报告、过程笔记、unit_test.js 注释、.workbuddy/memory；云端 `space_api.py space.workspace.rename-node --node-id <node> --title "..."` 后重新导入发布（**链接不变**）；GitHub 用 PATCH /repos/... 改 description
 
 ## 当前状态（2026-10-20，v4：Bento 改造 + 云端迁回原账号）
 - 云端：**个人空间 njAwuhjNLk8PCccMzYZFvR（当前账号自有）**；页面节点 MwXKAV7BlcR9zZAXXf0p3z「DC的个人工作台」，发布态 https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z
