@@ -1,4 +1,4 @@
-// 单元测试：个人工作学习工作台（jsdom + mock __SMART_PAGE__ 数据 SDK）
+// 单元测试：DC的个人工作台（jsdom + mock __SMART_PAGE__ 数据 SDK）
 // 运行：node unit_test.js
 "use strict";
 const fs = require("fs");

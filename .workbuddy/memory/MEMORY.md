@@ -1,10 +1,10 @@
 # personal-workbench 项目记忆
 
 ## 项目定位
-个人工作学习工作台（WorkBuddy 资料库在线页面 + 云数据表 + 离线 HTML 副本），GitHub 同步仓库 https://github.com/OOOHGOD/personal-workbench，用户要求每个关键节点同步 GitHub。
+DC的个人工作台（WorkBuddy 资料库在线页面 + 云数据表 + 离线 HTML 副本），GitHub 同步仓库 https://github.com/OOOHGOD/personal-workbench，用户要求每个关键节点同步 GitHub。
 
 ## 当前状态（2026-10-20，v4：Bento 改造 + 云端迁回原账号）
-- 云端：**个人空间 njAwuhjNLk8PCccMzYZFvR（当前账号自有）**；页面节点 MwXKAV7BlcR9zZAXXf0p3z「个人工作学习工作台」，发布态 https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z
+- 云端：**个人空间 njAwuhjNLk8PCccMzYZFvR（当前账号自有）**；页面节点 MwXKAV7BlcR9zZAXXf0p3z「DC的个人工作台」，发布态 https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z
 - ⚠️ v3 的空间 90RRiESzDskeLJpYNDxTMX / 节点 Uo1qyjrSZ67qmecuVnAxXU 属另一账号，当前账号无权限（code=12607），勿再用
 - 9 张表 ID 映射：workbench_build/dbid_map_v4.json（唯一权威，勿手改）；7 张为第1-2期旧表复用（含用户活数据），study/apply 为 v4 新建
 - 分期：①任务/项目/调研/速记/资料 ②日报周报(docx/MD) ③学习+留学申请 ④简历月更（待做）
@@ -14,7 +14,7 @@
 
 ## 工程约定
 - 全内联 ES5 单文件 workbench_build/workbench.html；每个 db.* 调用点用 databaseId 字面量（DSDK lint 要求）
-- 离线版副本 = 项目根「个人工作学习工作台-离线版.html」，每次发布后 cp 同步
+- 离线版副本 = 项目根「DC的个人工作台-离线版.html」，每次发布后 cp 同步
 - 修改流程：改 workbench.html → node 语法检查 → 单测 → lint → 灌示例 → import_html --databases 9 表 → publish → 产物复测 → cp 离线版 → 集成测试 → 测试报告 → git commit
 - lint_database_sdk_usage 必须带 --schema-file schema_v4_merged.json（9 表字段并集），否则阻塞读 stdin
 - SCHEMA_OPTIONS 必须按表（databaseId）分键存 select 选项：跨表同名字段（如「类型」「优先级」）会互相覆盖导致 11607

@@ -1,4 +1,4 @@
-# Personal Work & Study Workbench
+# DC's Personal Workbench
 
 **[简体中文](README.md) | English**
 
@@ -6,7 +6,7 @@
 > Glassmorphism + Bento Grid UI, responsive for desktop and mobile, fully inline with zero external dependencies, works offline.
 
 - **Online version**: <https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z> (data syncs automatically once signed in to your WorkBuddy account)
-- **Offline version**: `个人工作学习工作台-离线版.html` in the repo root — just open it in a browser
+- **Offline version**: `DC的个人工作台-离线版.html` in the repo root — just open it in a browser
 - **Current version**: v4.0 (Glassmorphism + Bento Grid redesign)
 - **Test baseline**: 239/239 unit tests · 95/95 cloud integration tests · 0 UX findings · 6-viewport layout checks all passed
 
@@ -64,7 +64,7 @@ UI layer (v4): Bento Grid + glassmorphism home page, iCloud-style widget arrange
 
 ### Option 2: Offline version
 
-Download `个人工作学习工作台-离线版.html` from the repo root and open it in any browser.
+Download `DC的个人工作台-离线版.html` from the repo root and open it in any browser.
 The offline version uses local storage: you can view cached data and make local edits; merging back to the cloud is via JSON export/import (semi-automatic — see [Data Storage & Sync](#data-storage--sync)).
 
 ---
@@ -234,7 +234,7 @@ Cloud resource IDs (page node, space, 9 tables) — `workbench_build/dbid_map_v4
 ```
 .
 ├── README.md / README_EN.md       # This documentation (Chinese / English)
-├── 个人工作学习工作台-离线版.html   # Offline copy (identical to source, plain cp)
+├── DC的个人工作台-离线版.html   # Offline copy (identical to source, plain cp)
 ├── 个人工作台制作过程笔记.md       # Process notes: reference library (R-xxx), design decisions
 ├── 工作台第1~3期测试报告.md        # Per-phase test reports
 ├── 工作台Bento改造与重建报告.md    # v4 redesign report
