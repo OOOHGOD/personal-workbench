@@ -12,6 +12,22 @@
 
 ---
 
+## Screenshots
+
+**Desktop · Today (Bento home)** — 8 daily metrics on the big card, one-tap access to overdue / blocked items, project updates and weekly overview:
+
+![Desktop Today](screenshots/desktop-today.png)
+
+**Desktop · Tasks Board** — grouped by status, with filter chips and search:
+
+![Desktop Tasks](screenshots/desktop-tasks.png)
+
+**Mobile · Today** — single-column stacking with bottom navigation:
+
+![Mobile Today](screenshots/mobile-today.png)
+
+---
+
 ## Contents
 
 1. [Feature Overview](#feature-overview)
