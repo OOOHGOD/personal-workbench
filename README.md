@@ -1,6 +1,43 @@
+<div align="center">
+
 # DC's Personal Workbench
 
-**English** | [简体中文](README.zh-CN.md)
+One workspace for tasks, projects, reports, and personal progress.
+
+**English** · [简体中文](README.zh-CN.md)
+
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square) ![JavaScript](https://img.shields.io/badge/JavaScript-D4A900?style=flat-square) ![WorkBuddy](https://img.shields.io/badge/WorkBuddy-334155?style=flat-square) [![MIT License](https://img.shields.io/badge/License-MIT-2563EB?style=flat-square)](LICENSE)
+
+</div>
+
+<p align="center">
+<a href="#overview">Overview</a> · <a href="#getting-started">Getting Started</a> · <a href="#user-guide">User Guide</a> · <a href="#repository-layout">Repository Layout</a> · <a href="#author--license">Author &amp; License</a>
+</p>
+
+---
+
+> **Project focus** · Productivity App
+
+
+<details>
+<summary>Full contents</summary>
+
+- [Overview](#overview)
+- [Screenshots](#screenshots)
+- [Feature Overview](#feature-overview)
+- [Getting Started](#getting-started)
+- [User Guide](#user-guide)
+- [Mobile Experience](#mobile-experience)
+- [Data Storage & Sync](#data-storage--sync)
+- [Development](#development)
+- [Repository Layout](#repository-layout)
+- [Documentation Index](#documentation-index)
+- [FAQ](#faq)
+- [Author & License](#author--license)
+
+</details>
+
+## Overview
 
 > A single-file HTML personal productivity workbench powered by WorkBuddy cloud database tables: tasks / projects / requirement research / quick notes / resources / daily & weekly reports / personal learning / study-abroad applications / monthly resume — 10 modules in one place.
 > Glassmorphism + Bento Grid UI, responsive for desktop and mobile, fully inline with zero external dependencies, works offline.
@@ -18,40 +55,22 @@
 
 ![Desktop Today](screenshots/desktop-today.png)
 
+<details>
+<summary>More views: tasks, resume, and mobile</summary>
+
 **Desktop · Tasks Board** — grouped by status, with filter chips and search:
 
 ![Desktop Tasks](screenshots/desktop-tasks.png)
 
-**Desktop · Monthly Resume** — monthly achievements, one-click evidence rollup, draft generation and version snapshots:/n/n![Desktop Resume](screenshots/desktop-resume.png)
+**Desktop · Monthly Resume** — monthly achievements, one-click evidence rollup, draft generation and version snapshots:
+
+![Desktop Resume](screenshots/desktop-resume.png)
 
 **Mobile · Today** — single-column stacking with bottom navigation:
 
 ![Mobile Today](screenshots/mobile-today.png)
 
----
-
-## Contents
-
-1. [Feature Overview](#feature-overview)
-2. [Getting Started](#getting-started)
-3. [User Guide](#user-guide)
-   - [Today (Home)](#1-today-home)
-   - [Tasks Board](#2-tasks-board)
-   - [Projects Board](#3-projects-board)
-   - [Requirement Research](#4-requirement-research)
-   - [Notes & Resources](#5-notes--resources)
-   - [Daily & Weekly Reports](#6-daily--weekly-reports)
-   - [Learning & Applications](#7-learning--study-abroad-applications)
-   - [Monthly Resume Update](#8-monthly-resume-update)
-   - [Data & Settings](#9-data--settings)
-4. [Mobile Experience](#mobile-experience)
-5. [Data Storage & Sync](#data-storage--sync)
-6. [Development](#development)
-7. [Repository Layout](#repository-layout)
-8. [Documentation Index](#documentation-index)
-9. [FAQ](#faq)
-
----
+</details>
 
 ## Feature Overview
 
@@ -328,22 +347,8 @@ A: Semi-automatically: "Export JSON backup" in the offline version → "Import" 
 
 ---
 
-## License
+## Author & License
 
-The source code is released under the **MIT License** — see [`LICENSE`](LICENSE) in the repo root (Copyright © 2026 刘德超 / OOOHGOD).
+Author / maintainer: [OOOHGOD](https://github.com/OOOHGOD) · Original contributions: [MIT License](LICENSE)
 
-- Permitted: free use, modification, redistribution and commercial use (including private projects), as long as the copyright and permission notice is preserved
-- Not covered: your personal business data stored in the WorkBuddy library (tasks, projects, learning, resume records are not part of this repository)
-- Disclaimer: the software is provided "as is", without warranty of any kind
-
----
-
-*Built, stored and deployed with the WorkBuddy "Library" capability.*
-
-
-
-## Author and license
-
-Author / maintainer: [https://github.com/OOOHGOD](https://github.com/OOOHGOD).
-
-Eligible original contributions are under the [MIT License](LICENSE), permitting commercial use and modification with preservation of copyright and license notices in copies or substantial portions. [License scope](LICENSE_SCOPE.md) explains third-party exclusions and upstream terms.
+Commercial use and modification are permitted with preservation of copyright and license notices in copies or substantial portions. Third-party code, datasets, models, and media retain their own terms; see [license scope](LICENSE_SCOPE.md).
