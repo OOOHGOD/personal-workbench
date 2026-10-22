@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""从 schema_srv_*.json 重建 canonical_*.json（lint_schema 输入）与 schema_v4_merged.json（DSDK lint 输入）
-覆盖 9 张表（第 3 期新增学习/申请）。幂等可重跑。"""
+"""从 schema_v4_*.json 重建 canonical_v4_*.json（lint_schema 输入）与 schema_v4_merged.json（DSDK lint 输入）
+覆盖 10 张表（第 3 期学习/申请，第 4 期简历月更）。幂等可重跑。"""
 import json, io, os, sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -8,7 +8,7 @@ M = json.load(open(os.path.join(BASE, "dbid_map_v4.json"), encoding="utf-8"))
 
 FORM_PREFIX = {
     "tasks": "f_", "projects": "p_", "research": "r_", "notes": "n_", "resources": "s_",
-    "reports": "rep_", "airecords": "a_", "study": "sd_", "apply": "ap_",
+    "reports": "rep_", "airecords": "a_", "study": "sd_", "apply": "ap_", "resume": "cv_",
 }
 DISPLAY_ONE = {
     "tasks": ("标题", ".t-title"),
@@ -20,6 +20,7 @@ DISPLAY_ONE = {
     "airecords": ("主题", "#aiList"),
     "study": ("学习主题", "#studyList"),
     "apply": ("学校", "#applyList"),
+    "resume": ("成果标题", "#resumeList"),
 }
 
 def build(table_key):
@@ -71,7 +72,7 @@ def build(table_key):
     return out, props
 
 def build_merged():
-    """9 表字段并集 → schema_v4_merged.json（lint_database_sdk_usage --schema-file）"""
+    """10 表字段并集 → schema_v4_merged.json（lint_database_sdk_usage --schema-file）"""
     merged_props, dbids = [], []
     seen = set()
     for key in M:
@@ -86,7 +87,7 @@ def build_merged():
     out = {
         "database_id": M["tasks"]["new_id"],
         "space_id": "",
-        "title": "工作台合并 schema（9 表字段并集）",
+        "title": "工作台合并 schema（10 表字段并集）",
         "property_count": len(merged_props),
         "properties": merged_props,
         "all_databases": dbids,
@@ -100,4 +101,4 @@ if __name__ == "__main__":
         path, props = build(k)
         print("[canonical]", k, len(props), "fields →", os.path.basename(path))
     n = build_merged()
-    print("[merged] 9 表字段并集", n, "字段 → schema_v4_merged.json")
+    print("[merged] 10 表字段并集", n, "字段 → schema_v4_merged.json")

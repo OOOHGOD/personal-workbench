@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""集成测试：云端 9 张数据表真实 CRUD 回环 + 已发布产物校验 + 页面-数据表关系
-（第3期：新增学习记录表、留学申请表；页面为云重建后的新节点）"""
+"""集成测试：云端 10 张数据表真实 CRUD 回环 + 已发布产物校验 + 页面-数据表关系
+（第3期：学习/申请；第4期：简历月更表）"""
 import subprocess, json, sys, io, os, tempfile
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 PY = r"C:/Users/DC/.workbuddy/binaries/python/versions/3.13.12/python.exe"
@@ -97,6 +97,20 @@ TABLES = {
         ("改申请状态为已提交", {"申请状态": {"select": "已提交"}, "下一步": {"text": "[TEST]等结果"}}),
         ("date:null 清空截止日期", {"截止日期": {"date": None}}),
     ]),
+    "简历月更表": ("q6ecJx2G3Ephav966tBHhQ", {
+        "记录类型": {"select": "成果条目"},
+        "成果标题": {"text": "[TEST] 集成测试成果"},
+        "成果类型": {"select": "任务完成"},
+        "月份归属": {"text": "2026-10"},
+        "量化指标": {"text": "[TEST] 3 项指标"},
+        "证据来源": {"text": "任务：[TEST]"},
+        "纳入简历": {"checkbox": True},
+        "创建日期": {"date": "2026-10-19"},
+        "是否示例": {"checkbox": False},
+    }, [
+        ("改成果类型为项目里程碑并取消纳入", {"成果类型": {"select": "项目里程碑"}, "纳入简历": {"checkbox": False}}),
+        ("date:null 清空创建日期", {"创建日期": {"date": None}}),
+    ]),
 }
 
 passed, failed = 0, []
@@ -117,7 +131,7 @@ def run(script, *args):
 def space_api(api, *args):
     return subprocess.run([PY, SKILL + "/space_api.py", api] + list(args), capture_output=True, text=True, encoding="utf-8").stdout.strip()
 
-print("[A] 云端 CRUD 回环（9 张表）")
+print("[A] 云端 CRUD 回环（10 张表）")
 created = []
 for tname, (dbid, add_props, updates) in TABLES.items():
     print("-- " + tname)
@@ -147,7 +161,7 @@ for tname, (dbid, add_props, updates) in TABLES.items():
         for k, pv in upd.items():
             expect = pv[list(pv.keys())[0]]
             actual = f2.get(k)
-            if k in ("状态", "性质", "优先级", "分类", "工作层级", "报告类型", "来源", "类型", "进度状态", "申请轮次", "申请状态"):
+            if k in ("状态", "性质", "优先级", "分类", "工作层级", "报告类型", "来源", "类型", "进度状态", "申请轮次", "申请状态", "记录类型", "成果类型"):
                 actual = actual if isinstance(actual, str) else (actual or {}).get("text") if isinstance(actual, dict) else actual
             if expect is None:
                 ok(actual is None, tname + "：" + label + " 字段 " + k + " 已清空(实际=%r)" % actual)
@@ -167,9 +181,9 @@ print("\n[B] 页面-数据表绑定关系")
 r = space_api("space.workspace.node-info", "--node-id", PAGE)
 node = json.loads(r)["data"]["node"]
 ok(node["kind"] == "web", "页面节点存在且为 web 类型")
-ok(len(node.get("nodes", [])) == 9, "页面下挂 9 张子数据表（实际 %d）" % len(node.get("nodes", [])))
+ok(len(node.get("nodes", [])) == 10, "页面下挂 10 张子数据表（实际 %d）" % len(node.get("nodes", [])))
 rel = json.loads(run("page/page_database_relation.py", "--action", "list", "--page-id", PAGE))
-ok(len(rel["data"]["relations"]) == 9, "页面绑定关系 9 条")
+ok(len(rel["data"]["relations"]) == 10, "页面绑定关系 10 条")
 
 print("\n[C] 已发布产物校验")
 work = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pub_check")
@@ -185,6 +199,10 @@ if r.startswith("KS_ARTIFACTS_OK"):
     ok(html.count('"DHd1C9sNJOt2SRa35BKRME"') >= 3, "发布产物含 AI 工作记录表 databaseId 字面量")
     ok(html.count('"xY6fAaJczfGY0gTkdYeZwu"') >= 3, "发布产物含学习记录表 databaseId 字面量")
     ok(html.count('"SE9AvDWGnB1YBZd6hrFdry"') >= 3, "发布产物含留学申请表 databaseId 字面量")
+    ok(html.count('"q6ecJx2G3Ephav966tBHhQ"') >= 3, "发布产物含简历月更表 databaseId 字面量")
+    ok("view-resume" in html and 'data-view="resume"' in html, "发布产物含简历月更视图与导航入口")
+    ok("buildResumeDraft" in html and "saveResumeSnapshot" in html, "发布产物含简历草稿生成与版本快照逻辑")
+    ok("scanMonthEvidence" in html, "发布产物含证据型成果筛选逻辑")
     ok("view-reports" in html and 'data-view="reports"' in html, "发布产物含报告视图与导航入口")
     ok("view-study" in html and 'data-view="study"' in html, "发布产物含学习视图与导航入口")
     ok("view-apply" in html and 'data-view="apply"' in html, "发布产物含申请视图与导航入口")
@@ -212,6 +230,12 @@ ok(len([x for x in r["results"] if x.get("是否示例")]) == 2, "学习表 2 �
 r = json.loads(run("database/query_database_record.py", "--database-id", "SE9AvDWGnB1YBZd6hrFdry"))
 sample_apply = [x for x in r["results"] if x.get("是否示例")]
 ok(len(sample_apply) == 2, "申请表 2 条示例数据（其中 1 条临期演示截止提醒）")
+r = json.loads(run("database/query_database_record.py", "--database-id", "q6ecJx2G3Ephav966tBHhQ"))
+sample_resume = [x for x in r["results"] if x.get("是否示例")]
+ok(len(sample_resume) == 3, "简历月更表 3 条示例数据（2 成果条目 + 1 版本快照）")
+ok(any(x.get("记录类型") == "版本快照" for x in sample_resume), "简历示例含版本快照记录")
+test_residue_cv = [x for x in r["results"] if str(x.get("成果标题", "")).startswith("[TEST]")]
+ok(len(test_residue_cv) == 0, "简历月更表无 [TEST] 测试探针残留")
 
 print("\n========================")
 print("集成测试结果：PASS %d / FAIL %d" % (passed, len(failed)))

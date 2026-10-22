@@ -14,7 +14,7 @@ const server = http.createServer((req, res) => { res.writeHead(200, { "Content-T
 function todayStr() { const d = new Date(); const p = n => (n < 10 ? "0" + n : "" + n); return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()); }
 function addDays(s, n) { const d = new Date(s + "T00:00:00"); d.setDate(d.getDate() + n); const p = n2 => (n2 < 10 ? "0" + n2 : "" + n2); return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()); }
 const TODAY = todayStr();
-const DB = { tasks: "tdNWBhRqvwIKXkz2ji0uyb", projects: "2klqa8d0rbO47x0FhoVK3W", research: "f20RfANYTZAqezxUqZ1ZrJ", notes: "PDFBIwRRZEGd2jfJbGiuY5", resources: "wBJtimnuDTDrgg2Zaf36ZA", reports: "VnPlGp0UnpMluFmFnkTpSz", airecords: "DHd1C9sNJOt2SRa35BKRME", study: "xY6fAaJczfGY0gTkdYeZwu", apply: "SE9AvDWGnB1YBZd6hrFdry" };
+const DB = { tasks: "tdNWBhRqvwIKXkz2ji0uyb", projects: "2klqa8d0rbO47x0FhoVK3W", research: "f20RfANYTZAqezxUqZ1ZrJ", notes: "PDFBIwRRZEGd2jfJbGiuY5", resources: "wBJtimnuDTDrgg2Zaf36ZA", reports: "VnPlGp0UnpMluFmFnkTpSz", airecords: "DHd1C9sNJOt2SRa35BKRME", study: "xY6fAaJczfGY0gTkdYeZwu", apply: "SE9AvDWGnB1YBZd6hrFdry", resume: "q6ecJx2G3Ephav966tBHhQ" };
 const STORE = {};
 STORE[DB.tasks] = [
   { _id: "t1", "标题": "官网首页内容核对", "分类": "园区官网", "关联项目": "园区官网建设", "优先级": "重要且紧急", "状态": "进行中", "计划日期": TODAY, "截止日期": addDays(TODAY, 2), "下一步": "核对栏目文案与图片素材", "创建日期": addDays(TODAY, -1), "今日重点": true },
@@ -46,6 +46,13 @@ STORE[DB.apply] = [
   { _id: "ap1", "学校": "某大学A", "专业项目": "计算机硕士", "申请轮次": "第一轮", "截止日期": addDays(TODAY, 5), "申请状态": "材料准备中", "优先级": "重要且紧急", "材料清单": "PS、推荐信 x2、成绩单", "下一步": "写 PS 初稿" },
   { _id: "ap2", "学校": "某大学B", "专业项目": "数据科学", "申请轮次": "第二轮", "截止日期": addDays(TODAY, 60), "申请状态": "待开始", "优先级": "重要不紧急", "下一步": "列选校对比表" },
 ];
+const CURM = TODAY.substring(0, 7);
+STORE[DB.resume] = [
+  { _id: "cv1", "记录类型": "成果条目", "成果标题": "工作台玻璃拟态 + Bento 改版上线", "成果类型": "项目里程碑", "月份归属": CURM, "量化指标": "覆盖 10 大板块 / 282 项单测", "成果描述": "主导工作台界面改造与云端重建，建立单测/集成/lint/布局量测四道质量门", "证据来源": "项目：工作台", "证据链接": { text: "workbuddy.link 发布页", link: "https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z" }, "纳入简历": true, "创建日期": TODAY },
+  { _id: "cv2", "记录类型": "成果条目", "成果标题": "备案材料提交", "成果类型": "任务完成", "月份归属": CURM, "证据来源": "任务：备案材料提交（园区官网建设）", "纳入简历": true, "创建日期": TODAY },
+  { _id: "cv3", "记录类型": "成果条目", "成果标题": "完成 JavaScript 异步编程学习", "成果类型": "学习成果", "月份归属": CURM, "量化指标": "投入 45 分钟", "证据来源": "学习记录：技能学习", "纳入简历": false, "创建日期": TODAY },
+  { _id: "sv1", "记录类型": "版本快照", "成果标题": CURM.replace(/\d{2}$/, m => String(Number(m) - 1).padStart(2, "0")) + " 简历快照", "月份归属": CURM.replace(/\d{2}$/, m => String(Number(m) - 1).padStart(2, "0")), "快照内容": "# 上月简历增量草稿\n\n## 任务完成\n- 完成 ICP 备案材料提交", "创建日期": addDays(TODAY, -20) },
+];
 const SCHEMA = {};
 SCHEMA[DB.tasks] = ["分类|园区官网,园区小程序,需求调研,工作流优化,企微自动化,日常报告,个人学习,留学申请,其他", "优先级|重要且紧急,紧急不重要,重要不紧急,一般", "状态|收集箱,待开始,进行中,等待,已完成,已取消"];
 SCHEMA[DB.projects] = ["工作层级|核心工作,次要工作"];
@@ -54,6 +61,7 @@ SCHEMA[DB.reports] = ["报告类型|日报,周报"];
 SCHEMA[DB.airecords] = ["来源|WorkBuddy,Codex,DSH,其他", "类型|实际完成,产出物,尝试失败,讨论"];
 SCHEMA[DB.study] = ["类型|语言备考,专业课程,技能学习,证书备考,阅读", "进度状态|未开始,进行中,已完成,暂停"];
 SCHEMA[DB.apply] = ["申请轮次|提前批,第一轮,第二轮,末轮", "申请状态|待开始,材料准备中,已提交,面试中,已录取,已放弃", "优先级|重要且紧急,紧急不重要,重要不紧急,一般"];
+SCHEMA[DB.resume] = ["记录类型|成果条目,版本快照", "成果类型|任务完成,项目里程碑,学习成果,其他"];
 function buildSchemaProps(lines) {
   return (lines || []).map(function (l) {
     var parts = l.split("|"); var name = parts[0], opts = parts[1];
@@ -90,6 +98,9 @@ Object.keys(SCHEMA).forEach(function (k) { SCHEMA_OBJ[k] = buildSchemaProps(SCHE
     await page.waitForTimeout(1500);
     await page.screenshot({ path: path.join(OUT, "desktop-tasks.png"), fullPage: false });
     await page.evaluate(() => window.scrollTo(0, 0));
+    await page.evaluate(() => { location.hash = "#/resume"; });
+    await page.waitForTimeout(1500);
+    await page.screenshot({ path: path.join(OUT, "desktop-resume.png"), fullPage: true });
   }
   await desktop.close();
 

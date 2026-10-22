@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """v4 重建：回到原账号空间 njAwuhjNLk8PCccMzYZFvR。
-7 张旧表（第1-2期，含活数据）直接复用，只需新建第3期的 study / apply 两张表。
+7 张旧表（第1-2期，含活数据）直接复用；第3期新建 study / apply，第4期新建 resume。
 结果写入 dbid_map_v4.json（不动 v3 的 dbid_map.json）。
 幂等：已映射则跳过；空间已有同名表则复用。
 """
@@ -54,6 +54,23 @@ NEW_TABLES = {
             {"name": "材料清单", "config": {"text": ""}},
             {"name": "下一步", "config": {"text": ""}},
             {"name": "备注", "config": {"text": ""}},
+            {"name": "是否示例", "config": {"checkbox": False}},
+        ],
+    }),
+    "简历月更表": ("resume", {
+        "title": "简历月更表",
+        "properties": [
+            {"name": "记录类型", "config": sel(["成果条目", "版本快照"])},
+            {"name": "成果标题", "config": {"text": ""}},
+            {"name": "成果类型", "config": sel(["任务完成", "项目里程碑", "学习成果", "其他"])},
+            {"name": "月份归属", "config": {"text": ""}},
+            {"name": "量化指标", "config": {"text": ""}},
+            {"name": "成果描述", "config": {"text": ""}},
+            {"name": "证据来源", "config": {"text": ""}},
+            {"name": "证据链接", "config": {"url": {"text": "", "link": ""}}},
+            {"name": "纳入简历", "config": {"checkbox": False}},
+            {"name": "快照内容", "config": {"text": ""}},
+            {"name": "创建日期", "config": {"date": ""}},
             {"name": "是否示例", "config": {"checkbox": False}},
         ],
     }),

@@ -264,7 +264,7 @@ a{color:#185FA5;text-decoration:none}
     <button class="navitem" data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>日报周报</button>
     <button class="navitem" data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>个人学习</button>
     <button class="navitem" data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>留学申请</button>
-    <button class="navitem" disabled style="opacity:.45;cursor:default"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>简历月更（第 4 期，未上线）</button>
+    <button class="navitem" data-view="resume"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>简历月更</button>
     <div class="navsep">维护</div>
     <button class="navitem" data-view="settings"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>数据与设置</button>
   </aside>
@@ -415,6 +415,43 @@ a{color:#185FA5;text-decoration:none}
       <div id="applyList"></div>
     </section>
 
+    <section class="view" id="view-resume">
+      <div class="card" id="resumeRemindCard" style="display:none;border-color:rgba(163,45,45,.35)">
+        <h2 style="color:#A32D2D">月更提醒</h2>
+        <div style="font-size:13px" id="resumeRemindText"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <h2 style="margin:0">月度成果 <span class="muted" id="resumeMonthLabel"></span></h2>
+          <div class="shortcut-row" style="margin:0">
+            <button class="btn btn-ghost btn-mini" id="resumePrevMonth">‹ 上月</button>
+            <button class="btn btn-ghost btn-mini" id="resumeThisMonth">回到本月</button>
+            <button class="btn btn-ghost btn-mini" id="resumeNextMonth">下月 ›</button>
+          </div>
+        </div>
+        <p class="muted" style="margin-bottom:10px">证据型成果：完成的任务 / 项目里程碑 / 学习成果。勾选「纳入简历」后才会进月度汇总草稿。</p>
+        <div class="shortcut-row" style="margin-bottom:10px">
+          <button class="btn btn-primary btn-mini" id="btnNewResume">记成果</button>
+          <button class="btn btn-ghost btn-mini" id="resumeScanBtn">一键汇总本月证据</button>
+        </div>
+        <div id="resumeList"></div>
+      </div>
+      <div class="card">
+        <h2>月度汇总草稿 <span class="muted" id="resumeDraftHint"></span></h2>
+        <div class="shortcut-row" style="margin-bottom:10px">
+          <button class="btn btn-primary btn-mini" id="resumeGenBtn">生成草稿</button>
+          <button class="btn btn-ghost btn-mini" id="resumeSnapBtn">存为版本快照</button>
+          <button class="btn btn-ghost btn-mini" id="resumeCopyBtn">复制 Markdown</button>
+        </div>
+        <div class="form-row"><textarea id="resumeDraft" rows="12" placeholder="点「生成草稿」按本月纳入简历的成果自动汇总；也可以直接手写。"></textarea></div>
+      </div>
+      <div class="card">
+        <h2>历史版本 <span class="count" id="resumeSnapCount"></span></h2>
+        <p class="muted" style="margin-bottom:8px">每次「存为版本快照」会在简历月更表存一条「版本快照」记录，可随时查看、回滚到草稿区或删除。</p>
+        <div id="resumeSnapList"></div>
+      </div>
+    </section>
+
     <section class="view" id="view-reports">
       <div class="card">
         <h2>生成报告草稿</h2>
@@ -507,7 +544,7 @@ a{color:#185FA5;text-decoration:none}
           <li>离线 HTML 版（可下载）仅支持查看缓存数据，本地新增需通过导出/导入 JSON 与云端合并，暂不支持自动补同步——此能力如实标注为「半自动」。</li>
           <li>日报周报已上线：数据来自任务完成记录 + AI 工作记录（10 秒记一条），自动去重、双版本（自用/领导）、导出真实 .docx 与 Markdown、一键存档云端。</li>
           <li>个人学习与留学申请已上线（第 3 期）：学习记录按「学习日期 + 时长」统计；申请截止日 14 天内自动进「今日工作」提醒；两者只进自用版日报周报，不进领导摘要。</li>
-          <li>简历月更为第 4 期模块（计划用 WorkBuddy 自动化每月 1 日提醒），上线后在导航中出现。</li>
+          <li>简历月更已上线（第 4 期）：每月汇总上月「证据型成果」（完成的任务 / 项目里程碑 / 学习成果），一键生成简历增量草稿并存版本快照，历史版本可查看与回滚；每月 1-7 日若上月未出快照会在本模块顶部提醒。</li>
         </ul>
       </div>
     </section>
@@ -525,6 +562,7 @@ a{color:#185FA5;text-decoration:none}
   <div class="drawer-grid">
     <button class="dbtn" data-view="study"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>学习</button>
     <button class="dbtn" data-view="apply"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>申请</button>
+    <button class="dbtn" data-view="resume"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>简历</button>
     <button class="dbtn" data-view="notes"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>速记</button>
     <button class="dbtn" data-view="resources"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>资料</button>
     <button class="dbtn" data-view="reports"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>报告</button>
@@ -545,12 +583,13 @@ a{color:#185FA5;text-decoration:none}
   var DB_AI = "DHd1C9sNJOt2SRa35BKRME";
   var DB_STUDY = "xY6fAaJczfGY0gTkdYeZwu";
   var DB_APPLY = "SE9AvDWGnB1YBZd6hrFdry";
-  var ALL_DBS = [DB_TASKS, DB_PROJECTS, DB_RESEARCH, DB_NOTES, DB_RESOURCES, DB_REPORTS, DB_AI, DB_STUDY, DB_APPLY];
+  var DB_RESUME = "q6ecJx2G3Ephav966tBHhQ";
+  var ALL_DBS = [DB_TASKS, DB_PROJECTS, DB_RESEARCH, DB_NOTES, DB_RESOURCES, DB_REPORTS, DB_AI, DB_STUDY, DB_APPLY, DB_RESUME];
   var db = null;
   try { db = window.__SMART_PAGE__ && window.__SMART_PAGE__.database ? window.__SMART_PAGE__.database : null; } catch (e) { db = null; }
 
-  var STATE = { tasks: [], projects: [], research: [], notes: [], resources: [], reports: [], airecords: [], study: [], apply: [], loaded: false };
-  var UI = { taskFilter: "today", researchFilter: "all", taskSearch: "", noteTagSearch: "", studyFilter: "all", applyFilter: "open" };
+  var STATE = { tasks: [], projects: [], research: [], notes: [], resources: [], reports: [], airecords: [], study: [], apply: [], resume: [], loaded: false };
+  var UI = { taskFilter: "today", researchFilter: "all", taskSearch: "", noteTagSearch: "", studyFilter: "all", applyFilter: "open", resumeMonth: "" };
   var PRIORITY_ORDER = { "重要且紧急": 0, "紧急不重要": 1, "重要不紧急": 2, "一般": 3 };
   var ACTIVE_STATUS = ["待开始", "进行中", "等待"];
   var LS_KEY = "wb_workbench_v1_";
@@ -724,6 +763,19 @@ a{color:#185FA5;text-decoration:none}
       })
       .catch(function (err) { console.error("[database] 加载失败:", err); throw err; });
   }
+  function loadAllResume(cursor, acc, guard) {
+    acc = acc || []; guard = guard || 0;
+    if (guard > 100) return Promise.resolve(acc);
+    return db.query({ databaseId: "q6ecJx2G3Ephav966tBHhQ", pageSize: 200, startCursor: cursor })
+      .then(function (r) {
+        var rows = r.results || [];
+        acc = acc.concat(rows);
+        var next = r.nextCursor;
+        if (r.hasMore && next && next !== cursor && rows.length) return loadAllResume(next, acc, guard + 1);
+        return Promise.resolve(acc);
+      })
+      .catch(function (err) { console.error("[database] 加载失败:", err); throw err; });
+  }
   function loadData() {
     if (!db) {
       setSync("err", "离线模式");
@@ -740,7 +792,8 @@ a{color:#185FA5;text-decoration:none}
       .then(function (rows) { STATE.reports = rows; return loadAllAIRecords(); })
       .then(function (rows) { STATE.airecords = rows; return loadAllStudy(); })
       .then(function (rows) { STATE.study = rows; return loadAllApply(); })
-      .then(function (rows) { STATE.apply = rows;
+      .then(function (rows) { STATE.apply = rows; return loadAllResume(); })
+      .then(function (rows) { STATE.resume = rows;
         STATE.loaded = true;
         setSync("ok", "已同步");
         checkBackupReminder();
@@ -764,6 +817,7 @@ a{color:#185FA5;text-decoration:none}
     else if (databaseId === DB_AI) p = db.addRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", properties: properties });
     else if (databaseId === DB_STUDY) p = db.addRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", properties: properties });
     else if (databaseId === DB_APPLY) p = db.addRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", properties: properties });
+    else if (databaseId === DB_RESUME) p = db.addRecord({ databaseId: "q6ecJx2G3Ephav966tBHhQ", properties: properties });
     else p = db.addRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
@@ -780,6 +834,7 @@ a{color:#185FA5;text-decoration:none}
     else if (databaseId === DB_AI) p = db.updateRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId, properties: properties });
     else if (databaseId === DB_STUDY) p = db.updateRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", recordId: recordId, properties: properties });
     else if (databaseId === DB_APPLY) p = db.updateRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", recordId: recordId, properties: properties });
+    else if (databaseId === DB_RESUME) p = db.updateRecord({ databaseId: "q6ecJx2G3Ephav966tBHhQ", recordId: recordId, properties: properties });
     else p = db.updateRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId, properties: properties });
     return p
       .then(function (r) { setSync("ok", "已同步"); return r; })
@@ -795,6 +850,7 @@ a{color:#185FA5;text-decoration:none}
     else if (databaseId === DB_AI) p = db.deleteRecord({ databaseId: "DHd1C9sNJOt2SRa35BKRME", recordId: recordId });
     else if (databaseId === DB_STUDY) p = db.deleteRecord({ databaseId: "xY6fAaJczfGY0gTkdYeZwu", recordId: recordId });
     else if (databaseId === DB_APPLY) p = db.deleteRecord({ databaseId: "SE9AvDWGnB1YBZd6hrFdry", recordId: recordId });
+    else if (databaseId === DB_RESUME) p = db.deleteRecord({ databaseId: "q6ecJx2G3Ephav966tBHhQ", recordId: recordId });
     else p = db.deleteRecord({ databaseId: "wBJtimnuDTDrgg2Zaf36ZA", recordId: recordId });
     return p;
   }
@@ -1055,10 +1111,10 @@ a{color:#185FA5;text-decoration:none}
 
   /* ---------- 视图切换 + hash 路由 ---------- */
   /* 抽屉收纳的视图：当前处于这些视图时，底部「更多」按钮高亮 */
-  var DRAWER_VIEWS = { study: 1, apply: 1, notes: 1, resources: 1, reports: 1, settings: 1 };
+  var DRAWER_VIEWS = { study: 1, apply: 1, resume: 1, notes: 1, resources: 1, reports: 1, settings: 1 };
   /* 路由白名单：#/today #/tasks #/projects #/research #/notes #/resources #/reports #/study #/apply #/settings
      支持 ?f= 任务筛选参数（今日看板指标跳转用），刷新 / 直接访问 / 前进后退均生效 */
-  var ROUTES = ["today", "tasks", "projects", "research", "notes", "resources", "reports", "study", "apply", "settings"];
+  var ROUTES = ["today", "tasks", "projects", "research", "notes", "resources", "reports", "study", "apply", "resume", "settings"];
   function closeMoreDrawer() {
     var d = $("moredrawer");
     if (d) d.classList.remove("open");
@@ -1137,6 +1193,7 @@ a{color:#185FA5;text-decoration:none}
     renderStudy();
     renderApply();
     renderTodayApplyBox();
+    renderResume();
     renderReports();
     renderSettings();
   }
@@ -2477,6 +2534,300 @@ a{color:#185FA5;text-decoration:none}
     }).then(refreshAll).catch(function (err) { console.error(err); toast("转任务失败"); });
   }
 
+  /* ---------- 简历月更（第 4 期）：证据型成果 → 月度汇总草稿 → 版本快照 ---------- */
+  /* 单表双用途：记录类型=成果条目（逐条成果）/ 版本快照（月度草稿存档）；内容只进自用视图，不进任何对外报告 */
+  function monthStrOf(v) { var d = dateOnly(v); return d.length >= 7 ? d.substring(0, 7) : ""; }
+  function curMonth() { return todayStr().substring(0, 7); }
+  function shiftMonth(m, n) {
+    var parts = String(m || curMonth()).split("-");
+    var y = Number(parts[0]) || 1970, mo = (Number(parts[1]) || 1) + n;
+    while (mo < 1) { mo += 12; y--; }
+    while (mo > 12) { mo -= 12; y++; }
+    return y + "-" + pad2(mo);
+  }
+  function findResume(id) {
+    for (var i = 0; i < STATE.resume.length; i++) if (STATE.resume[i]._id === id) return STATE.resume[i];
+    return null;
+  }
+  function resumeEntries(month) {
+    return STATE.resume.filter(function (r) {
+      return (r["记录类型"] || "成果条目") === "成果条目" && (!month || (r["月份归属"] || "") === month);
+    });
+  }
+  function resumeSnapshots() {
+    var list = STATE.resume.filter(function (r) { return r["记录类型"] === "版本快照"; });
+    list.sort(function (a, b) {
+      return String(b["月份归属"] || "").localeCompare(String(a["月份归属"] || ""))
+        || String(b["创建日期"] || "").localeCompare(String(a["创建日期"] || ""));
+    });
+    return list;
+  }
+  function renderResume() {
+    if (!UI.resumeMonth) UI.resumeMonth = curMonth();
+    var m = UI.resumeMonth;
+    $("resumeMonthLabel").textContent = m;
+    /* 月更提醒（T406 降级方案）：每月 1-7 日且上月无快照时提示 */
+    var prev = shiftMonth(curMonth(), -1);
+    var day = Number(todayStr().substring(8, 10));
+    var hasPrevSnap = resumeSnapshots().some(function (s) { return (s["月份归属"] || "") === prev; });
+    var remind = $("resumeRemindCard");
+    if (day <= 7 && !hasPrevSnap) {
+      remind.style.display = "";
+      $("resumeRemindText").textContent = "现在是月初，上月（" + prev + "）还没有存版本快照。点「‹ 上月」切到上月，一键汇总证据 → 生成草稿 → 存为版本快照。";
+    } else remind.style.display = "none";
+    /* 本月成果条目 */
+    var list = resumeEntries(m);
+    list.sort(function (a, b) { return String(b["创建日期"] || "").localeCompare(String(a["创建日期"] || "")); });
+    var typeTag = { "项目里程碑": "tag-core", "任务完成": "tag-status", "学习成果": "tag-p1", "其他": "tag-p3" };
+    var html = "";
+    list.forEach(function (r) {
+      var inResume = !!r["纳入简历"];
+      html += '<div class="today-item" style="display:flex;align-items:flex-start;gap:8px">'
+        + '<input type="checkbox" data-act="toggleresume" data-id="' + esc(r._id) + '"' + (inResume ? " checked" : "") + ' title="纳入简历" style="width:auto;margin-top:3px">'
+        + '<div style="flex:1;min-width:0">'
+        + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' + sampleTag(r)
+        + '<span class="section-tag ' + (typeTag[r["成果类型"]] || "tag-p3") + '">' + esc(r["成果类型"] || "其他") + "</span>"
+        + '<span style="font-weight:600">' + esc(r["成果标题"] || "（未命名成果）") + "</span>"
+        + (inResume ? '<span class="section-tag tag-core">已纳入</span>' : "")
+        + "</div>"
+        + (r["量化指标"] ? '<div class="t-meta" style="margin-top:2px">量化：' + esc(r["量化指标"]) + "</div>" : "")
+        + (r["成果描述"] ? '<div style="font-size:13px;margin-top:2px;white-space:pre-wrap;word-break:break-all">' + esc(r["成果描述"]) + "</div>" : "")
+        + (r["证据来源"] ? '<div class="t-meta" style="margin-top:2px">证据：' + esc(r["证据来源"]) + "</div>" : "")
+        + (r["证据链接"] && r["证据链接"].link ? '<div style="font-size:13px;margin-top:2px"><a href="' + esc(r["证据链接"].link) + '" target="_blank" rel="noopener">' + esc(r["证据链接"].text || r["证据链接"].link) + "</a></div>" : "")
+        + "</div>"
+        + '<button class="btn-mini btn btn-ghost" data-act="editresume" data-id="' + esc(r._id) + '">编辑</button>'
+        + '<button class="btn-mini btn btn-ghost" data-act="delresume" data-id="' + esc(r._id) + '">删除</button>'
+        + "</div>";
+    });
+    if (!html) html = '<div class="empty-tip">本月还没有成果条目：点「一键汇总本月证据」自动收集，或「记成果」手动补一条</div>';
+    $("resumeList").innerHTML = html;
+    /* 历史版本 */
+    var snaps = resumeSnapshots();
+    $("resumeSnapCount").textContent = snaps.length ? String(snaps.length) : "";
+    var sh = "";
+    snaps.forEach(function (s) {
+      sh += '<div class="today-item" style="display:flex;align-items:center;gap:8px">'
+        + '<div style="flex:1;min-width:0"><span style="font-weight:600">' + esc(s["成果标题"] || "版本快照") + "</span>"
+        + '<span class="muted"> · ' + esc(s["月份归属"] || "") + " · 存档于 " + esc(dateOnly(s["创建日期"]) || "未知") + "</span></div>"
+        + '<button class="btn-mini btn btn-ghost" data-act="snapview" data-id="' + esc(s._id) + '">查看</button>'
+        + '<button class="btn-mini btn btn-ghost" data-act="snaprestore" data-id="' + esc(s._id) + '">回滚</button>'
+        + '<button class="btn-mini btn btn-ghost" data-act="snapdel" data-id="' + esc(s._id) + '">删除</button>'
+        + "</div>";
+    });
+    if (!sh) sh = '<div class="empty-tip">还没有版本快照，草稿写好点「存为版本快照」即可存档</div>';
+    $("resumeSnapList").innerHTML = sh;
+  }
+  function resumeSelectHtml(field, current) {
+    var opts = (SCHEMA_OPTIONS[DB_RESUME] || {})[field] || [];
+    if (!opts.length) return '<input type="text" name="cv_' + field + '" value="' + esc(current || "") + '">';
+    var h = '<select name="cv_' + field + '">';
+    opts.forEach(function (o) { h += '<option value="' + esc(o.id) + '"' + (o.text === current ? " selected" : "") + ">" + esc(o.text) + "</option>"; });
+    return h + "</select>";
+  }
+  function resumeSelectText(field, val) {
+    var opts = (SCHEMA_OPTIONS[DB_RESUME] || {})[field] || [];
+    for (var i = 0; i < opts.length; i++) if (opts[i].id === val) return opts[i].text;
+    return val;
+  }
+  function cvgv(name) {
+    var el = $("modalBox").querySelector('[name="cv_' + name + '"]');
+    return el ? el.value : "";
+  }
+  function openResumeModal(rid) {
+    var r = rid ? findResume(rid) : null;
+    var v = function (f) { return r ? (r[f] || "") : ""; };
+    var urlv = r && r["证据链接"] && r["证据链接"].link ? r["证据链接"].link : "";
+    var h = '<h3>' + (r ? "编辑成果条目" : "记一条成果") + "</h3>"
+      + '<div class="form-row"><label>成果标题 *</label><input type="text" name="cv_成果标题" value="' + esc(v("成果标题")) + '" maxlength="120" placeholder="一句话说清做成了什么"></div>'
+      + '<div class="form-grid2">'
+      + '<div class="form-row"><label>成果类型</label>' + resumeSelectHtml("成果类型", v("成果类型") || "任务完成") + "</div>"
+      + '<div class="form-row"><label>月份归属（YYYY-MM）</label><input type="text" name="cv_月份归属" value="' + esc(v("月份归属") || UI.resumeMonth || curMonth()) + '" maxlength="7" placeholder="2026-10"></div>'
+      + '<div class="form-row"><label>量化指标</label><input type="text" name="cv_量化指标" value="' + esc(v("量化指标")) + '" placeholder="如：覆盖 9 大板块 / 239 项测试全过"></div>'
+      + '<div class="form-row"><label>证据来源</label><input type="text" name="cv_证据来源" value="' + esc(v("证据来源")) + '" placeholder="如：任务：官网首页内容核对"></div>'
+      + '<div class="form-row"><label>证据链接</label><input type="text" name="cv_证据链接" value="' + esc(urlv) + '" placeholder="https://…"></div>'
+      + '<div class="form-row"><label>纳入简历</label><label style="display:flex;align-items:center;gap:6px;font-weight:400"><input type="checkbox" name="cv_纳入简历" style="width:auto"' + ((r ? r["纳入简历"] : true) ? " checked" : "") + "> 进月度汇总草稿</label></div>"
+      + "</div>"
+      + '<div class="form-row"><label>成果描述</label><textarea name="cv_成果描述" rows="3" placeholder="背景 / 动作 / 结果，越具体越好">' + esc(v("成果描述")) + "</textarea></div>"
+      + '<div class="modal-actions"><button class="btn btn-ghost" data-close="1">取消</button><button class="btn btn-primary" id="resumeSaveBtn">保存</button></div>';
+    openModal(h);
+    $("resumeSaveBtn").addEventListener("click", function () { saveResumeModal(r ? r._id : null); });
+  }
+  function saveResumeModal(rid) {
+    var title = String(cvgv("成果标题")).replace(/^\s+|\s+$/g, "");
+    if (!title) { toast("成果标题必填"); return; }
+    var month = String(cvgv("月份归属")).replace(/^\s+|\s+$/g, "");
+    if (!/^\d{4}-\d{2}$/.test(month)) { toast("月份归属格式应为 YYYY-MM，如 2026-10"); return; }
+    var btn = $("resumeSaveBtn");
+    btn.disabled = true; btn.textContent = "保存中…";
+    var inResumeEl = $("modalBox").querySelector('[name="cv_纳入简历"]');
+    var props = {};
+    props["记录类型"] = { select: "成果条目" };
+    props["成果标题"] = { text: title };
+    props["成果类型"] = { select: resumeSelectText("成果类型", cvgv("成果类型")) || "任务完成" };
+    props["月份归属"] = { text: month };
+    props["量化指标"] = { text: cvgv("量化指标") };
+    props["成果描述"] = { text: cvgv("成果描述") };
+    props["证据来源"] = { text: cvgv("证据来源") };
+    props["证据链接"] = cvgv("证据链接") ? { url: { text: cvgv("证据链接"), link: cvgv("证据链接") } } : { url: { text: "", link: "" } };
+    props["纳入简历"] = { checkbox: !!(inResumeEl && inResumeEl.checked) };
+    if (!rid) props["创建日期"] = { date: todayStr() };
+    var op = rid ? dbUpdate(DB_RESUME, rid, props) : dbAdd(DB_RESUME, props);
+    op.then(function () {
+      toast("已保存");
+      closeModal();
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("保存失败，请重试"); btn.disabled = false; btn.textContent = "保存"; });
+  }
+  function toggleResumeInclude(rid) {
+    var r = findResume(rid); if (!r || !db) return;
+    var props = { "纳入简历": { checkbox: !r["纳入简历"] } };
+    dbUpdate(DB_RESUME, rid, props).then(function () {
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("操作失败"); });
+  }
+  function deleteResumeEntry(rid) {
+    var r = findResume(rid); if (!r || !db) return;
+    if (!window.confirm("确定删除这条成果「" + (r["成果标题"] || "") + "」吗？")) return;
+    dbDelete(DB_RESUME, rid).then(function () {
+      toast("已删除");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("删除失败"); });
+  }
+  /* T404 证据型筛选：完成的任务（完成时间归属月）+ 项目里程碑（阶段目标日期归属月）+ 已完成学习（学习日期归属月） */
+  function scanMonthEvidence(month) {
+    var cands = [];
+    STATE.tasks.forEach(function (t) {
+      if (t["是否示例"]) return;
+      if (t["状态"] !== "已完成") return;
+      if (monthStrOf(t["完成时间"]) !== month) return;
+      cands.push({
+        type: "任务完成", title: String(t["标题"] || "").replace(/^\s+|\s+$/g, ""),
+        metric: "", src: "任务：" + (t["标题"] || "") + (t["关联项目"] ? "（项目：" + t["关联项目"] + "）" : "")
+      });
+    });
+    STATE.projects.forEach(function (p) {
+      if (p["是否示例"]) return;
+      if (monthStrOf(p["阶段目标日期"]) !== month) return;
+      cands.push({
+        type: "项目里程碑",
+        title: "「" + (p["项目名称"] || "项目") + "」阶段达成：" + (p["当前阶段"] || "阶段目标"),
+        metric: "", src: "项目：" + (p["项目名称"] || "") + (p["最近进展"] ? "（" + p["最近进展"] + "）" : "")
+      });
+    });
+    STATE.study.forEach(function (s) {
+      if (s["是否示例"]) return;
+      if (s["进度状态"] !== "已完成") return;
+      if (monthStrOf(s["学习日期"]) !== month) return;
+      cands.push({
+        type: "学习成果", title: "完成学习：" + (s["学习主题"] || "（未填主题）"),
+        metric: s["时长分钟"] ? "投入 " + s["时长分钟"] + " 分钟" : "", src: "学习记录：" + (s["类型"] || "学习")
+      });
+    });
+    return cands.filter(function (c) { return c.title; });
+  }
+  function scanAndAddEvidence() {
+    if (!db) { toast("离线模式不能写入云端"); return; }
+    var m = UI.resumeMonth || curMonth();
+    var existing = {};
+    resumeEntries(m).forEach(function (r) { existing[r["成果标题"]] = true; });
+    var cands = scanMonthEvidence(m).filter(function (c) { return !existing[c.title]; });
+    if (!cands.length) { toast("没有新证据可汇总（同名成果会自动跳过）"); return; }
+    var chain = Promise.resolve();
+    cands.forEach(function (c) {
+      chain = chain.then(function () {
+        var props = {};
+        props["记录类型"] = { select: "成果条目" };
+        props["成果标题"] = { text: c.title };
+        props["成果类型"] = { select: c.type };
+        props["月份归属"] = { text: m };
+        props["量化指标"] = { text: c.metric };
+        props["证据来源"] = { text: c.src };
+        props["纳入简历"] = { checkbox: true };
+        props["创建日期"] = { date: todayStr() };
+        return dbAdd(DB_RESUME, props);
+      });
+    });
+    chain.then(function () {
+      toast("已汇总 " + cands.length + " 条证据型成果");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("汇总中断，请检查网络后重试"); });
+  }
+  /* T403 月度汇总草稿：按成果类型分组，只收「纳入简历」的条目 */
+  function buildResumeDraft(month) {
+    var list = resumeEntries(month).filter(function (r) { return !!r["纳入简历"]; });
+    var lines = ["# " + month + " 简历增量草稿", ""];
+    var order = ["项目里程碑", "任务完成", "学习成果", "其他"];
+    order.forEach(function (t) {
+      var items = list.filter(function (r) { return (r["成果类型"] || "其他") === t; });
+      if (!items.length) return;
+      lines.push("## " + t);
+      items.forEach(function (r) {
+        var line = "- " + (r["成果标题"] || "（未命名成果）");
+        if (r["量化指标"]) line += "（" + r["量化指标"] + "）";
+        lines.push(line);
+        if (r["成果描述"]) lines.push("  " + String(r["成果描述"]).replace(/\n/g, "\n  "));
+        if (r["证据来源"]) lines.push("  证据：" + r["证据来源"]);
+      });
+      lines.push("");
+    });
+    if (!list.length) lines.push("（本月没有勾选「纳入简历」的成果，先在上面勾选或一键汇总）");
+    return lines.join("\n");
+  }
+  /* T405 版本快照：存档 / 查看 / 回滚 / 删除 */
+  function saveResumeSnapshot() {
+    if (!db) { toast("离线模式不能写入云端"); return; }
+    var m = UI.resumeMonth || curMonth();
+    var content = String($("resumeDraft").value || "").replace(/\s+$/, "");
+    if (!content) { toast("草稿为空，先生成或手写内容"); return; }
+    var props = {};
+    props["记录类型"] = { select: "版本快照" };
+    props["成果标题"] = { text: m + " 简历快照 " + todayStr().substring(5) };
+    props["月份归属"] = { text: m };
+    props["快照内容"] = { text: content };
+    props["创建日期"] = { date: todayStr() };
+    dbAdd(DB_RESUME, props).then(function () {
+      toast("已存为版本快照");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("存档失败，请重试"); });
+  }
+  function viewResumeSnapshot(sid) {
+    var s = findResume(sid); if (!s) return;
+    var h = '<h3>' + esc(s["成果标题"] || "版本快照") + "</h3>"
+      + '<p class="muted">月份归属 ' + esc(s["月份归属"] || "") + " · 存档于 " + esc(dateOnly(s["创建日期"]) || "未知") + "</p>"
+      + '<pre style="white-space:pre-wrap;word-break:break-all;font-size:13px;background:rgba(255,255,255,.6);border-radius:12px;padding:12px;max-height:50vh;overflow:auto">' + esc(s["快照内容"] || "") + "</pre>"
+      + '<div class="modal-actions"><button class="btn btn-ghost" data-close="1">关闭</button><button class="btn btn-primary" id="snapCopyBtn">复制内容</button></div>';
+    openModal(h);
+    $("snapCopyBtn").addEventListener("click", function () {
+      var ta = document.createElement("textarea");
+      ta.value = s["快照内容"] || ""; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); toast("已复制"); } catch (e) { toast("复制失败，请手动复制"); }
+      document.body.removeChild(ta);
+    });
+  }
+  function restoreResumeSnapshot(sid) {
+    var s = findResume(sid); if (!s) return;
+    UI.resumeMonth = s["月份归属"] || UI.resumeMonth;
+    $("resumeDraft").value = s["快照内容"] || "";
+    renderResume();
+    toast("已回滚到草稿区（未覆盖云端，确认后可再存新快照）");
+  }
+  function deleteResumeSnapshot(sid) {
+    var s = findResume(sid); if (!s || !db) return;
+    if (!window.confirm("确定删除快照「" + (s["成果标题"] || "") + "」吗？删了不可恢复。")) return;
+    dbDelete(DB_RESUME, sid).then(function () {
+      toast("快照已删除");
+      return loadData();
+    }).then(refreshAll).catch(function (err) { console.error(err); toast("删除失败"); });
+  }
+  function copyResumeDraft() {
+    var v = String($("resumeDraft").value || "");
+    if (!v) { toast("草稿为空"); return; }
+    var ta = document.createElement("textarea");
+    ta.value = v; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); toast("草稿已复制"); } catch (e) { toast("复制失败，请手动复制"); }
+    document.body.removeChild(ta);
+  }
+
   /* ---------- 日报周报：状态与工具 ---------- */
   var REP = { type: "日报", start: "", end: "", dirtySelf: false, dirtyLeader: false };
   function mondayOf(s) {
@@ -3167,7 +3518,7 @@ a{color:#185FA5;text-decoration:none}
       tasks: STATE.tasks, projects: STATE.projects, research: STATE.research,
       notes: STATE.notes, resources: STATE.resources,
       reports: STATE.reports, airecords: STATE.airecords,
-      study: STATE.study, apply: STATE.apply
+      study: STATE.study, apply: STATE.apply, resume: STATE.resume
     };
     var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     var a = document.createElement("a");
@@ -3210,7 +3561,7 @@ a{color:#185FA5;text-decoration:none}
     };
     reader.readAsText(file, "utf-8");
   }
-  var IMPORT_KEYS = [["tasks", DB_TASKS], ["projects", DB_PROJECTS], ["research", DB_RESEARCH], ["notes", DB_NOTES], ["resources", DB_RESOURCES], ["reports", DB_REPORTS], ["airecords", DB_AI], ["study", DB_STUDY], ["apply", DB_APPLY]];
+  var IMPORT_KEYS = [["tasks", DB_TASKS], ["projects", DB_PROJECTS], ["research", DB_RESEARCH], ["notes", DB_NOTES], ["resources", DB_RESOURCES], ["reports", DB_REPORTS], ["airecords", DB_AI], ["study", DB_STUDY], ["apply", DB_APPLY], ["resume", DB_RESUME]];
   function recordProps(row) {
     var out = {};
     for (var k in row) {
@@ -3267,7 +3618,7 @@ a{color:#185FA5;text-decoration:none}
       }).then(refreshAll).catch(function (err) { console.error(err); toast("导入中断，已完成部分请检查"); });
     };
     if (mode === "replace") {
-      confirmDialog("替换会先删除云端全部 9 张表（任务、项目、调研、速记、资料、报告存档、AI记录、学习、申请）的记录，再写入文件内容，删除不可恢复。确定继续？", doRun);
+      confirmDialog("替换会先删除云端全部 10 张表（任务、项目、调研、速记、资料、报告存档、AI记录、学习、申请、简历月更）的记录，再写入文件内容，删除不可恢复。确定继续？", doRun);
     } else {
       doRun();
     }
@@ -3323,6 +3674,9 @@ a{color:#185FA5;text-decoration:none}
       return db.getSchema({ databaseId: "SE9AvDWGnB1YBZd6hrFdry" });
     }).then(function (schema) {
       SCHEMA_OPTIONS[DB_APPLY] = readSchemaOpts(schema);
+      return db.getSchema({ databaseId: "q6ecJx2G3Ephav966tBHhQ" });
+    }).then(function (schema) {
+      SCHEMA_OPTIONS[DB_RESUME] = readSchemaOpts(schema);
     }).catch(function (err) { console.error("[database] schema 加载失败:", err); });
   }
   function bindDelegate(containerId, handler) {
@@ -3371,6 +3725,12 @@ a{color:#185FA5;text-decoration:none}
     else if (act === "delreport") deleteReport(id);
     else if (act === "editstudy") openStudyModal(id);
     else if (act === "study2task") studyToTask(id);
+    else if (act === "editresume") openResumeModal(id);
+    else if (act === "delresume") deleteResumeEntry(id);
+    else if (act === "toggleresume") toggleResumeInclude(id);
+    else if (act === "snapview") viewResumeSnapshot(id);
+    else if (act === "snaprestore") restoreResumeSnapshot(id);
+    else if (act === "snapdel") deleteResumeSnapshot(id);
     else if (act === "editapply") openApplyModal(id);
     else if (act === "apply2task") applyToTask(id);
   }
@@ -3406,6 +3766,8 @@ a{color:#185FA5;text-decoration:none}
     bindDelegate("applyList", handleCommonAction);
     bindDelegate("applyDeadlineList", handleCommonAction);
     bindDelegate("todayApplyBox", handleCommonAction);
+    bindDelegate("resumeList", handleCommonAction);
+    bindDelegate("resumeSnapList", handleCommonAction);
     bindDelegate("aiList", handleCommonAction);
     bindDelegate("reportList", handleCommonAction);
     var tf = $("taskFilters");
@@ -3466,6 +3828,14 @@ a{color:#185FA5;text-decoration:none}
     $("btnNewResource").addEventListener("click", function () { openResourceModal(null); });
     $("btnNewStudy").addEventListener("click", function () { openStudyModal(null); });
     $("btnNewApply").addEventListener("click", function () { openApplyModal(null); });
+    $("btnNewResume").addEventListener("click", function () { openResumeModal(null); });
+    $("resumePrevMonth").addEventListener("click", function () { UI.resumeMonth = shiftMonth(UI.resumeMonth || curMonth(), -1); renderResume(); });
+    $("resumeNextMonth").addEventListener("click", function () { UI.resumeMonth = shiftMonth(UI.resumeMonth || curMonth(), 1); renderResume(); });
+    $("resumeThisMonth").addEventListener("click", function () { UI.resumeMonth = curMonth(); renderResume(); });
+    $("resumeScanBtn").addEventListener("click", scanAndAddEvidence);
+    $("resumeGenBtn").addEventListener("click", function () { $("resumeDraft").value = buildResumeDraft(UI.resumeMonth || curMonth()); toast("草稿已生成"); });
+    $("resumeSnapBtn").addEventListener("click", saveResumeSnapshot);
+    $("resumeCopyBtn").addEventListener("click", copyResumeDraft);
     $("btnRefresh").addEventListener("click", function () {
       toast("正在刷新…");
       reloadAndRender();

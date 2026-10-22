@@ -1,8 +1,8 @@
 {
  "database_id": "tdNWBhRqvwIKXkz2ji0uyb",
  "space_id": "",
- "title": "工作台合并 schema（9 表字段并集）",
- "property_count": 63,
+ "title": "工作台合并 schema（10 表字段并集）",
+ "property_count": 73,
  "properties": [
   {
    "id": "wT2pE6l7",
@@ -615,6 +615,94 @@
    "id": "wnmxTdxd",
    "name": "材料清单",
    "type": "text"
+  },
+  {
+   "id": "g2dmg542",
+   "name": "记录类型",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "k8HJRUYUeohP",
+      "text": "成果条目",
+      "style": 11
+     },
+     {
+      "id": "rnb5TsU2bWsF",
+      "text": "版本快照",
+      "style": 7
+     }
+    ]
+   }
+  },
+  {
+   "id": "CPNwmexQ",
+   "name": "成果标题",
+   "type": "text"
+  },
+  {
+   "id": "8nI08jaX",
+   "name": "成果类型",
+   "type": "select",
+   "config": {
+    "options": [
+     {
+      "id": "jgRTF6tQLTQF",
+      "text": "任务完成",
+      "style": 0
+     },
+     {
+      "id": "yixcdmNPIXHG",
+      "text": "项目里程碑",
+      "style": 12
+     },
+     {
+      "id": "yRXVHjH3hHE2",
+      "text": "学习成果",
+      "style": 17
+     },
+     {
+      "id": "Q1U4XbNi1vXZ",
+      "text": "其他",
+      "style": 25
+     }
+    ]
+   }
+  },
+  {
+   "id": "yr5p9MsW",
+   "name": "月份归属",
+   "type": "text"
+  },
+  {
+   "id": "0GKFGUvJ",
+   "name": "量化指标",
+   "type": "text"
+  },
+  {
+   "id": "VzdWiAze",
+   "name": "成果描述",
+   "type": "text"
+  },
+  {
+   "id": "xjHlCetx",
+   "name": "证据来源",
+   "type": "text"
+  },
+  {
+   "id": "Cvi40Drq",
+   "name": "证据链接",
+   "type": "url"
+  },
+  {
+   "id": "MeQksrWp",
+   "name": "纳入简历",
+   "type": "checkbox"
+  },
+  {
+   "id": "J4q1hmDF",
+   "name": "快照内容",
+   "type": "text"
   }
  ],
  "all_databases": [
@@ -626,6 +714,7 @@
   "VnPlGp0UnpMluFmFnkTpSz",
   "DHd1C9sNJOt2SRa35BKRME",
   "xY6fAaJczfGY0gTkdYeZwu",
-  "SE9AvDWGnB1YBZd6hrFdry"
+  "SE9AvDWGnB1YBZd6hrFdry",
+  "q6ecJx2G3Ephav966tBHhQ"
  ]
 }

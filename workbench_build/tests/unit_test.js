@@ -20,6 +20,7 @@ const DB_IDS = {
   airecords: "DHd1C9sNJOt2SRa35BKRME",
   study: "xY6fAaJczfGY0gTkdYeZwu",
   apply: "SE9AvDWGnB1YBZd6hrFdry",
+  resume: "q6ecJx2G3Ephav966tBHhQ",
 };
 const SCHEMAS = {};
 for (const k of Object.keys(DB_IDS)) {
@@ -130,6 +131,8 @@ const TODAY = todayStr();
 const YESTERDAY = addDays(TODAY, -1);
 const TOMORROW = addDays(TODAY, 1);
 const D_MINUS_3 = addDays(TODAY, -3);
+const CURMONTH = TODAY.substring(0, 7);
+const PREVMONTH = (function () { const d = new Date(TODAY + "T00:00:00"); d.setMonth(d.getMonth() - 1); return d.getFullYear() + "-" + (d.getMonth() + 1 < 10 ? "0" : "") + (d.getMonth() + 1); })();
 
 function seedData(mock) {
   const T = DB_IDS.tasks, P = DB_IDS.projects, R = DB_IDS.research, Nn = DB_IDS.notes, Rs = DB_IDS.resources;
@@ -179,6 +182,14 @@ function seedData(mock) {
     { _id: "ap2", "学校": "某大学B", "专业项目": "数据科学", "申请轮次": "第二轮", "截止日期": addDays(TODAY, 60), "申请状态": "待开始", "优先级": "重要不紧急", "是否示例": false },
     { _id: "ap3", "学校": "某大学C", "专业项目": "AI", "申请轮次": "提前批", "截止日期": addDays(TODAY, 2), "申请状态": "已录取", "优先级": "一般", "是否示例": false },
     { _id: "ap4", "学校": "示例大学（不应进提醒）", "专业项目": "示例专业", "申请轮次": "第一轮", "截止日期": addDays(TODAY, 1), "申请状态": "待开始", "是否示例": true },
+  ];
+  // 第4期种子：简历月更（本月纳入/未纳入/示例 + 上月条目 + 上月快照）
+  mock.store[DB_IDS.resume] = [
+    { _id: "cv1", "记录类型": "成果条目", "成果标题": "本月手动成果α", "成果类型": "任务完成", "月份归属": CURMONTH, "量化指标": "覆盖 3 板块", "成果描述": "描述α", "证据来源": "任务：手动成果", "纳入简历": true, "创建日期": TODAY, "是否示例": false },
+    { _id: "cv2", "记录类型": "成果条目", "成果标题": "未纳入成果β", "成果类型": "其他", "月份归属": CURMONTH, "纳入简历": false, "创建日期": TODAY, "是否示例": false },
+    { _id: "cv3", "记录类型": "成果条目", "成果标题": "上月成果γ", "成果类型": "学习成果", "月份归属": PREVMONTH, "纳入简历": true, "创建日期": PREVMONTH + "-15", "是否示例": false },
+    { _id: "cv4", "记录类型": "成果条目", "成果标题": "示例成果（应带示例标）", "成果类型": "其他", "月份归属": CURMONTH, "纳入简历": true, "创建日期": TODAY, "是否示例": true },
+    { _id: "sv1", "记录类型": "版本快照", "成果标题": PREVMONTH + " 简历快照", "月份归属": PREVMONTH, "快照内容": "# " + PREVMONTH + " 快照内容\n- 上月成果γ", "创建日期": PREVMONTH + "-28", "是否示例": false },
   ];
 }
 
@@ -833,15 +844,15 @@ function clickNthBtn(dom, containerId, act, n) {
   {
     const { dom, mock, consoleErrors } = await bootPage();
     const doc = dom.window.document;
-    // 19.1 结构：底部导航仅 5 个按钮（今日/任务/项目/调研/更多），其余 6 个视图收纳进抽屉
+    // 19.1 结构：底部导航仅 5 个按钮（今日/任务/项目/调研/更多），其余 7 个视图收纳进抽屉
     const navBtns = doc.querySelectorAll("#bottomnav > button");
     eq(navBtns.length, 5, "底部导航按钮数 = 5（不溢出 390px 视口）");
     const mainViews = Array.from(navBtns).map(b => b.getAttribute("data-view")).filter(Boolean);
     eq(mainViews.join(","), "today,tasks,projects,research", "5 主按钮为 今日/任务/项目/调研/更多");
     const drawerBtns = doc.querySelectorAll("#moredrawer button.dbtn");
-    eq(drawerBtns.length, 6, "抽屉收纳 6 个视图按钮");
+    eq(drawerBtns.length, 7, "抽屉收纳 7 个视图按钮");
     const drawerViews = Array.from(drawerBtns).map(b => b.getAttribute("data-view")).join(",");
-    eq(drawerViews, "study,apply,notes,resources,reports,settings", "抽屉含 学习/申请/速记/资料/报告/设置");
+    eq(drawerViews, "study,apply,resume,notes,resources,reports,settings", "抽屉含 学习/申请/简历/速记/资料/报告/设置");
     // 19.2 抽屉开关
     const drawer = $get(dom, "moredrawer");
     const moreBtn = $get(dom, "btnMore");
@@ -976,6 +987,130 @@ function clickNthBtn(dom, containerId, act, n) {
     eq(realOver && realOver["状态"], "已完成", "任务状态已写回（刷新保持一致）");
     const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
     ok(realErrors.length === 0, "场景20无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
+    dom.window.close();
+  }
+
+  // ========== 场景二十一：简历月更（第 4 期：证据汇总/草稿/版本快照/提醒） ==========
+  console.log("\n[21] 简历月更：导航 + 月度成果 + 证据汇总 + 草稿 + 版本快照");
+  {
+    const { dom, mock, consoleErrors } = await bootPage();
+    const doc = dom.window.document;
+    dom.window.confirm = () => true; // jsdom 的 confirm 未实现，删除场景需打桩
+    // 21.1 导航与路由
+    const navBtn = doc.querySelector('.sidenav .navitem[data-view="resume"]');
+    ok(!!navBtn && !navBtn.disabled, "侧边栏「简历月更」导航已启用");
+    navBtn.click();
+    await sleep(100);
+    ok($get(dom, "view-resume").className.indexOf("active") > -1, "点导航切到简历月更视图");
+    ok($get(dom, "view-today").className.indexOf("active") === -1, "切换后今日视图隐藏（单看板）");
+    ok(dom.window.location.hash.indexOf("#/resume") > -1, "hash 路由写入 #/resume");
+    // 21.2 月度成果渲染（默认本月）
+    eq(textOf(dom, "resumeMonthLabel"), CURMONTH, "默认展示本月");
+    const rl = () => textOf(dom, "resumeList");
+    ok(rl().indexOf("本月手动成果α") > -1 && rl().indexOf("未纳入成果β") > -1, "本月两条成果条目均渲染");
+    ok(rl().indexOf("上月成果γ") === -1, "上月条目不混入本月");
+    ok(rl().indexOf("示例") > -1, "示例条目带示例标记");
+    // 21.3 月更提醒：上月已有快照 → 不提醒
+    ok($get(dom, "resumeRemindCard").style.display === "none", "上月已有快照时提醒卡隐藏");
+    // 21.4 版本快照列表（上月快照存在）
+    ok(textOf(dom, "resumeSnapList").indexOf(PREVMONTH + " 简历快照") > -1, "历史版本列出上月快照");
+    eq(textOf(dom, "resumeSnapCount"), "1", "快照计数=1");
+    // 21.5 月份切换：上月 → 回到本月
+    $get(dom, "resumePrevMonth").click();
+    await sleep(50);
+    eq(textOf(dom, "resumeMonthLabel"), PREVMONTH, "点「‹ 上月」切到上月");
+    ok(rl().indexOf("上月成果γ") > -1 && rl().indexOf("本月手动成果α") === -1, "上月只显示上月条目");
+    $get(dom, "resumeThisMonth").click();
+    await sleep(50);
+    eq(textOf(dom, "resumeMonthLabel"), CURMONTH, "「回到本月」恢复本月");
+    // 21.6 证据型一键汇总：补一条本月完成的真实任务 + 一条上月完成的（不应混入）+ 示例完成（排除）
+    mock.store[DB_IDS.tasks].push({ _id: "t_ev1", "标题": "证据任务δ", "分类": "园区官网", "状态": "已完成", "完成时间": TODAY, "创建日期": TODAY, "是否示例": false });
+    mock.store[DB_IDS.study].push({ _id: "sd_ev", "学习主题": "证据学习ε", "类型": "证书备考", "进度状态": "已完成", "学习日期": TODAY, "时长分钟": 60, "是否示例": false });
+    $get(dom, "btnRefresh").click();
+    await sleep(400);
+    $get(dom, "resumeScanBtn").click();
+    await sleep(500);
+    const titles = () => mock.store[DB_IDS.resume].filter(r => (r["记录类型"] || "成果条目") === "成果条目").map(r => r["成果标题"]);
+    ok(titles().indexOf("证据任务δ") > -1, "一键汇总收进本月完成任务");
+    ok(titles().indexOf("完成学习：证据学习ε") > -1, "一键汇总收进本月已完成学习");
+    const ev1 = mock.store[DB_IDS.resume].find(r => r["成果标题"] === "证据任务δ");
+    eq(ev1 && ev1["月份归属"], CURMONTH, "汇总条目的月份归属=本月");
+    eq(ev1 && ev1["纳入简历"], true, "汇总条目默认纳入简历");
+    eq(ev1 && ev1["成果类型"], "任务完成", "汇总条目的成果类型=任务完成");
+    ok(rl().indexOf("证据任务δ") > -1, "汇总后列表即时渲染新条目");
+    // 21.7 幂等：再点一次不重复
+    const before2 = mock.store[DB_IDS.resume].length;
+    $get(dom, "resumeScanBtn").click();
+    await sleep(400);
+    eq(mock.store[DB_IDS.resume].length, before2, "重复汇总不产生重复条目（同名跳过）");
+    // 21.8 生成草稿：只收纳入简历的条目
+    $get(dom, "resumeGenBtn").click();
+    await sleep(50);
+    const draft = $get(dom, "resumeDraft").value;
+    ok(draft.indexOf("# " + CURMONTH + " 简历增量草稿") > -1, "草稿标题含月份");
+    ok(draft.indexOf("本月手动成果α") > -1 && draft.indexOf("证据任务δ") > -1, "草稿含纳入简历的条目");
+    ok(draft.indexOf("未纳入成果β") === -1, "草稿不含未纳入条目");
+    ok(draft.indexOf("## 任务完成") > -1, "草稿按成果类型分组");
+    // 21.9 存为版本快照
+    $get(dom, "resumeSnapBtn").click();
+    await sleep(400);
+    const snaps = () => mock.store[DB_IDS.resume].filter(r => r["记录类型"] === "版本快照");
+    eq(snaps().length, 2, "存快照后版本数=2");
+    const newSnap = snaps().find(r => r["月份归属"] === CURMONTH);
+    ok(!!newSnap && newSnap["快照内容"].indexOf("本月手动成果α") > -1, "新快照内容与草稿一致");
+    ok(textOf(dom, "resumeSnapList").indexOf(CURMONTH + " 简历快照") > -1, "快照列表即时出现新快照");
+    // 21.10 回滚：改脏草稿 → 回滚上月快照 → 草稿恢复且月份跟随
+    $get(dom, "resumeDraft").value = "被改脏的内容";
+    const sv1row = Array.from($get(dom, "resumeSnapList").querySelectorAll("[data-act=\"snaprestore\"]")).map(b => b.getAttribute("data-id"));
+    ok(sv1row.indexOf("sv1") > -1, "快照行含回滚按钮");
+    Array.from($get(dom, "resumeSnapList").querySelectorAll("[data-act=\"snaprestore\"]")).find(b => b.getAttribute("data-id") === "sv1").click();
+    await sleep(80);
+    ok($get(dom, "resumeDraft").value.indexOf("快照内容") > -1, "回滚把快照内容载入草稿区");
+    eq(textOf(dom, "resumeMonthLabel"), PREVMONTH, "回滚后月份跟随快照归属月");
+    // 21.11 查看快照弹窗
+    Array.from($get(dom, "resumeSnapList").querySelectorAll("[data-act=\"snapview\"]")).find(b => b.getAttribute("data-id") === "sv1").click();
+    await sleep(80);
+    ok($get(dom, "modalMask").className.indexOf("open") > -1, "查看快照打开弹窗");
+    ok($get(dom, "modalBox").textContent.indexOf("上月成果γ") > -1, "弹窗展示快照全文");
+    doc.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
+    await sleep(50);
+    // 21.12 勾选切换：取消纳入 → 草稿不再含该条
+    $get(dom, "resumeThisMonth").click();
+    await sleep(80);
+    const cv1chk = $get(dom, "resumeList").querySelector('[data-act="toggleresume"][data-id="cv1"]');
+    ok(!!cv1chk, "条目行有「纳入简历」勾选框");
+    cv1chk.click();
+    await sleep(400);
+    const cv1 = mock.store[DB_IDS.resume].find(r => r._id === "cv1");
+    eq(cv1["纳入简历"], false, "取消勾选写回云端");
+    $get(dom, "resumeGenBtn").click();
+    await sleep(50);
+    ok($get(dom, "resumeDraft").value.indexOf("本月手动成果α") === -1, "取消纳入后草稿不含该条");
+    // 21.13 手动记成果弹窗（必填校验 + 保存）
+    $get(dom, "btnNewResume").click();
+    await sleep(80);
+    ok($get(dom, "modalMask").className.indexOf("open") > -1, "记成果弹窗打开");
+    $get(dom, "resumeSaveBtn").click();
+    await sleep(80);
+    ok($get(dom, "modalMask").className.indexOf("open") > -1, "标题为空时校验拦截不关闭");
+    $get(dom, "modalBox").querySelector('[name="cv_成果标题"]').value = "手动成果ζ";
+    $get(dom, "resumeSaveBtn").click();
+    await sleep(400);
+    ok(titles().indexOf("手动成果ζ") > -1, "手动成果保存成功");
+    const cz = mock.store[DB_IDS.resume].find(r => r["成果标题"] === "手动成果ζ");
+    eq(cz && cz["记录类型"], "成果条目", "手动条目记录类型=成果条目");
+    // 21.14 删除条目与快照
+    const delBtn = Array.from($get(dom, "resumeList").querySelectorAll("[data-act=\"delresume\"]")).find(b => b.getAttribute("data-id") === "cv2");
+    delBtn.click();
+    await sleep(400);
+    ok(titles().indexOf("未纳入成果β") === -1, "删除条目写回云端");
+    const snapDel = Array.from($get(dom, "resumeSnapList").querySelectorAll("[data-act=\"snapdel\"]")).find(b => b.getAttribute("data-id") === "sv1");
+    snapDel.click();
+    await sleep(400);
+    eq(snaps().length, 1, "删除快照后版本数=1");
+    // 21.15 无未捕获错误
+    const realErrors = consoleErrors.filter(e => e.indexOf("Not implemented: navigation") === -1);
+    ok(realErrors.length === 0, "场景21无未捕获 JS 错误" + (realErrors.length ? "：" + realErrors.slice(0, 2).join("|") : ""));
     dom.window.close();
   }
 

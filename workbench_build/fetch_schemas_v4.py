@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""从云端拉取 9 张表的最新 schema，落盘 schema_srv_*.json（测试唯一权威来源）"""
+"""从云端拉取全部表的最新 schema，落盘 schema_v4_*.json（测试唯一权威来源）"""
 import subprocess, json, sys, io, os
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 PY = r"C:/Users/DC/.workbuddy/binaries/python/versions/3.13.12/python.exe"

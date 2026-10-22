@@ -2,13 +2,13 @@
 
 **[简体中文](README.md) | English**
 
-> A single-file HTML personal productivity workbench powered by WorkBuddy cloud database tables: tasks / projects / requirement research / quick notes / resources / daily & weekly reports / personal learning / study-abroad applications — 9 modules in one place.
+> A single-file HTML personal productivity workbench powered by WorkBuddy cloud database tables: tasks / projects / requirement research / quick notes / resources / daily & weekly reports / personal learning / study-abroad applications / monthly resume — 10 modules in one place.
 > Glassmorphism + Bento Grid UI, responsive for desktop and mobile, fully inline with zero external dependencies, works offline.
 
 - **Online version**: <https://workbuddy.link/p/MwXKAV7BlcR9zZAXXf0p3z> (data syncs automatically once signed in to your WorkBuddy account)
 - **Offline version**: `DC的个人工作台-离线版.html` in the repo root — just open it in a browser
-- **Current version**: v4.0 (Glassmorphism + Bento Grid redesign)
-- **Test baseline**: 239/239 unit tests · 95/95 cloud integration tests · 0 UX findings · 6-viewport layout checks all passed
+- **Current version**: v4.1 (Phase 4 "Monthly Resume Update" shipped)
+- **Test baseline**: 282/282 unit tests · 111/111 cloud integration tests · 0 UX findings · 6-viewport layout checks all passed
 
 ---
 
@@ -21,6 +21,8 @@
 **Desktop · Tasks Board** — grouped by status, with filter chips and search:
 
 ![Desktop Tasks](screenshots/desktop-tasks.png)
+
+**Desktop · Monthly Resume** — monthly achievements, one-click evidence rollup, draft generation and version snapshots:/n/n![Desktop Resume](screenshots/desktop-resume.png)
 
 **Mobile · Today** — single-column stacking with bottom navigation:
 
@@ -40,7 +42,8 @@
    - [Notes & Resources](#5-notes--resources)
    - [Daily & Weekly Reports](#6-daily--weekly-reports)
    - [Learning & Applications](#7-learning--study-abroad-applications)
-   - [Data & Settings](#8-data--settings)
+   - [Monthly Resume Update](#8-monthly-resume-update)
+   - [Data & Settings](#9-data--settings)
 4. [Mobile Experience](#mobile-experience)
 5. [Data Storage & Sync](#data-storage--sync)
 6. [Development](#development)
@@ -62,7 +65,7 @@
 | Phase 2 | Reports | Auto-generates personal & manager report drafts from tasks/AI records; export to docx / Markdown; archive |
 | Phase 3 | Learning | Study topics, types, progress, duration, notes |
 | Phase 3 | Applications | Schools, rounds, deadline countdown, material checklists; near-deadline items surface on the home page |
-| Phase 4 | Monthly résumé | Planned (not yet shipped) |
+| Phase 4 | Monthly résumé | One-click rollup of evidence-based achievements (completed tasks / project milestones / learning), monthly resume delta draft, version snapshots with rollback |
 
 UI layer (v4): Bento Grid + glassmorphism home page, iCloud-style widget arrangement (drag & drop + S/M/L sizes), hash routing with deep links, modal focus management.
 
@@ -173,10 +176,21 @@ Then on the Reports page:
   - Applications due within 14 days (including overdue) automatically appear in the "Deadline reminders" card and the home page "To Handle"
   - Applications also convert to tasks in one click
 
-### 8. Data & Settings
+### 8. Monthly Resume Update
+
+Turn "what got done" into resume material every month, so nothing is forgotten at year end:
+
+- **Monthly achievement list**: browse entries by month (types: task completion / project milestone / learning / other); add manually via "Add achievement"; only entries checked "include in resume" feed the draft
+- **One-click evidence rollup**: scans the month's completed tasks (by completion time), projects reaching their phase target (by target date) and completed learning records (by study date), de-duplicates and creates entries, all included by default
+- **Monthly delta draft**: one click generates a Markdown draft grouped by type; editable, one-click copy
+- **Version snapshots**: save the draft as a snapshot record in the cloud table; history supports view / rollback (load back into the draft area) / delete
+- **Monthly reminder**: during days 1-7 of a month, if last month has no snapshot yet, a red reminder card appears on top of this module (a reminder + one-click generation fallback replacing platform automations)
+- **Privacy boundary**: resume content stays in this self-use view and never enters the "leader summary" of reports
+
+### 9. Data & Settings
 
 - **Sync status**: pill indicator top-right (green = synced / yellow = syncing / red = offline)
-- **Backup**: export JSON (all 9 tables), preview before import, **merge or replace** modes; v2 backups still import
+- **Backup**: export JSON (all 10 tables), preview before import, **merge or replace** modes; v2 backups still import
 - **Sample data**: records marked "示例" clear in one click; real data untouched
 - **Layout**: reset widgets to default arrangement
 
@@ -187,7 +201,7 @@ Then on the Reports page:
 Below 768px the layout switches automatically:
 
 - **Bottom tabs**: Today / Tasks / Projects / Research / **More**
-- Remaining modules (Notes, Resources, Reports, Learning, Applications, Settings) live in the "More" drawer
+- Remaining modules (Notes, Resources, Reports, Learning, Applications, Resume, Settings) live in the "More" drawer
 - Home page stacks in a single column preserving desktop reading order; metric cards go 2-up
 - Touch targets ≥44px, 16px inputs (prevents iOS auto-zoom), iPhone safe-area padding
 - Recommended: add to home screen and use it like an app
@@ -223,7 +237,7 @@ node --check <extracted.js>
 cd tests && NODE_PATH="<node workspace>/node_modules" node unit_test.js
 
 # 3. Three lint gates
-cat canonical_v4_tasks.json | python <skill>/page/lint_schema.py --stdin   # ×9 tables
+cat canonical_v4_tasks.json | python <skill>/page/lint_schema.py --stdin   # ×10 tables
 python <skill>/page/lint_database_sdk_usage.py --html ../workbench.html --schema-file ../schema_v4_merged.json
 python <skill>/page/lint_page_quality.py --html ../workbench.html --ack "..."
 
@@ -241,7 +255,7 @@ python <skill>/page/download_page_artifacts.py --node-id MwXKAV7BlcR9zZAXXf0p3z 
 git add -A && git commit -m "..." && git push origin main
 ```
 
-Cloud resource IDs (page node, space, 9 tables) — `workbench_build/dbid_map_v4.json` is the single source of truth; architectural conventions (one-way DAG calls, single refreshAll, ES5, literal databaseId) are in `docs/07-维护文档.md` (Chinese).
+Cloud resource IDs (page node, space, 10 tables) — `workbench_build/dbid_map_v4.json` is the single source of truth; architectural conventions (one-way DAG calls, single refreshAll, ES5, literal databaseId) are in `docs/07-维护文档.md` (Chinese).
 
 ---
 
@@ -252,14 +266,14 @@ Cloud resource IDs (page node, space, 9 tables) — `workbench_build/dbid_map_v4
 ├── README.md / README_EN.md       # This documentation (Chinese / English)
 ├── DC的个人工作台-离线版.html   # Offline copy (identical to source, plain cp)
 ├── 个人工作台制作过程笔记.md       # Process notes: reference library (R-xxx), design decisions
-├── 工作台第1~3期测试报告.md        # Per-phase test reports
+├── 工作台第1~4期测试报告.md        # Per-phase test reports
 ├── 工作台Bento改造与重建报告.md    # v4 redesign report
 ├── 工作台改造截图/                 # Before/after multi-width screenshots
 ├── docs/                          # 8 engineering docs (requirements → handover)
 └── workbench_build/
     ├── workbench.html             # ★ Source (the only file you edit)
     ├── dbid_map_v4.json           # ★ 9-table ID map (single source of truth)
-    ├── schema_v4_*.json           # Real cloud schemas (9 tables + merged)
+    ├── schema_v4_*.json           # Real cloud schemas (10 tables + merged)
     ├── canonical_v4_*.json        # Canonical schemas for lint
     ├── rebuild_tables_v4.py       # Idempotent table rebuild/reuse
     ├── seed_samples_v4.py         # Seed sample data
@@ -287,7 +301,7 @@ Cloud resource IDs (page node, space, 9 tables) — `workbench_build/dbid_map_v4
 | `docs/07-维护文档.md` | Repo map, change workflow, **known-pitfall quick reference** |
 | `docs/08-接手指南.md` | Handover guide (new account / new machine) |
 | `个人工作台制作过程笔记.md` | Reference library, design decision memos (read before UI work) |
-| `工作台第1~3期测试报告.md` | Per-phase acceptance |
+| `工作台第1~4期测试报告.md` | Per-phase acceptance |
 | `工作台Bento改造与重建报告.md` | v4 redesign (cloud rebuild + Bento/glassmorphism) |
 
 ---
