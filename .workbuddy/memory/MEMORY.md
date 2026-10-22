@@ -12,6 +12,7 @@
 - UI：首页 = 玻璃拟态 + Bento Grid（12 列 big8/mid4/small3；768-1199 六列、<768 单列、≥2000 限宽 1520、内容居中 max-width 1360）
 - 测试基线：单测 282/282、集成 111/111、lint 三道门（10 表）、UX 0 发现、布局量测 tests/layout_check.js 全过
 - 测试报告按期落盘项目根：工作台第N期测试报告.md；Bento 改造报告：工作台Bento改造与重建报告.md；README 截图：tests/readme_shots.js → screenshots/
+- **开源许可：MIT**（仓库根 LICENSE，Copyright (c) 2026 刘德超 (OOOHGOD)）；只授权源码，资料库里的业务数据不在授权范围内
 
 ## 工程约定
 - 全内联 ES5 单文件 workbench_build/workbench.html；每个 db.* 调用点用 databaseId 字面量（DSDK lint 要求）
