@@ -328,4 +328,14 @@ A: Semi-automatically: "Export JSON backup" in the offline version → "Import" 
 
 ---
 
+## License
+
+The source code is released under the **MIT License** — see [`LICENSE`](LICENSE) in the repo root (Copyright © 2026 刘德超 / OOOHGOD).
+
+- Permitted: free use, modification, redistribution and commercial use (including private projects), as long as the copyright and permission notice is preserved
+- Not covered: your personal business data stored in the WorkBuddy library (tasks, projects, learning, resume records are not part of this repository)
+- Disclaimer: the software is provided "as is", without warranty of any kind
+
+---
+
 *Built, stored and deployed with the WorkBuddy "Library" capability.*
