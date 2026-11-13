@@ -1,0 +1,17 @@
+{
+  "name": "personal-workbench",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:ui": "node tools/build-app.mjs",
+    "build": "npm run build:ui && cf build",
+    "dev": "npm run build:ui && cf dev --local",
+    "test": "npm run build:ui && node --test test/*.test.mjs",
+    "start:local": "npm run build:ui && node tools/local-server.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "2.0.0-beta.v.1",
+    "cf": "1.0.0-beta.18",
+    "vite": "8.3.4"
+  }
+}

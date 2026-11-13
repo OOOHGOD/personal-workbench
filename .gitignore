@@ -15,3 +15,14 @@ desktop.ini
 *~
 .idea/
 .vscode/
+
+# 独立数据后端的依赖、构建和本地私有数据
+node_modules/
+.generated/
+.cloudflare/
+.wrangler/
+.local/
+.dev.vars*
+.env*
+!.env.example
+!.dev.vars.example
