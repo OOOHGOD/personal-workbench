@@ -26,3 +26,7 @@ node_modules/
 .env*
 !.env.example
 !.dev.vars.example
+
+# 浏览器实测截图（可随时重跑生成，不入库）
+workbench_build/tests/ux_shots/
+workbench_build/tests/layout_shots/
