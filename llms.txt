@@ -1,0 +1,59 @@
+# personal-workbench
+
+> 本仓库现行需求定义只有一处：`prd/`。**全部历史工程文件已于 2026-11-25 用 git mv 真实移入 `archive/` 并冻结**：A = 单文件 HTML 工作台 v1–v4（测试版）→ `archive/legacy-workbench/`；B = Cloudflare D1 独立后端版（另一会话成果）→ `archive/cloudflare-d1/`。两者均不得作为现行需求依据。所有链接为相对仓库根的本地路径；定稿文档里的旧路径按下方「归档后路径映射」换算。
+
+## 现行规范（优先读）
+
+- [PRD 包索引](prd/README.md): 文件清单、阅读顺序、状态矩阵、路径映射
+- [PRD 定稿（唯一真相源）](prd/PRD.md): 10 章 + 10 条 AC + Q1–Q16 决策记录 + 附录 A/B
+- [结构化数据 prd.yaml](prd/prd.yaml): 锚句 / 场景 / AC / 妥协 / 决策 / 遗留项 / 词条的机器可读转写
+- [术语表](prd/GLOSSARY.md): 6 个专有词条及 `_Avoid_` 禁用同义词
+- [ADR 0001 不自建前端层](prd/decisions/0001-不自建前端层.md): status accepted，形态决策记录
+- [AI 自包含包](prd/PRD.bundle.md): 上述四件 + 复盘摘要合并为单文件，一次投喂用；派生快照，冲突时以 prd/PRD.md 为准
+
+## 复盘与归档
+
+- [失败复盘 POSTMORTEM.md](POSTMORTEM.md): 三个第一性误判、九个不好用、代价账、七条教训；final
+- [归档说明](archive/README.md): 两条线为何都被移入、目录结构、完整路径映射、构建链影响、回滚方式
+- [归档清单 manifest.yaml](archive/manifest.yaml): 逐组机器可读登记 + `path_mapping` 换算表 + 环境事实
+
+## 归档区（历史参考，不得作为现行依据）
+
+- [A 线归档区](archive/legacy-workbench/): 主程序、tests、schema/canonical JSON、docs/01-08、4 期测试报告、Bento 报告、过程笔记、截图、过程记忆、双语 README、LICENSE
+- [B 线归档区](archive/cloudflare-d1/): client / server / migrations / tools / test / package.json / vite / cloudflare.config / 旧 README
+- [旧需求文档 01](archive/legacy-workbench/docs/01-需求文档.md): 整体作废（9 表、194/95 基线、第 4 期「规划中」、手段写成约束）
+- [旧用户文档 05](archive/legacy-workbench/docs/05-用户文档.md): 整体作废（旧 v3 死链、分组写反）
+- [单文件 HTML 主程序](archive/legacy-workbench/workbench_build/workbench.html): 3933 行，SHA1 9059dd7d…e32，frozen
+- [第 4 期测试报告](archive/legacy-workbench/工作台第4期测试报告.md): 月更能力因平台限制降级
+- [第 1 期测试报告](archive/legacy-workbench/工作台第1期测试报告.md): 65/65 全过仍线上白屏
+- [过程记忆](archive/legacy-workbench/.workbuddy/memory/MEMORY.md): 工程约定与已知坑（历史）
+
+## 归档后路径映射（给 AI 的关键一段）
+
+定稿 PRD、ADR、复盘、prd.yaml 里的 `文件:行号` 取证引用均写于归档前，**行号不变**（文件内容逐字未改），路径按下表换算：
+
+| 原文前缀 | 现在位置 |
+|---|---|
+| `workbench_build/`、`docs/0X-*`、`\.workbuddy/memory/`、`screenshots/`、`工作台改造截图/` | `archive/legacy-workbench/` 下同名路径 |
+| `DC的个人工作台-离线版.html`、`README.zh-CN.md`、`README_EN.md`、`LICENSE`、`LICENSE_SCOPE.md`、各期测试报告、Bento 报告、过程笔记 | `archive/legacy-workbench/` 下同名 |
+| `client/`、`server/`、`migrations/`、`tools/`、`test/`、`package*.json`、`vite.config.ts`、`cloudflare.config.ts`、`.dev.vars.example` | `archive/cloudflare-d1/` 下同名 |
+| 旧仓库根 `README.md`（B 线说明） | `archive/cloudflare-d1/README.md` |
+| `docs/09-PRD.md`、`docs/adr/0001`、根 `GLOSSARY.md` | `prd/PRD.md`、`prd/decisions/0001-不自建前端层.md`、`prd/GLOSSARY.md` |
+
+例外：`README.md:163,169,230-258,312-313` 指定稿时**工作区检出**的旧工作台中文 README 行号，该文件从未进入本仓库；`archive/legacy-workbench/README.zh-CN.md` 行号不对应。标「推测」，不要按行号在本仓库找。完整机器可读版见 `archive/manifest.yaml` 的 `path_mapping`。
+
+## 给 AI 的关键约束
+
+- PRD 正文不含技术选型词；`prd/prd.yaml` 中 `nature: 推测` 与「未验证取舍」的条目不可当作事实引用。
+- Q15=B 砍掉月更邮件是工具能力受限的**妥协且未经真实试用**，不是设计偏好。
+- 形态（是否做自定义界面）**仍未决策**（遗留项 L6）；某条 AC 被证伪则闸门重开，架构讨论才被激活。
+- 竞品链接（`prd.yaml` 的 `competitors_for_feasibility_only`）只是可行性举证，**不是选型结论**。
+- 归档物是**真实移动**不是「登记冻结」；此前「归档物不移动、不删除、不复制」「B 线零改动」的断言已作废。158 个跟踪文件 0 丢失，HEAD 仍 `168984a`，未 commit/push，可 `git mv` 回原位或从 `git show` 取回任一历史版本。
+- B 线 `npm run build/test/dev/start:local` 归档后已失效（根目录无运行入口）；且 `tools/build-app.mjs:7` 引用的旧文件名从来就不存在，这条链在归档前本就跑不通。见 `archive/README.md`。
+- 云端 10 张表的活数据**不在本仓库**；未按 AC-04 导出迁移并做恢复演练前，归档不算关闭。
+
+## Optional
+
+- [各期测试报告](archive/legacy-workbench/工作台第2期测试报告.md) ｜ [Bento 改造报告](archive/legacy-workbench/工作台Bento改造与重建报告.md)
+- [视觉资产](archive/legacy-workbench/screenshots/) ｜ [改造前后截图](archive/legacy-workbench/工作台改造截图/)
+- [LICENSE](archive/legacy-workbench/LICENSE): MIT，只授权源码，云端业务数据不在授权范围内

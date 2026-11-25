@@ -1,0 +1,208 @@
+# =====================================================================
+# prd/prd.yaml — 个人工作台 PRD 结构化数据（机器可读版）
+# 生成：2026-11-25，由 prd/PRD.md 定稿逐条转写；语义以 PRD.md 为准
+# 用途：AI / 程序直接解析，无需读 Markdown 表格
+# 规则：status=accepted 的是已定结论；nature=推测/未验证 的不可当作事实
+# 2026-11-25 归档重组：取证路径已按 archive/ 前缀更新（行号不变）；
+#   完整换算表见 archive/manifest.yaml 的 path_mapping；定稿三件套正文逐字未改
+# =====================================================================
+
+meta:
+  title: 个人工作台 PRD
+  status: accepted          # 验收口径冻结
+  version: "1.0"
+  date: 2026-11-25
+  method: grill-with-docs（grilling + domain-modeling）多轮访谈
+  user_confirmation: Q16 用户明确确认「已达成共享理解」
+  source_of_truth: prd/PRD.md
+  body_rule: 正文不出现技术选型词；技术词/文件名/行号/链接集中在 PRD.md 附录 A
+  archive_mode: physical-move          # 2026-11-25 起，历史工程已真实移入 archive/
+  archive_mapping: archive/manifest.yaml  # 旧路径换算表（含 README.md 行号例外）
+
+anchor: >-
+  不是「拥有一个个人工作台」，而是「让工作/学习/申请/简历证据能以最低摩擦被记下来，
+  并在早上、日报、月更、截止前自动出现在眼前，且换设备、换账号、平台变更时不会丢」。
+
+goal: 只定义「什么算做到了」，不定义「长什么样、用什么做」；形态是独立决策（Q1），本 PRD 不预设。
+
+# ---------------------------------------------------------------------
+scenarios:
+  - {id: S1, moment: 早上工作前, trigger: 打开一个约定位置, expectation: 零点击看到今日重点、逾期、卡住、临近截止}
+  - {id: S2, moment: 随时, trigger: 想到一件事, expectation: 一次输入 + 一次确认就记下，不选分类、不事后重抄}
+  - {id: S4, moment: 晚间, trigger: 要写日报, expectation: 出两版：自用版全含；领导摘要不含学习与申请}
+  - {id: S6, moment: 月初, trigger: 到月初, expectation: 零点击看到已生成好的证据清单 + 按用途标记分组的证据段落（Q15=B）}
+  - {id: S7, moment: 任何时候, trigger: 想确认没丢, expectation: 一次操作拿到完整可读的全量副本，且做过恢复演练}
+  - {id: R1, moment: 截止前 14 天内, trigger: 到点主动, expectation: 发一封提醒邮件（唯一保留的主动通道）}
+
+# 说明独立成顶层键：YAML 不允许「序列项」与「映射键」在同一层混排
+scenario_notes:
+  - 学习复盘不再是独立场景，降为按用途标记筛选的周度回看（Q10）
+  - 原「工作过程」场景是功能清单，已删除（Q2）
+  - 场景卡编号沿用 archive/legacy-workbench/docs/01-需求文档.md:23-29 的 1–7，保留 1/2/4/6/7
+
+# ---------------------------------------------------------------------
+acceptance_criteria:   # 每条必须能用「是/否」判定
+  - {id: AC-01, criterion: 记一条 = 一次输入 + 一次确认；不需先选分类、不需先打开某个页面、不需事后在别处再抄一遍, zero_code: 能}
+  - {id: AC-02, criterion: 同一个事实只存在一份；一条记录可同时带多个用途标记；同一内容不会被录两次, zero_code: 能}
+  - {id: AC-03, criterion: 取任一带有「用于学习统计」或「用于简历」标记的记录生成两版日报：领导摘要中不含该记录内容，自用版含, zero_code: 能}
+  - {id: AC-04, criterion: 一次操作内产出完整、开放格式、可读、可被别处导入的全量快照；且至少做过一次实际恢复演练并能读回, zero_code: 能}
+  - {id: AC-05, criterion: 早上打开约定位置，零点击即可看到今日重点、逾期、卡住、临近截止四类内容, zero_code: 能}
+  - {id: AC-06, criterion: 申请截止 14 天内且状态为进行中的条目被呈现，并按截止日倒计时分级（细则见遗留项 L1）, zero_code: 能}
+  - {id: AC-07, criterion: 月初产出「证据清单 + 按用途标记分组的证据段落」，可复制；不产出完整简历文件，不自动改写任何简历文档, zero_code: 能}
+  - {id: AC-08-A, criterion: 临近截止时，由外部服务主动发出一封提醒邮件, zero_code: 能（有开通门槛，未真实试用）}
+  - {id: AC-08-B, criterion: 月初零点击即可看到已生成好的证据清单；不发邮件（Q15=B 的净结果）, zero_code: 能（零点击呈现，非主动发信）}
+  - {id: AC-09, criterion: 只做 S1/S2/S4/S6/S7 五张场景卡；学习复盘为筛选式回看，不作为独立场景, zero_code: 能}
+
+failure_modes:
+  - {failure: 换设备 / 换账号 / 厂商停服 / 断网 → 取不到数据, ac: AC-04, judgment: 副本须在权限正常时定期产出，不能等出事再导}
+  - {failure: 忘了打开 → 月更看不到, ac: AC-08-B（未覆盖）, judgment: 见已知妥协 1}
+  - {failure: 同一事实被记两次, ac: AC-02, judgment: 应只有一份}
+  - {failure: 私密内容混进领导摘要, ac: AC-03, judgment: 领导摘要应不含}
+  - {failure: 提醒邮件没发出 / 发错, ac: AC-08-A, judgment: 需有可查的发送记录或失败可见}
+
+# ---------------------------------------------------------------------
+non_goals:
+  - 不做多人协作、权限体系
+  - 不产出完整简历文件、不自动改写简历文档（Q8）
+  - 不要求多份副本实时一致（Q7）
+  - 不做手机推送（Q13 选 C，不含手机推送）
+  - 不做自定义界面：列为待定，不提前锁死（Q1 形态决策后置）
+  - 「打开网页即用」「离线可写」「定期手动导出导入」等旧表述不再作为需求
+
+known_compromises:      # 必须写成受限妥协，不得写成设计偏好
+  - id: 1
+    content: 月更（S6 / AC-08-B）不主动推送，回到「忘了打开就看不到」；只在截止提醒上被解决，在月更上没有
+  - id: 2
+    content: 收缩原因是外部服务的发送能力有开通门槛，属工具能力限制，不是用户不需要
+  - id: 3
+    content: 该取舍未经真实试用验证（Q3 约定「试过再定」，Q15=B 跳过）；换工具时应复核
+  - id: 4
+    content: 主动邮件通道只剩 A（截止提醒）一类；同类提醒呈现不一致，未来接手者会困惑
+
+constraints_and_assumptions:
+  - {item: 单人、唯一使用者, nature: 已确认}
+  - {item: 零运维、数据整体可带走, nature: 已确认}
+  - {item: 数据主权靠可导出的开放格式快照，不靠「永不换平台」, nature: 已确认}
+  - {item: 过去 30 天使用频次低, nature: 推测}
+  - {item: 各表记录量为数十至数百条量级, nature: 推测}
+  - {item: 不要求长期离线可写, nature: 推测}
+  - {item: 申请截止 14 天内 + 倒计时分级, nature: 沿用旧文档，未单独确认}
+
+# ---------------------------------------------------------------------
+zero_code_evaluation:
+  definition: 「不写任何代码」能否满足，逐条 AC 打勾
+  result: 9 类验收条目全部可在零代码前提下满足
+  gate: 「只有零方案被证伪才进入架构讨论」的条件未触发 → 不激活技术架构讨论
+  form_decision: 形态决策由流程收敛为「不自建前端层」（由用户答案独立推出，非沿用外部诊断）
+  caveat: 本评估是纸面可行性核对，不是验收；AC-08-A 有开通门槛且未经真实试用
+
+# ---------------------------------------------------------------------
+decisions:   # Q1–Q16 全部 resolve
+  - {id: Q1, resolution: 定, content: 「工作台」= 一套约定，不含界面/页面/程序；形态另议, rationale: 防止手段锁死需求}
+  - {id: Q2, resolution: 定, content: 场景卡保留 1/2/4/6/7，删 3，5 待定（后由 Q10 收敛为 5 张）, rationale: 原场景表出自 archive/legacy-workbench/docs/01:23-29}
+  - {id: Q3, resolution: 定→后被改写, content: 自动 = 零点击到达 + 内容预生成；主动推送列为待验证选项, rationale: Q9 激活、Q15 收敛}
+  - {id: Q4, resolution: 定, content: 录入 = 一次输入 + 一次确认, rationale: 消除先选分类与事后重抄}
+  - {id: Q6, resolution: 定, content: 一条记录可带多个用途标记，不重复录入, rationale: 消除同一事实多处存储}
+  - {id: Q7, resolution: 定, content: 不丢 = 单一主副本 + 一次操作产出全量快照 + 定期恢复演练；删「三处实时一致」, rationale: CAP / 同步≠备份 / 12607 事故}
+  - {id: Q8, resolution: 定, content: 月更产出 = 证据清单 + 按用途标记分组的证据段落；不做完整简历文件, rationale: Q11 后措辞统一为「证据段落」}
+  - {id: Q9, resolution: 否→部分作废, content: 否「提醒只在零点击处呈现」，要求添加邮件提醒通道, rationale: 后由 Q15 改写}
+  - {id: Q10, resolution: 定, content: 学习复盘移出场景清单，降为按用途标记筛选的周度回看, rationale: Q6 已把学习统计变成记录上的标记}
+  - {id: Q11, resolution: 定, content: 统一叫「证据」；成果 / 成果条目 / 月度成果清单 / 简历增量 / 简历文件列入 _Avoid_, rationale: 消除三词混用}
+  - {id: Q12, resolution: 定, content: 带「用于学习统计」或「用于简历」标记的记录不进领导摘要, rationale: 双版本隔离}
+  - {id: Q13, resolution: 定→后被改写, content: 选 C = A 截止提醒邮件 + B 月度证据清单邮件，都要，不含手机推送, rationale: 后由 Q15 砍掉 B}
+  - {id: Q14, resolution: 定, content: 选 B：数据类别收敛为「一条记录 + 用途标记 + 证据」三层，旧 10 类降级为查看时的筛选方式, rationale: 避开「每加一类改 N 处」}
+  - {id: Q15, resolution: 定, content: 选 B：不做 1 天试用，砍掉 B 类邮件，退回「月初零点击看到已生成好的证据清单」；闸门通过, rationale: 改写了 Q9 与 Q13}
+  - {id: Q16, resolution: 定, content: 确认「已达成共享理解」，授权落盘 PRD 与 0001 ADR, rationale: 定稿触发条件}
+
+decision_rewrites:      # Q15 对前两轮的改写（不可省略）
+  chain: Q9 要主动邮件通道 → Q13=C 定为 A+B 都要 → Q15=B 砍掉 B 的邮件形式
+  net_result: 邮件通道只剩 A（截止提醒）；月更退回零点击；仍不做手机推送
+  costs: 见 known_compromises 1–4；「未经真实试用」登记为未验证取舍，不自行合理化为结论
+
+# ---------------------------------------------------------------------
+legacy_docs:   # 本包内现行位置：prd/；旧 docs 已整体移入 archive/legacy-workbench/
+  - {file: archive/legacy-workbench/docs/01-需求文档.md, status: 整体作废, notes: 第4期已上线但仍写规划中；9 表实为 10 类；194/95 已被 282/111 取代；手段写成约束}
+  - {file: archive/legacy-workbench/docs/02-设计文档.md, status: 历史参考, notes: 仍列 v3 旧 ID；手机导航分组写反}
+  - {file: archive/legacy-workbench/docs/03-项目计划文档.md, status: 历史参考, notes: 自动月更已降级；计划每期一个 tag 实际 0 tag}
+  - {file: archive/legacy-workbench/docs/04-测试文档.md, status: 历史参考, notes: 三套基线数字并存}
+  - {file: archive/legacy-workbench/docs/05-用户文档.md, status: 整体作废, notes: 旧 v3 链接；分组写反}
+  - {file: archive/legacy-workbench/docs/06-部署文档.md, status: 历史参考, notes: 旧节点与 9 个旧 ID；两种离线同步说法并存}
+  - {file: archive/legacy-workbench/docs/07-维护文档.md, status: 历史参考, notes: 旧基线 239/95、9 表}
+  - {file: archive/legacy-workbench/docs/08-接手指南.md, status: 历史参考, notes: 仍写九个常量 / 9 个 ID / 无 resume}
+  - {file: prd/GLOSSARY.md, status: 现行, notes: 6 词条，与 PRD 配套}
+  - {file: prd/decisions/0001-不自建前端层.md, status: 现行, notes: 形态决策记录}
+
+open_items:    # 遗留项 / 待复核
+  - {id: L1, item: 申请截止「14 天内 + 倒计时分级」细则, nature: 沿用旧文档，用户未单独确认}
+  - {id: L2, item: AC-08-A 发送能力的开通门槛与真实送达, nature: 未做真实试用；建议换工具时补做 1 天试用}
+  - {id: L3, item: 过去 30 天真实使用频次、各表真实记录量, nature: 推测，未取证}
+  - {id: L4, item: 「不要求长期离线可写」, nature: 推测，未取得用户明确表态}
+  - {id: L5, item: 「不写任何代码能否满足」的纸面评估, nature: 未做验收，仅纸面可行性核对}
+  - {id: L6, item: 形态（是否做自定义界面）, nature: Q1 明确后置，未决策；PRD 不预设}
+
+# ---------------------------------------------------------------------
+glossary:      # 与 prd/GLOSSARY.md 同步；_avoid_ 为禁用同义词
+  - term: 工作台
+    definition: 一套约定：记录什么、何时出现、怎样算没丢。不指任何界面、页面或程序；形态是另一个独立决策。
+    avoid: [系统, 应用, 网站, 页面]
+  - term: 记录
+    definition: 工作台里最小的事实单元，也是唯一需要保存的东西。同一个事实只存在一份，可以同时用于日报、学习统计与简历；业务类别只是查看时的筛选方式。
+    avoid: [条目, 任务, 表行, 日志, 分类]
+  - term: 用途标记
+    definition: 标注一条记录可用于日报、学习统计或简历的标签。一条记录可以有多个用途标记。
+    avoid: [分类, 类型, 字段, 表]
+  - term: 自动
+    definition: 信息无需人主动查找即可呈现的性质。判定为零点击到达且内容已预先生成；允许在约定时刻由外部服务主动发出提醒，通道见决策记录。
+    avoid: [定时任务, 后台同步, 实时一致]
+  - term: 不丢
+    definition: 任意时刻都能从单一主副本取得一份完整、开放格式、可读、可被别处导入的全量快照，且该快照能被实际恢复。判定看快照能否恢复，不看多副本是否实时一致。
+    avoid: [实时同步, 三处一致, 离线可用, 缓存数据]
+  - term: 证据
+    definition: 一条记录被标记为可用于简历时，它所提供的可核实内容；也是月更产出的唯一内容形态。月更只产出证据清单与按用途标记分组的证据段落。
+    avoid: [成果, 成果条目, 月度成果清单, 简历增量, 简历文件]
+
+# ---------------------------------------------------------------------
+sources:       # 完整取证清单见 prd/PRD.md 附录 A；此处仅分组索引
+  # 2026-11-25 归档后路径已加前缀；行号不变（定稿/冻结文件正文逐字未改）
+  code_baseline:
+    - archive/legacy-workbench/workbench_build/workbench.html:577-587,589,591,1115,1117,3482-3485,3514-3522,3546,3564,3656-3680,3503
+    - archive/legacy-workbench/workbench_build/dbid_map_v4.json:1-48
+  docs_legacy:
+    - archive/legacy-workbench/docs/01-需求文档.md:5,12-17,23-29,53,55,59,73-74,96,97
+    - archive/legacy-workbench/docs/03-项目计划文档.md:41,52
+    - archive/legacy-workbench/docs/08-接手指南.md:51,100,130-141
+  external_official:
+    - https://feishu.cn/hc/zh-CN/articles/740947703250
+    - https://base.feishu.cn/helpcenter/ai8y3d44/tys0fnxv
+    - https://base.feishu.cn/helpcenter/ai8y3d44/hlh442ej
+    - https://cloud.tencent.com/document/product/1323/103166
+    - https://support.google.com/calendar/answer/37242?hl=zh-Hans
+    - https://www.notion.so/help/back-up-your-data
+    - https://www.inkandswitch.com/essay/local-first/
+    - https://docs.syncthing.net/users/faq.html
+    - https://www.ibm.com/cn-zh/think/topics/cap-theorem
+  competitors_for_feasibility_only:   # 可行性举证，不是选型
+    - https://www.notion.so/zh-cn
+    - https://www.airtable.com/
+    - https://www.feishu.cn/product/base
+    - https://docs.qq.com/
+    - https://obsidian.md/
+    - https://appflowy.io/
+    - https://github.com/gethomepage/homepage
+    - https://github.com/Lissy93/dashy
+    - https://github.com/glanceapp/glance
+    - http://todotxt.org/
+    - https://taskwarrior.org/
+
+# ---------------------------------------------------------------------
+archive_path_mapping:   # 2026-11-25 归档重组（git mv 真实移动，两条线全部）
+  mode: physical-move
+  previous_mode: registration-only
+  lines:
+    - {line: A, from: "仓库根 workbench_build/ docs/ .workbuddy/ screenshots/ 等", to: archive/legacy-workbench/}
+    - {line: B, from: "仓库根 client/ server/ migrations/ tools/ test/ package*.json 等", to: archive/cloudflare-d1/}
+  full_table: archive/manifest.yaml
+  human_readable: archive/README.md
+  ai_entry: llms.txt
+  frozen_bodies_unchanged: true    # 归档物内部相对引用因整目录移动仍有效，正文逐字未改
+  caveat: "PRD/复盘里的 README.md:163,169,230-258,312-313 指定稿时工作区检出的旧工作台 README 行号，该文件从未进入本仓库；标推测，勿按行号在本仓库查找。"

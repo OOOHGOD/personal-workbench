@@ -1,0 +1,145 @@
+# =====================================================================
+# archive/manifest.yaml — 归档资产清单 + 路径映射（机器可读）
+# 归档日期 2026-11-25 ｜ 状态基线 HEAD 168984a
+# 本次方式：physical-move（git mv 真实移动，A 线 + B 线全部）
+# 取代同日早些时候的 registration-only（登记冻结、不移动）
+# 语义说明见 archive/README.md
+# =====================================================================
+
+archive:
+  status: frozen
+  date: "2026-11-25"
+  mode: physical-move
+  previous_mode: registration-only
+  decision_note: "用户 2026-11-25 明确选择「两条线一起归档」，知情推翻此前「勿动 B 线」约定"
+  head_at_archive: 168984a
+  basis:
+    - "prd/decisions/0001-不自建前端层.md  # ADR accepted"
+    - "prd/PRD.md 第 7 节零方案评估"
+  verification:
+    tracked_files_in_head: 158
+    files_missing_after_move: 0
+    git_rename_entries: 157
+    deletions: 0
+    commits_made: 0
+    pushes_made: 0
+  html_sha1: "9059dd7d24a4efef85495be5d1dbd42ff5ee2e32"
+
+current_at_root:              # 归档后仓库根保留的现行内容
+  - "prd/  # 现行 PRD 包，唯一需求真相源"
+  - "POSTMORTEM.md"
+  - "llms.txt"
+  - "README.md  # 新建导航，非旧 B 线 README"
+  - "archive/README.md"
+  - "archive/manifest.yaml"
+  - ".gitignore"
+
+not_moved_untracked_artifacts:   # 从未入库的派生物，原位保留，未删除
+  - "node_modules/"
+  - ".cloudflare/"
+  - ".generated/"
+  - ".local/"
+
+groups:
+  - id: legacy-workbench
+    title: "A 线：单文件 HTML 工作台 v1–v4（测试版）"
+    dest: "archive/legacy-workbench/"
+    original_prefix: "(仓库根)"
+    status: frozen
+    file_count: 142
+    note: "整目录移动，内部相对路径引用保持有效，正文逐字未改"
+    items:
+      - path: "workbench_build/"
+        facts: "workbench.html 3933 行（SHA1 9059dd7d…e32）、tests/ 5 脚本 + ux_shots 截图、10 套 schema_v4_*、11 套 schema_srv_*、v3/v4 两套 canonical_*、dbid_map*.json、10 个 Python 脚本、7 个 create_*.out"
+      - path: "docs/01-需求文档.md … docs/08-接手指南.md"
+        facts: "01/05 整体作废，其余历史参考；过期点见 prd/PRD.md 第 9 节"
+      - path: "DC的个人工作台-离线版.html"
+        facts: "与 workbench.html SHA1 相同，是代码副本不是数据副本"
+      - path: "README.zh-CN.md"
+        facts: "A 线中文详细说明（此前被误列为 B 线，本次订正）"
+      - path: "README_EN.md"
+        facts: "A 线英文跳板（此前被误列为 B 线，本次订正）"
+      - path: "LICENSE"
+        facts: "MIT，只授权源码，云端业务数据不在授权范围内"
+      - path: "LICENSE_SCOPE.md"
+        facts: "A 线许可范围说明（此前被误列为 B 线，本次订正）"
+      - path: "screenshots/、工作台改造截图/"
+        facts: "4 张 README 截图 + before/after 各 5 张"
+      - path: ".workbuddy/memory/"
+        facts: "2026-10-14/19/20/21/22 + MEMORY.md，共 6 份过程记忆"
+      - path: "工作台第1/2/3/4期测试报告.md"
+        facts: "第 1 期记 65/65 全过仍白屏；第 4 期记月更能力降级"
+      - path: "工作台Bento改造与重建报告.md"
+        facts: "ID 回写 9 处常量 + 三处测试脚本"
+      - path: "个人工作台制作过程笔记.md"
+        facts: "玻璃拟态 / Bento 视觉决策记录"
+
+  - id: cloudflare-d1
+    title: "B 线：Cloudflare D1 独立后端版（另一会话成果）"
+    dest: "archive/cloudflare-d1/"
+    original_prefix: "(仓库根)"
+    status: frozen
+    file_count: 16
+    note: "本次按用户选择一并归档；此前约定「勿动勿提交」被知情推翻"
+    items:
+      - path: "client/database.js"
+        facts: "独立数据客户端，30 秒轮询"
+      - path: "server/"
+        facts: "auth.mjs / state.mjs / worker.mjs"
+      - path: "migrations/0001_state.sql"
+        facts: "D1 初始迁移"
+      - path: "tools/"
+        facts: "build-app.mjs / local-server.mjs / sqlite-binding.mjs / check-paperboard.mjs"
+      - path: "test/backend.test.mjs"
+        facts: "后端测试"
+      - path: "package.json、package-lock.json、vite.config.ts、cloudflare.config.ts"
+        facts: "所有 npm script 先跑 build:ui，归档后根目录已无运行入口"
+      - path: ".dev.vars.example"
+        facts: "仅占位值，无真实密钥"
+      - path: "README.md"
+        facts: "B 线运行/登录/迁移说明（原仓库根 README）"
+
+# ---------------------------------------------------------------------
+# 定稿 PRD / ADR / 复盘里的「归档前路径」→ 归档后位置
+# 行号一律不变（文件内容逐字未改）
+# ---------------------------------------------------------------------
+path_mapping:
+  - from: "workbench_build/"
+    to: "archive/legacy-workbench/workbench_build/"
+  - from: "docs/01-08、docs/0X-*.md"
+    to: "archive/legacy-workbench/docs/"
+  - from: ".workbuddy/memory/"
+    to: "archive/legacy-workbench/.workbuddy/memory/"
+  - from: "screenshots/、工作台改造截图/"
+    to: "archive/legacy-workbench/ 下同名"
+  - from: "DC的个人工作台-离线版.html"
+    to: "archive/legacy-workbench/DC的个人工作台-离线版.html"
+  - from: "README.zh-CN.md、README_EN.md、LICENSE、LICENSE_SCOPE.md"
+    to: "archive/legacy-workbench/ 下同名"
+  - from: "工作台第N期测试报告.md、工作台Bento改造与重建报告.md、个人工作台制作过程笔记.md"
+    to: "archive/legacy-workbench/ 下同名"
+  - from: "client/、server/、migrations/、tools/、test/、package*.json、vite.config.ts、cloudflare.config.ts、.dev.vars.example"
+    to: "archive/cloudflare-d1/ 下同名"
+  - from: "tools/build-app.mjs:7,9"
+    to: "archive/cloudflare-d1/tools/build-app.mjs:7,9"
+  - from: "旧仓库根 README.md（B 线说明）"
+    to: "archive/cloudflare-d1/README.md"
+  - from: "docs/09-PRD.md、docs/adr/0001、根 GLOSSARY.md"
+    to: "prd/PRD.md、prd/decisions/0001-不自建前端层.md、prd/GLOSSARY.md"
+
+path_mapping_caveats:
+  - "PRD/复盘里的 README.md:163,169,230-258,312-313 指定稿时工作区检出 C:/Users/DC/WorkBuddy/2026-10-14-11-39-28/README.md（旧工作台中文 README）的行号；该文件从未进入本仓库，archive/legacy-workbench/README.zh-CN.md 是另一份文档、行号不对应。推测，勿按行号在本仓库查找。"
+
+# ---------------------------------------------------------------------
+environment_notes:
+  - "B 线全部 npm run build/test/dev/start:local 已失效：package.json 与 tools/ 已移入归档区，根目录无运行入口。"
+  - "build-app.mjs:7 引用的「个人工作学习工作台-离线版.html」是 2026-10-21 改名前旧名，该文件从来不存在 → B 线构建在归档前本就跑不通；本次移动没有弄断一条正常运行的链。"
+  - "build-app.mjs:9 依赖的 schema_srv_*.json 与离线 HTML 现在位于另一个归档子目录 archive/legacy-workbench/；若将来恢复 B 线，需在 archive/cloudflare-d1/ 内运行并对齐跨子目录路径。本次不做，超范围。"
+  - "归档物内部相对引用保持有效（整目录移动），故冻结文件正文逐字未改。"
+
+live_data:
+  location: "WorkBuddy 云端资料库（10 张表，含 resume）"
+  export_method: "旧工作台「设置 → 导出 JSON 备份」（10 键）"
+  target: "按 prd/PRD.md 第 7 节零方案迁移（现成多维表格或 Markdown+Git）"
+  caution: "迁移源用导出的 JSON 本身逐表核对 10 键，不要用导入预览验收——旧版导入校验只认 9 类（workbench.html:3546），预览也只列 9 类（:3551-3553），会漏报第 10 表 resume。"
+  status: "未迁出；数据未迁出前归档不算关闭"
